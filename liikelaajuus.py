@@ -44,6 +44,7 @@ import json
 import ll_reporter
 import ll_msgs
 import liikelaajuus
+import webbrowser
 
 
 
@@ -460,6 +461,7 @@ class EntryApp(QtGui.QMainWindow):
         self.text_filter = u'Text files (*.txt)'
         self.global_fontsize = 13
         self.traceback_file = 'traceback.txt'
+        self.help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
         
     def init_widgets(self):
         """ Make a dict of our input widgets and install some callbacks and 
@@ -552,6 +554,7 @@ class EntryApp(QtGui.QMainWindow):
         # DEBUG
         #self.btnReport.clicked.connect(self.make_report)
         self.btnReport.clicked.connect(self.save_report_dialog)
+        self.btnHelp.clicked.connect(self.open_help)
         self.btnQuit.clicked.connect(self.close)
         # method call on tab change
         self.maintab.currentChanged.connect(self.page_change)
@@ -620,6 +623,10 @@ class EntryApp(QtGui.QMainWindow):
             event.accept()
         else:
             event.ignore()
+            
+    def open_help(self):
+        """ Show help. """
+        webbrowser.open(self.help_url)
             
     def make_report(self):
         """ Make report using the input data. """
