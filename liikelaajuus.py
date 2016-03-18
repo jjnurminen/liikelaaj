@@ -151,6 +151,10 @@ class CheckDegSpinBox(QtGui.QWidget):
         valueChanged signal """
         self.degSpinBox.setEnabled(not st)
         self.valueChanged.emit()
+
+    def isEnabled(self):
+        return self.degSpinBox.isEnabled()
+        
         
     #def sizeHint(self):
     #    return QSize(150,20)
@@ -720,8 +724,10 @@ class EntryApp(QtGui.QMainWindow):
         newpage = self.maintab.currentWidget()
         # focus / selectAll on 1st widget of new tab
         if newpage in self.firstwidget:
-            self.firstwidget[newpage].selectAll()
-            self.firstwidget[newpage].setFocus()
+            widget = self.firstwidget[newpage]
+            if widget.isEnabled():
+                widget.selectAll()
+                widget.setFocus()
         
     def save_temp(self):
         """ Save form input data into temporary backup file. Exceptions will be caught
