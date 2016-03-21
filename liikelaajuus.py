@@ -47,6 +47,21 @@ import liikelaajuus
 
 
 
+class MyLineEdit(QtGui.QLineEdit):
+    """ Custom line edit that selects the input on mouse click. """
+
+    def __init__(self, parent=None):
+        super(self.__class__, self).__init__(parent)
+
+    def mousePressEvent(self, event):
+        super(self.__class__, self).mousePressEvent(event)
+        self.selectAll()
+
+    def mouseReleaseEvent(self, event):
+        """ Make drag & release select all too (prevent selection of partial text) """
+        super(self.__class__, self).mouseReleaseEvent(event)
+        self.selectAll()
+                
 
 class CheckDegSpinBox(QtGui.QWidget):
     """ Custom widget: Spinbox (degrees) with checkbox signaling "default value".
@@ -63,6 +78,7 @@ class CheckDegSpinBox(QtGui.QWidget):
     
     # for Qt designer
     __pyqtSignals__ = ('valueChanged')
+    
     
     def __init__(self, parent=None):
       
@@ -81,6 +97,10 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.degSpinBox.setSpecialValueText(self.specialtext)
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
         self.degSpinBox.setMinimumSize(100,0)
+        
+        # use custom line edit to get click -> select behavior
+        lined = MyLineEdit()
+        self.degSpinBox.setLineEdit(lined)
 
         self.normalCheckBox = QtGui.QCheckBox()
         self.normalCheckBox.stateChanged.connect(lambda st: self.toggleSpinBox(st))
@@ -102,7 +122,7 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setDefaultText(u'NR')
         self.setSuffix(u'°')
         
-        
+       
     def setDefaultText(self, text):
         self.normalCheckBox.setText(text)
         
