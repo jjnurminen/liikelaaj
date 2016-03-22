@@ -52,8 +52,8 @@ from fix_taborder import set_taborder
 class MyLineEdit(QtGui.QLineEdit):
     """ Custom line edit that selects the input on mouse click. """
 
-    def __init__(self, parent=None):
-        super(self.__class__, self).__init__(parent)
+    def __init__(self):
+        super(self.__class__, self).__init__()
 
     def mousePressEvent(self, event):
         super(self.__class__, self).mousePressEvent(event)
@@ -101,8 +101,9 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.degSpinBox.setMinimumSize(100,0)
         
         # use custom line edit to get click -> select behavior
-        lined = MyLineEdit()
-        self.degSpinBox.setLineEdit(lined)
+        # Now done later in the widget setup code
+        #lined = MyLineEdit()
+        #self.degSpinBox.setLineEdit(lined)
 
         self.normalCheckBox = QtGui.QCheckBox()
         self.normalCheckBox.stateChanged.connect(lambda st: self.toggleSpinBox(st))
@@ -273,11 +274,18 @@ class EntryApp(QtGui.QMainWindow):
             else:
                 raise Exception('Unexpected checkbox entry value')
 
-        """ Create getter/setter methods that convert the data immediately to
-        desired form. On value change, call self.values_changed which updates
-        the self.data dict at the correspoding widget. """
-        #for w in self.findChildren((CheckDegSpinBox,QtGui.QSpinBox,QtGui.QDoubleSpinBox,QtGui.QLineEdit,QtGui.QComboBox,QtGui.QCheckBox,QtGui.QTextEdit)):
-        for w in self.findChildren(QtGui.QWidget):            
+        """ Changing lineEdit to custom one for spinboxes. This cannot be done in the 
+        main loop below, because the old QLineEdits get destroyed in the process (by Qt)
+        and the loop then segfaults while trying to dereference them. """
+        for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
+            w.setLineEdit(MyLineEdit())
+        
+        for w in self.findChildren(CheckDegSpinBox):
+            w.degSpinBox.setLineEdit(MyLineEdit())
+
+        """ Set various widget convenience methods/properties """        
+        for w in self.findChildren((CheckDegSpinBox,QtGui.QSpinBox,QtGui.QDoubleSpinBox,QtGui.QLineEdit,QtGui.QComboBox,QtGui.QCheckBox,QtGui.QTextEdit)):
+        #for w in self.findChildren(QtGui.QWidget):            
             wname = unicode(w.objectName())
             wsave = True
             w.unit = ''  # if a widget input has units, set it below
@@ -290,6 +298,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.setVal = lambda val, w=w: spinbox_setval(w, val, self.not_measured_text)
                 w.getVal = lambda w=w: spinbox_getval(w, self.not_measured_text)
                 w.unit = w.suffix()
+
             elif wname[:2] == 'ln':
                 assert(w.__class__ == QtGui.QLineEdit)
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
@@ -326,8 +335,10 @@ class EntryApp(QtGui.QMainWindow):
         self.btnSave.clicked.connect(self.save_dialog)
         self.btnLoad.clicked.connect(self.load_dialog)
         self.btnClear.clicked.connect(self.clear_forms_dialog)
+
         # DEBUG
         #self.btnReport.clicked.connect(self.make_report)
+
         self.btnReport.clicked.connect(self.save_report_dialog)
         self.btnHelp.clicked.connect(self.open_help)
         self.btnQuit.clicked.connect(self.close)
