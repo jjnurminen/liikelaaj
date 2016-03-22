@@ -52,8 +52,8 @@ from fix_taborder import set_taborder
 class MyLineEdit(QtGui.QLineEdit):
     """ Custom line edit that selects the input on mouse click. """
 
-    def __init__(self):
-        super(self.__class__, self).__init__()
+    def __init__(self, parent = None):
+        super(self.__class__, self).__init__(parent)
 
     def mousePressEvent(self, event):
         super(self.__class__, self).mousePressEvent(event)
@@ -63,6 +63,9 @@ class MyLineEdit(QtGui.QLineEdit):
         """ Make drag & release select all too (prevent selection of partial text) """
         super(self.__class__, self).mouseReleaseEvent(event)
         self.selectAll()
+
+        
+        
                 
 
 class CheckDegSpinBox(QtGui.QWidget):
@@ -124,7 +127,13 @@ class CheckDegSpinBox(QtGui.QWidget):
         
         self.setDefaultText(u'NR')
         self.setSuffix(u'°')
-        
+
+    def keyPressEvent(self, event):
+        #print(event.key)
+        if event.key() == QtCore.Qt.Key_Escape:
+            self.setValue(self.degSpinBox.minimum())
+        else:
+            super(self.__class__, self).keyPressEvent(event)
        
     def setDefaultText(self, text):
         self.normalCheckBox.setText(text)
@@ -274,11 +283,19 @@ class EntryApp(QtGui.QMainWindow):
             else:
                 raise Exception('Unexpected checkbox entry value')
 
+        def keyPressEvent_resetOnEsc(obj, event):
+            if event.key() == QtCore.Qt.Key_Escape:
+                obj.setValue(obj.minimum())
+            else:
+                super(obj.__class__, obj).keyPressEvent(event)
+
         """ Changing lineEdit to custom one for spinboxes. This cannot be done in the 
         main loop below, because the old QLineEdits get destroyed in the process (by Qt)
-        and the loop then segfaults while trying to dereference them. """
+        and the loop then segfaults while trying to dereference them (the loop collects
+        all QLineEdits when starting) """
         for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
             w.setLineEdit(MyLineEdit())
+            w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
         
         for w in self.findChildren(CheckDegSpinBox):
             w.degSpinBox.setLineEdit(MyLineEdit())
@@ -298,7 +315,6 @@ class EntryApp(QtGui.QMainWindow):
                 w.setVal = lambda val, w=w: spinbox_setval(w, val, self.not_measured_text)
                 w.getVal = lambda w=w: spinbox_getval(w, self.not_measured_text)
                 w.unit = w.suffix()
-
             elif wname[:2] == 'ln':
                 assert(w.__class__ == QtGui.QLineEdit)
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
@@ -335,10 +351,6 @@ class EntryApp(QtGui.QMainWindow):
         self.btnSave.clicked.connect(self.save_dialog)
         self.btnLoad.clicked.connect(self.load_dialog)
         self.btnClear.clicked.connect(self.clear_forms_dialog)
-
-        # DEBUG
-        #self.btnReport.clicked.connect(self.make_report)
-
         self.btnReport.clicked.connect(self.save_report_dialog)
         self.btnHelp.clicked.connect(self.open_help)
         self.btnQuit.clicked.connect(self.close)
