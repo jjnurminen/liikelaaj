@@ -128,8 +128,9 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setDefaultText(u'NR')
         self.setSuffix(u'°')
 
+    """ TODO: Only catches some keys ??? """
     def keyPressEvent(self, event):
-        #print(event.key)
+        print('this is the class method. key:', event.key())
         if event.key() == QtCore.Qt.Key_Escape:
             self.setValue(self.degSpinBox.minimum())
         else:
@@ -284,6 +285,7 @@ class EntryApp(QtGui.QMainWindow):
                 raise Exception('Unexpected checkbox entry value')
 
         def keyPressEvent_resetOnEsc(obj, event):
+            print('this is resetOnEsc')
             if event.key() == QtCore.Qt.Key_Escape:
                 obj.setValue(obj.minimum())
             else:
@@ -293,16 +295,19 @@ class EntryApp(QtGui.QMainWindow):
         main loop below, because the old QLineEdits get destroyed in the process (by Qt)
         and the loop then segfaults while trying to dereference them (the loop collects
         all QLineEdits when starting) """
-        for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
-            w.setLineEdit(MyLineEdit())
-            w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
         
-        for w in self.findChildren(CheckDegSpinBox):
+        for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
+            wname = unicode(w.objectName())
+            if wname[:2] == 'sp':
+                w.setLineEdit(MyLineEdit())
+                w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
+        
+        for w in self.findChildren((liikelaajuus.CheckDegSpinBox)):
             w.degSpinBox.setLineEdit(MyLineEdit())
 
         """ Set various widget convenience methods/properties """        
-        for w in self.findChildren((CheckDegSpinBox,QtGui.QSpinBox,QtGui.QDoubleSpinBox,QtGui.QLineEdit,QtGui.QComboBox,QtGui.QCheckBox,QtGui.QTextEdit)):
-        #for w in self.findChildren(QtGui.QWidget):            
+        #for w in self.findChildren((liikelaajuus.CheckDegSpinBox,QtGui.QSpinBox,QtGui.QDoubleSpinBox,QtGui.QLineEdit,QtGui.QComboBox,QtGui.QCheckBox,QtGui.QTextEdit)):
+        for w in self.findChildren(QtGui.QWidget):            
             wname = unicode(w.objectName())
             wsave = True
             w.unit = ''  # if a widget input has units, set it below
