@@ -63,9 +63,31 @@ class MyLineEdit(QtGui.QLineEdit):
         """ Make drag & release select all too (prevent selection of partial text) """
         super(self.__class__, self).mouseReleaseEvent(event)
         self.selectAll()
+        
 
-        
-        
+class DegLineEdit(QtGui.QLineEdit):
+    """ Custom line edit for CheckDegSpinBox class. Catches space key and
+    passes it to CheckDegSpinBox. """
+
+    def __init__(self, parent = None):
+        #super(self.__class__, self).__init__(parent)
+        QtGui.QLineEdit.__init__(self, parent)
+
+    def mousePressEvent(self, event):
+        super(self.__class__, self).mousePressEvent(event)
+        self.selectAll()
+
+    def mouseReleaseEvent(self, event):
+        """ Make drag & release select all too (prevent selection of partial text) """
+        super(self.__class__, self).mouseReleaseEvent(event)
+        self.selectAll()
+    
+    def keyPressEvent(self, event):
+        # pass space key to grandparent (CheckDegSpinBox)
+        if event.key() == QtCore.Qt.Key_Space:
+            self.parent().parent().keyPressEvent(event)
+        else:
+            super(self.__class__, self).keyPressEvent(event)
                 
 
 class CheckDegSpinBox(QtGui.QWidget):
@@ -80,17 +102,11 @@ class CheckDegSpinBox(QtGui.QWidget):
     # note that currently the value is not returned by the signal
     # (unlike in the Qt spinbox)
     valueChanged = QtCore.pyqtSignal()  
-    
     # for Qt designer
     __pyqtSignals__ = ('valueChanged')
     
-    
     def __init__(self, parent=None):
-      
         super(self.__class__, self).__init__(parent)
-
-        #self.normalText = u'NR'            
-        
         self.degSpinBox = QtGui.QSpinBox()
         # these should be implemented as qt properties w/ getter and setter methods,
         # so they could be e.g. changed within Qt Designer
@@ -102,14 +118,9 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.degSpinBox.setSpecialValueText(self.specialtext)
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
         self.degSpinBox.setMinimumSize(100,0)
-        
-        # use custom line edit to get click -> select behavior
-        # Now done later in the widget setup code
-        #lined = MyLineEdit()
-        #self.degSpinBox.setLineEdit(lined)
-
+       
         self.normalCheckBox = QtGui.QCheckBox()
-        self.normalCheckBox.stateChanged.connect(lambda st: self.toggleSpinBox(st))
+        self.normalCheckBox.stateChanged.connect(lambda state: self.setSpinBox(not state))
 
         # default text
         layout = QtGui.QHBoxLayout(self)
@@ -128,11 +139,12 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setDefaultText(u'NR')
         self.setSuffix(u'°')
 
-    """ TODO: Only catches some keys ??? """
     def keyPressEvent(self, event):
-        print('this is the class method. key:', event.key())
+        print('this is the spinbox class method. key:', event.key())
         if event.key() == QtCore.Qt.Key_Escape:
             self.setValue(self.degSpinBox.minimum())
+        elif event.key() == QtCore.Qt.Key_Space:
+            self.toggleCheckBox()
         else:
             super(self.__class__, self).keyPressEvent(event)
        
@@ -164,7 +176,6 @@ class CheckDegSpinBox(QtGui.QWidget):
 
     def setValue(self, val):
         if val == self.getDefaultText():
-            self.degSpinBox.setEnabled(False)
             self.normalCheckBox.setCheckState(2)
         else:
             self.normalCheckBox.setCheckState(0)
@@ -179,16 +190,28 @@ class CheckDegSpinBox(QtGui.QWidget):
     def setFocus(self):
         self.degSpinBox.setFocus()
     
-    def toggleSpinBox(self, st):
-        """ Enables or disables spinbox input according to st. Also emit
-        valueChanged signal """
-        self.degSpinBox.setEnabled(not st)
-        self.valueChanged.emit()
+    def setSpinBox(self, state):
+        """ Enables or disables spinbox input. Also emit valueChanged signal """
+        if state and not self.isEnabled():
+                self.degSpinBox.setEnabled(True)
+                self.degSpinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
+                self.valueChanged.emit()
+        elif not state and self.isEnabled():
+                self.degSpinBox.setEnabled(False)
+                self.degSpinBox.setFocusPolicy(QtCore.Qt.NoFocus)
+                self.valueChanged.emit()
+
+    def toggleCheckBox(self):
+        if self.normalCheckBox.checkState() == 2:
+            self.normalCheckBox.setCheckState(0)
+        else:
+            self.normalCheckBox.setCheckState(2)
 
     def isEnabled(self):
         return self.degSpinBox.isEnabled()
         
         
+       
     #def sizeHint(self):
     #    return QSize(150,20)
 
@@ -303,7 +326,8 @@ class EntryApp(QtGui.QMainWindow):
                 w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
         
         for w in self.findChildren((liikelaajuus.CheckDegSpinBox)):
-            w.degSpinBox.setLineEdit(MyLineEdit())
+            w.degSpinBox.setLineEdit(DegLineEdit())
+            #w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
 
         """ Set various widget convenience methods/properties """        
         #for w in self.findChildren((liikelaajuus.CheckDegSpinBox,QtGui.QSpinBox,QtGui.QDoubleSpinBox,QtGui.QLineEdit,QtGui.QComboBox,QtGui.QCheckBox,QtGui.QTextEdit)):
