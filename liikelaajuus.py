@@ -268,7 +268,7 @@ class EntryApp(QtGui.QMainWindow):
         self.json_io_exceptions = (UnicodeDecodeError, EOFError, IOError, TypeError)
         self.json_filter = u'JSON files (*.json)'
         self.text_filter = u'Text files (*.txt)'
-        self.global_fontsize = 13
+        self.global_fontsize = 11
         self.traceback_file = 'traceback.txt'
         self.help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
         
