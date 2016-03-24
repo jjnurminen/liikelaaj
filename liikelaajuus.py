@@ -21,13 +21,6 @@ chars (widget type)
 
 
 
-
-TODO:
-
-
-click+enter? (spinboxes) see:
-http://stackoverflow.com/questions/1891744/pyqt4-qspinbox-selectall-not-working-as-expected
-
 @author: Jussi (jnu@iki.fi)
 """
 
