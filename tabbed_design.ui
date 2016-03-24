@@ -24,7 +24,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabTiedot">
        <attribute name="title">
@@ -333,7 +333,7 @@
            </widget>
           </item>
           <item row="1" column="3">
-           <widget class="QTextEdit" name="cmtAntrop_3">
+           <widget class="QTextEdit" name="cmtTestTulokset">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -355,7 +355,7 @@
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QTextEdit" name="cmtAntrop_4">
+           <widget class="QTextEdit" name="cmtTulosyy">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -424,7 +424,7 @@
            </spacer>
           </item>
           <item row="3" column="3">
-           <widget class="QTextEdit" name="cmtAntrop_5">
+           <widget class="QTextEdit" name="cmtSuunnitelma">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -446,7 +446,7 @@
            </widget>
           </item>
           <item row="2" column="3">
-           <widget class="QTextEdit" name="cmtAntrop_2">
+           <widget class="QTextEdit" name="cmtKavelyTulokset">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -499,7 +499,7 @@
          </spacer>
         </item>
        </layout>
-       <zorder>cmtAntrop_5</zorder>
+       <zorder>cmtSuunnitelma</zorder>
        <zorder>verticalSpacer_8</zorder>
        <zorder>gridLayoutWidget</zorder>
        <zorder>verticalSpacer_9</zorder>
