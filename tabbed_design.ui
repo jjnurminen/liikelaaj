@@ -24,7 +24,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabTiedot">
        <attribute name="title">
@@ -499,9 +499,7 @@
          </spacer>
         </item>
        </layout>
-       <zorder>cmtSuunnitelma</zorder>
        <zorder>verticalSpacer_8</zorder>
-       <zorder>gridLayoutWidget</zorder>
        <zorder>verticalSpacer_9</zorder>
       </widget>
       <widget class="QWidget" name="tabAntrop">
@@ -12940,6 +12938,33 @@ lonkka fleksiossa</string>
   <tabstop>spVirheas2ndtoeVas</tabstop>
   <tabstop>spTasapOik</tabstop>
   <tabstop>spTasapVas</tabstop>
+  <tabstop>maintab</tabstop>
+  <tabstop>cmtTiedot</tabstop>
+  <tabstop>cmtTulosyy</tabstop>
+  <tabstop>cmtTestTulokset</tabstop>
+  <tabstop>cmtKavelyTulokset</tabstop>
+  <tabstop>cmtSuunnitelma</tabstop>
+  <tabstop>cmtAntrop</tabstop>
+  <tabstop>cmtLonkkaSpast</tabstop>
+  <tabstop>cmtLonkkaPROM</tabstop>
+  <tabstop>cmtLonkkaMuut</tabstop>
+  <tabstop>cmtPolviSpast</tabstop>
+  <tabstop>cmtPolviPROM</tabstop>
+  <tabstop>cmtNilkkaSpast</tabstop>
+  <tabstop>cmtNilkkaAROM</tabstop>
+  <tabstop>cmtNilkkaPROM</tabstop>
+  <tabstop>cmtJalkateraKuormittamattomana</tabstop>
+  <tabstop>cmtJalkateraKuormitettuna</tabstop>
+  <tabstop>cmtVoima1</tabstop>
+  <tabstop>cmtVoima2</tabstop>
+  <tabstop>cmtVirheas</tabstop>
+  <tabstop>cmtTasap</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>btnLoad</tabstop>
+  <tabstop>btnClear</tabstop>
+  <tabstop>btnReport</tabstop>
+  <tabstop>btnHelp</tabstop>
+  <tabstop>btnQuit</tabstop>
  </tabstops>
  <resources/>
  <connections/>
