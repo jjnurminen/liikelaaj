@@ -108,31 +108,24 @@ class CheckDegSpinBox(QtGui.QWidget):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.degSpinBox = QtGui.QSpinBox()
-        # these should be implemented as qt properties w/ getter and setter methods,
+        # these should be implemented as Qt properties w/ getter and setter methods,
         # so they could be e.g. changed within Qt Designer
         self.degSpinBox.setRange(-181, 180.0)
         self.degSpinBox.setValue(-181)
-        #self.degSpinBox.setSuffix(u'°')
         self.specialtext = u'Ei mitattu'
-
         self.degSpinBox.setSpecialValueText(self.specialtext)
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
         self.degSpinBox.setMinimumSize(100,0)
-       
         self.normalCheckBox = QtGui.QCheckBox()
         self.normalCheckBox.stateChanged.connect(lambda state: self.setSpinBox(not state))
 
-        # default text
         layout = QtGui.QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        #layout.addWidget(normalLabel, 0, 0)
         layout.addWidget(self.degSpinBox)
         layout.addWidget(self.normalCheckBox)
 
-        # needed for tab order
         self.degSpinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.normalCheckBox.setFocusPolicy(QtCore.Qt.NoFocus)
-
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.setFocusProxy(self.degSpinBox)
         
@@ -140,13 +133,16 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setSuffix(u'°')
 
     def keyPressEvent(self, event):
-        print('this is the spinbox class method. key:', event.key())
+        """ Event handler catches space and escape. When the widget has focus,
+        the LineEdit of the degSpinBox actually gets the events, but passes some
+        of them to this widget. """
         if event.key() == QtCore.Qt.Key_Escape:
             self.setValue(self.degSpinBox.minimum())
         elif event.key() == QtCore.Qt.Key_Space:
             self.toggleCheckBox()
         else:
-            super(self.__class__, self).keyPressEvent(event)
+            pass
+            #super(self.__class__, self).keyPressEvent(event)
        
     def setDefaultText(self, text):
         self.normalCheckBox.setText(text)
