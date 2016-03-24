@@ -39,18 +39,15 @@ SIAS: {AntropSIAS}
 #MITTAAJAT:
 {TiedotMittaajat}#
 
-[Tulosyy]
-Tehtiin kävelyanalyysitutkimus 3D-liikeanalyysilaitteistolla sekä liikerata- ja manuaaliset lihasvoimamittaukset.
-Tehdyt toimenpiteet:
-Apuvälineet:
+#TULOSYY:
+{cmtTulosyy}#
 
-[Testaus- ja arviointitulokset]
+#TESTAUS- JA ARVIOINTITULOKSET:
+{cmtTestTulokset}#
 
-Päätulokset kävelyanalyysin pohjalta:
-
-Seisoma-asento:
-
-Kävely:
+#PÄÄTULOKSET KÄVELYANALYYSIN POHJALTA:
+{cmtKavelyTulokset}
+#
 
 
 OHEISMITTAUSTEN TULOKSET:
@@ -118,9 +115,9 @@ Asteikko: 0-5, missä 5 on vahvin ja 3 voittaa painovoiman. Selektiivisyys, miss
 {cmtVoima2}#
 
 
-[Suunnitelma/pohdinta]
+#SUUNNITELMA/POHDINTA:
+{cmtSuunnitelma}#
 
-Suositukset:
 
 
 , fysioterapeutti
