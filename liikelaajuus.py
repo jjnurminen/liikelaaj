@@ -20,6 +20,9 @@ chars (widget type)
 -data is saved into temp directory whenever any values are changed by user
 
 
+TODO:
+1. MTP ojennus - lisää 'normaalin rajoissa'
+
 
 @author: Jussi (jnu@iki.fi)
 """
