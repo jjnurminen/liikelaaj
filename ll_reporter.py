@@ -64,11 +64,11 @@ class Text():
         
     def make_text_report(self):
         """ Generates the main text report. """
-        # DEBUG
-        reload(text_templates)
+        # DEBUG: can edit template while running
+        #reload(text_templates)
         ###
         report = text_templates.report
-        # DEBUG: check which fields are (not) present in report
+        # check which fields are (not) present in report
         flds_report = set(Text.get_field(''.join(report)))
         flds_data = set(self.data.keys())
         flds_cmn = flds_data.intersection(flds_report)
@@ -80,11 +80,6 @@ class Text():
         rep_text = ''.join([Text.cond_format(s, self.data, self.not_measured_vals) for s in report])
         # process backspaces
         return Text.backspace(rep_text)
-        
-
-
-
-        
 
     def make_text_list(self):
         """ Make a simple list of all variables + values. """

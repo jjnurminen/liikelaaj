@@ -21,13 +21,6 @@ chars (widget type)
 
 
 
-
-TODO:
-
-
-click+enter? (spinboxes) see:
-http://stackoverflow.com/questions/1891744/pyqt4-qspinbox-selectall-not-working-as-expected
-
 @author: Jussi (jnu@iki.fi)
 """
 
@@ -250,7 +243,6 @@ class EntryApp(QtGui.QMainWindow):
         #    print('{%s}'%key)
         #print(self.units)
             
-        
     def set_constants(self):
         self.not_measured_text = u'Ei mitattu'
         self.checkbox_yestext = u'Kyllä'
@@ -472,8 +464,8 @@ class EntryApp(QtGui.QMainWindow):
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: make report on every widget update
-            reload(ll_reporter)  # HA
-            self.make_report()
+            #reload(ll_reporter)  # can edit reporter / template while running
+            #self.make_report()
             ###
         self.saved_to_file = False
         if self.save_to_tmp:
