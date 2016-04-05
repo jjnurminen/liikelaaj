@@ -64,7 +64,7 @@ Nilkka: #Koukistus (polvi 90°) {NilkkaDorsifPolvi90PROMOik}/{NilkkaDorsifPolvi9
 #Kommentit: {cmtNilkkaPROM}#
 
 Nivelten aktiiviset liikelaajuudet: 
-Nilkka: #Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}/{NilkkaDorsifPolvi90AROMVas}# (eversio {NilkkaDorsifPolvi90AROMEversioOik}/{NilkkaDorsifPolvi90AROMEversioVas})#. Koukistus (polvi 0°) {NilkkaDorsifPolvi0AROMOik}/{NilkkaDorsifPolvi0AROMVas}# (eversio {NilkkaDorsifPolvi0AROMEversioOik}/{NilkkaDorsifPolvi0AROMEversioVas})#. Ojennus {NilkkaPlantaarifleksioAROMOik}/{NilkkaPlantaarifleksioAROMVas}. #
+Nilkka: #Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}/{NilkkaDorsifPolvi90AROMVas}. #\b\b (eversio {NilkkaDorsifPolvi90AROMEversioOik}/{NilkkaDorsifPolvi90AROMEversioVas}). #Koukistus (polvi 0°) {NilkkaDorsifPolvi0AROMOik}/{NilkkaDorsifPolvi0AROMVas}. #\b\b (eversio {NilkkaDorsifPolvi0AROMEversioOik}/{NilkkaDorsifPolvi0AROMEversioVas}). #Ojennus {NilkkaPlantaarifleksioAROMOik}/{NilkkaPlantaarifleksioAROMVas}. #
 #Kommentit: {cmtNilkkaAROM}#
 
 Luiset virheasennot: 
@@ -91,8 +91,8 @@ Jalkaterä kuormitettuna: (+ = lievä, ++ = kohtalainen, +++ = voimakas):
 #Kommentit (jalkaterä): {cmtJalkateraKuormitettuna}#
 
 Alaraajojen spastisuus:
-Catch: #Lonkan adduktorit {LonkkaAdduktoritCatchOik}/{LonkkaAdduktoritCatchVas}. #Hamstringit {PolviHamstringCatchOik}/{PolviHamstringCatchVas}. #Rectus femorikset {PolviRectusCatchOik}/{PolviRectusCatchVas}. #Soleukset {NilkkaSoleusCatchOik}/{NilkkaSoleusCatchVas}# (klonus {NilkkaSoleusKlonusOik}/{NilkkaSoleusKlonusVas})#
-#Gastrocnemiukset {NilkkaGastroCatchOik}/{NilkkaGastroCatchVas}# (klonus {NilkkaGastroKlonusOik}/{NilkkaGastroKlonusVas})#
+Catch: #Lonkan adduktorit {LonkkaAdduktoritCatchOik}/{LonkkaAdduktoritCatchVas}. #Hamstringit {PolviHamstringCatchOik}/{PolviHamstringCatchVas}. #Rectus femorikset {PolviRectusCatchOik}/{PolviRectusCatchVas}. #Soleukset {NilkkaSoleusCatchOik}/{NilkkaSoleusCatchVas}. #\b\b (klonus {NilkkaSoleusKlonusOik}/{NilkkaSoleusKlonusVas}). #
+#Gastrocnemiukset {NilkkaGastroCatchOik}/{NilkkaGastroCatchVas}. #\b\b (klonus {NilkkaGastroKlonusOik}/{NilkkaGastroKlonusVas}). #
 #Kommentit (lonkka): {cmtLonkkaSpast}#
 #Kommentit (nilkka): {cmtNilkkaSpast}#
 #Kommentit (polvi): {cmtPolviSpast}#

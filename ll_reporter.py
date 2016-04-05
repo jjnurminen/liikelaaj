@@ -15,7 +15,7 @@ import liikelaajuus
 import string        
         
 
-class text():
+class Text():
     
     def __init__(self, data, units):
         # some special conversion for reporting purposes
@@ -31,18 +31,32 @@ class text():
             else:
                 self.data[fld] = unicode(data[fld])
 
-    def get_field(self, s):
+    @staticmethod
+    def get_field(s):
         """ Return all fields in a format string. """
         fi = string.Formatter()
         pit = fi.parse(s)  # returns parser generator
         for items in pit:
             if items[1]:
                 yield items[1]  # = the field
-        
-    def cond_format(self, s, di, emptyvals=[None]):
+
+    @staticmethod
+    def backspace(s):
+        """ Process \b chars in string, i.e. remove preceding char and the \b for each \b """
+        sout = []
+        for ch in s:
+            if ch == '\b':
+                if sout:
+                    sout.pop()
+            else:
+                sout.append(ch)
+        return ''.join(sout)
+    
+    @staticmethod
+    def cond_format(s, di, emptyvals=[None]):
         """ Conditionally format string s using dict di: if all field values
         are in emptyvals list, return empty string. """
-        flds = list(self.get_field(s))
+        flds = list(Text.get_field(s))
         if not flds or any([di[fld] not in emptyvals for fld in flds]):
             return s.format(**di)
         else:
@@ -50,18 +64,27 @@ class text():
         
     def make_text_report(self):
         """ Generates the main text report. """
+        # DEBUG
+        reload(text_templates)
+        ###
         report = text_templates.report
         # DEBUG: check which fields are (not) present in report
-        flds_report = set(self.get_field(''.join(report)))
+        flds_report = set(Text.get_field(''.join(report)))
         flds_data = set(self.data.keys())
         flds_cmn = flds_data.intersection(flds_report)
         not_in_rep = flds_data - flds_cmn
         print('Fields in data but not used in report:')
         for fld in sorted(not_in_rep):
             print(fld)
+        # format fields and join into string
+        rep_text = ''.join([Text.cond_format(s, self.data, self.not_measured_vals) for s in report])
+        # process backspaces
+        return Text.backspace(rep_text)
         
-        # format fields and join. cond_format skips chunks with no data
-        return ''.join([self.cond_format(s, self.data, self.not_measured_vals) for s in report])
+
+
+
+        
 
     def make_text_list(self):
         """ Make a simple list of all variables + values. """

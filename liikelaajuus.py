@@ -457,7 +457,7 @@ class EntryApp(QtGui.QMainWindow):
             
     def make_report(self):
         """ Make report using the input data. """
-        report = ll_reporter.text(self.data, self.units)
+        report = ll_reporter.Text(self.data, self.units)
         report_txt = report.make_text_report()
         print(report_txt)
         fname = 'report_koe.txt'
@@ -472,7 +472,8 @@ class EntryApp(QtGui.QMainWindow):
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: make report on every widget update
-            #self.make_report()
+            reload(ll_reporter)  # HA
+            self.make_report()
             ###
         self.saved_to_file = False
         if self.save_to_tmp:
@@ -540,7 +541,7 @@ class EntryApp(QtGui.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.text(self.data, self.units)
+                report = ll_reporter.Text(self.data, self.units)
                 report_txt = report.make_text_report()
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
