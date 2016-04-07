@@ -39,15 +39,15 @@ SIAS: {AntropSIAS}
 #MITTAAJAT:
 {TiedotMittaajat}#
 
-#TULOSYY:
-{cmtTulosyy}#
 
-#TESTAUS- JA ARVIOINTITULOKSET:
-{cmtTestTulokset}#
+TULOSYY:
 
-#PÄÄTULOKSET KÄVELYANALYYSIN POHJALTA:
-{cmtKavelyTulokset}
-#
+
+PÄÄTULOKSET KÄVELYANALYYSIN POHJALTA:
+
+
+TESTAUS- JA ARVIOINTITULOKSET:
+
 
 
 OHEISMITTAUSTEN TULOKSET:
@@ -115,8 +115,9 @@ Asteikko: 0-5, missä 5 on vahvin ja 3 voittaa painovoiman. Selektiivisyys, miss
 {cmtVoima2}#
 
 
-#SUUNNITELMA/POHDINTA:
-{cmtSuunnitelma}#
+SUUNNITELMA/POHDINTA:
+
+
 
 
 

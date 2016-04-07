@@ -19,6 +19,10 @@ chars (widget type)
 -for saving, dict data is turned into json unicode and written out in utf-8
 -data is saved into temp directory whenever any values are changed by user
 
+TODO:
+lisätiedot-sivu pois
+
+
 
 
 @author: Jussi (jnu@iki.fi)
