@@ -23,6 +23,10 @@ chars (widget type)
 TODO:
 1. MTP ojennus - lisää 'normaalin rajoissa'
 
+lisätiedot-sivu pois
+
+
+
 
 @author: Jussi (jnu@iki.fi)
 """
@@ -49,31 +53,41 @@ class MyLineEdit(QtGui.QLineEdit):
     """ Custom line edit that selects the input on mouse click. """
 
     def __init__(self, parent = None):
-        super(MyLineEdit, self).__init__(parent)
+        super(self.__class__, self).__init__(parent)
 
     def mousePressEvent(self, event):
-        super(MyLineEdit, self).mousePressEvent(event)
+        super(self.__class__, self).mousePressEvent(event)
         self.selectAll()
 
     def mouseReleaseEvent(self, event):
         """ Make drag & release select all too (prevent selection of partial text) """
-        super(MyLineEdit, self).mouseReleaseEvent(event)
+        super(self.__class__, self).mouseReleaseEvent(event)
         self.selectAll()
         
 
-class DegLineEdit(MyLineEdit):
+class DegLineEdit(QtGui.QLineEdit):
     """ Custom line edit for CheckDegSpinBox class. Catches space key and
-    passes it to CheckDegSpinBox. Also selects input on click (in superclass) """
+    passes it to CheckDegSpinBox. """
 
     def __init__(self, parent = None):
-        super(DegLineEdit, self).__init__(parent)
+        #super(self.__class__, self).__init__(parent)
+        QtGui.QLineEdit.__init__(self, parent)
+
+    def mousePressEvent(self, event):
+        super(self.__class__, self).mousePressEvent(event)
+        self.selectAll()
+
+    def mouseReleaseEvent(self, event):
+        """ Make drag & release select all too (prevent selection of partial text) """
+        super(self.__class__, self).mouseReleaseEvent(event)
+        self.selectAll()
     
     def keyPressEvent(self, event):
         # pass space key to grandparent (CheckDegSpinBox)
         if event.key() == QtCore.Qt.Key_Space:
             self.parent().parent().keyPressEvent(event)
         else:
-            super(DegLineEdit, self).keyPressEvent(event)
+            super(self.__class__, self).keyPressEvent(event)
                 
 
 class CheckDegSpinBox(QtGui.QWidget):
@@ -92,26 +106,33 @@ class CheckDegSpinBox(QtGui.QWidget):
     __pyqtSignals__ = ('valueChanged')
     
     def __init__(self, parent=None):
-        super(CheckDegSpinBox, self).__init__(parent)
+        super(self.__class__, self).__init__(parent)
         self.degSpinBox = QtGui.QSpinBox()
-        # these should be implemented as Qt properties w/ getter and setter methods,
+        # these should be implemented as qt properties w/ getter and setter methods,
         # so they could be e.g. changed within Qt Designer
         self.degSpinBox.setRange(-181, 180.0)
         self.degSpinBox.setValue(-181)
+        #self.degSpinBox.setSuffix(u'°')
         self.specialtext = u'Ei mitattu'
+
         self.degSpinBox.setSpecialValueText(self.specialtext)
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
         self.degSpinBox.setMinimumSize(100,0)
+       
         self.normalCheckBox = QtGui.QCheckBox()
         self.normalCheckBox.stateChanged.connect(lambda state: self.setSpinBox(not state))
 
+        # default text
         layout = QtGui.QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
+        #layout.addWidget(normalLabel, 0, 0)
         layout.addWidget(self.degSpinBox)
         layout.addWidget(self.normalCheckBox)
 
+        # needed for tab order
         self.degSpinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.normalCheckBox.setFocusPolicy(QtCore.Qt.NoFocus)
+
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.setFocusProxy(self.degSpinBox)
         
@@ -119,15 +140,13 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setSuffix(u'°')
 
     def keyPressEvent(self, event):
-        """ Event handler catches space and escape. When the widget has focus,
-        the LineEdit of the degSpinBox actually gets the events, but passes some
-        of them to this widget. """
+        print('this is the spinbox class method. key:', event.key())
         if event.key() == QtCore.Qt.Key_Escape:
             self.setValue(self.degSpinBox.minimum())
         elif event.key() == QtCore.Qt.Key_Space:
             self.toggleCheckBox()
         else:
-            super(CheckDegSpinBox, self).keyPressEvent(event)
+            super(self.__class__, self).keyPressEvent(event)
        
     def setDefaultText(self, text):
         self.normalCheckBox.setText(text)
@@ -167,16 +186,15 @@ class CheckDegSpinBox(QtGui.QWidget):
                 
     def selectAll(self):
         self.degSpinBox.selectAll()
-       
+        
+    def setFocus(self):
+        self.degSpinBox.setFocus()
+    
     def setSpinBox(self, state):
-        """ Enables or disables spinbox input. Also emit valueChanged signal. This is only
-        called by when the checkbox state changes. """
+        """ Enables or disables spinbox input. Also emit valueChanged signal """
         if state and not self.isEnabled():
                 self.degSpinBox.setEnabled(True)
                 self.degSpinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
-                # when enabling spinbox, give it focus immediately. handy when user clicks the checkbox
-                self.setFocus()
-                self.selectAll()
                 self.valueChanged.emit()
         elif not state and self.isEnabled():
                 self.degSpinBox.setEnabled(False)
@@ -191,6 +209,8 @@ class CheckDegSpinBox(QtGui.QWidget):
 
     def isEnabled(self):
         return self.degSpinBox.isEnabled()
+        
+        
        
     #def sizeHint(self):
     #    return QSize(150,20)
@@ -201,7 +221,7 @@ class EntryApp(QtGui.QMainWindow):
     """ Main window of application. """
     
     def __init__(self):
-        super(EntryApp, self).__init__()
+        super(self.__class__, self).__init__()
         # load user interface made with designer
         uic.loadUi('tabbed_design.ui', self)
         set_taborder(self)
@@ -225,11 +245,11 @@ class EntryApp(QtGui.QMainWindow):
         #loc = QtCore.QLocale()
         #loc.setNumberOptions(loc.OmitGroupSeparator | loc.RejectGroupSeparator)
         # special text written out for non-measured variables
-        # DEBUG: print all vars on startup
+        # DEBUG: print all vars
         #for key in sorted(self.data.keys()):
         #    print('{%s}'%key)
         #print(self.units)
-        
+            
     def set_constants(self):
         self.not_measured_text = u'Ei mitattu'
         self.checkbox_yestext = u'Kyllä'
@@ -287,19 +307,17 @@ class EntryApp(QtGui.QMainWindow):
                 raise Exception('Unexpected checkbox entry value')
 
         def keyPressEvent_resetOnEsc(obj, event):
+            print('this is resetOnEsc')
             if event.key() == QtCore.Qt.Key_Escape:
                 obj.setValue(obj.minimum())
-            # call the original keyPressEvent to handle anything else
-            obj.__class__.keyPressEvent(obj, event)
+            else:
+                super(obj.__class__, obj).keyPressEvent(event)
 
-        """ Change lineEdit to custom one for spinboxes. This cannot be done in the 
+        """ Changing lineEdit to custom one for spinboxes. This cannot be done in the 
         main loop below, because the old QLineEdits get destroyed in the process (by Qt)
         and the loop then segfaults while trying to dereference them (the loop collects
-        all QLineEdits when starting). 
-        The LineEdits could also be changed in class initializers, but this would
-        require subclassing QSpinBox. Also this behavior might not be wanted for all
-        CheckDegSpinBoxes, which is why it's done here."""
-       
+        all QLineEdits when starting) """
+        
         for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
             wname = unicode(w.objectName())
             if wname[:2] == 'sp':
@@ -308,10 +326,10 @@ class EntryApp(QtGui.QMainWindow):
         
         for w in self.findChildren((liikelaajuus.CheckDegSpinBox)):
             w.degSpinBox.setLineEdit(DegLineEdit())
+            #w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
 
-        """ Set various widget convenience methods/properties. The main purpose
-        is to connect a slot for value changes and give a setVal/getVal method for
-        each widget. """        
+        """ Set various widget convenience methods/properties """        
+        #for w in self.findChildren((liikelaajuus.CheckDegSpinBox,QtGui.QSpinBox,QtGui.QDoubleSpinBox,QtGui.QLineEdit,QtGui.QComboBox,QtGui.QCheckBox,QtGui.QTextEdit)):
         for w in self.findChildren(QtGui.QWidget):            
             wname = unicode(w.objectName())
             wsave = True
@@ -367,11 +385,11 @@ class EntryApp(QtGui.QMainWindow):
         # method call on tab change
         self.maintab.currentChanged.connect(self.page_change)
         """ First widget of each page. This is used to do focus/selectall on the 1st widget
-        on tab change so that data can be entered immediately. """
+        on page change so that data can be entered immediately. Only needed for 
+        spinbox / lineedit widgets. """
         self.firstwidget = {}
         # TODO: check/fix
         self.firstwidget[self.tabTiedot] = self.lnTiedotNimi
-        self.firstwidget[self.tabLisatiedot] = self.cmtTulosyy
         self.firstwidget[self.tabAntrop] = self.spAntropAlaraajaOik
         self.firstwidget[self.tabLonkka] = self.csbLonkkaFleksioOik
         self.firstwidget[self.tabNilkka] = self.csbNilkkaSoleusCatchOik
@@ -397,7 +415,9 @@ class EntryApp(QtGui.QMainWindow):
         self.units = {}
         for wname in self.input_widgets:
             self.units[self.widget_to_var[wname]] = self.input_widgets[wname].unit
-        # set font size for all widgets
+        # try to increase font size
+        #self.maintab.setStyleSheet('QTabBar { font-size: 14pt;}')
+        #self.maintab.setStyleSheet('QWidget { font-size: 14pt;}')
         self.setStyleSheet('QWidget { font-size: %dpt;}'%self.global_fontsize)
        
     def confirm_dialog(self, msg):
@@ -436,7 +456,7 @@ class EntryApp(QtGui.QMainWindow):
             
     def make_report(self):
         """ Make report using the input data. """
-        report = ll_reporter.text(self.data, self.units)
+        report = ll_reporter.Text(self.data, self.units)
         report_txt = report.make_text_report()
         print(report_txt)
         fname = 'report_koe.txt'
@@ -451,7 +471,9 @@ class EntryApp(QtGui.QMainWindow):
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: make report on every widget update
+            #reload(ll_reporter)  # can edit reporter / template while running
             #self.make_report()
+            ###
         self.saved_to_file = False
         if self.save_to_tmp:
             self.save_temp()
@@ -518,7 +540,7 @@ class EntryApp(QtGui.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.text(self.data, self.units)
+                report = ll_reporter.Text(self.data, self.units)
                 report_txt = report.make_text_report()
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
@@ -531,7 +553,8 @@ class EntryApp(QtGui.QMainWindow):
         return len([x for x in self.data if self.data[x] != self.data_empty[x]])
             
     def page_change(self):
-        """ Method called whenever page (tab) changes. """
+        """ Method called whenever page (tab) changes. Currently only does
+        focus / selectall on the first widget of page. """
         newpage = self.maintab.currentWidget()
         # focus / selectAll on 1st widget of new tab
         if newpage in self.firstwidget:
