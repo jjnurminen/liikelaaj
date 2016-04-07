@@ -21,9 +21,6 @@ chars (widget type)
 
 
 TODO:
-1. MTP ojennus - lisää 'normaalin rajoissa'
-
-lisätiedot-sivu pois
 
 
 
@@ -140,7 +137,6 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setSuffix(u'°')
 
     def keyPressEvent(self, event):
-        print('this is the spinbox class method. key:', event.key())
         if event.key() == QtCore.Qt.Key_Escape:
             self.setValue(self.degSpinBox.minimum())
         elif event.key() == QtCore.Qt.Key_Space:

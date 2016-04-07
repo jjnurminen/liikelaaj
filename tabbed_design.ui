@@ -3736,40 +3736,6 @@
             </property>
            </spacer>
           </item>
-          <item row="16" column="4">
-           <widget class="QSpinBox" name="spJalkat1MTPojennusVas">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string extracomment="Ei mitattu">Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string>°</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="minimum">
-             <number>-181</number>
-            </property>
-            <property name="maximum">
-             <number>180</number>
-            </property>
-            <property name="value">
-             <number>-181</number>
-            </property>
-           </widget>
-          </item>
           <item row="13" column="6">
            <widget class="QLabel" name="label_292">
             <property name="text">
@@ -4445,40 +4411,6 @@
             </property>
            </widget>
           </item>
-          <item row="16" column="2">
-           <widget class="QSpinBox" name="spJalkat1MTPojennusOik">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string extracomment="Ei mitattu">Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string>°</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="minimum">
-             <number>-181</number>
-            </property>
-            <property name="maximum">
-             <number>180</number>
-            </property>
-            <property name="value">
-             <number>-181</number>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="1">
            <widget class="QLabel" name="label_280">
             <property name="text">
@@ -5104,6 +5036,12 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="16" column="2">
+           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusOik"/>
+          </item>
+          <item row="16" column="4">
+           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusVas"/>
           </item>
          </layout>
         </item>
@@ -12615,7 +12553,6 @@ lonkka fleksiossa</string>
   <tabstop>cbJalkatEtuosanAsento1Oik</tabstop>
   <tabstop>cbJalkatEtuosanAsento2Oik</tabstop>
   <tabstop>cbJalkat1sadeOik</tabstop>
-  <tabstop>spJalkat1MTPojennusOik</tabstop>
   <tabstop>cbJalkatVaivaisenluuOik</tabstop>
   <tabstop>lnJalkatKovettumatOik</tabstop>
   <tabstop>cbJalkatSubtalarVas</tabstop>
@@ -12627,7 +12564,6 @@ lonkka fleksiossa</string>
   <tabstop>cbJalkatEtuosanAsento1Vas</tabstop>
   <tabstop>cbJalkatEtuosanAsento2Vas</tabstop>
   <tabstop>cbJalkat1sadeVas</tabstop>
-  <tabstop>spJalkat1MTPojennusVas</tabstop>
   <tabstop>cbJalkatVaivaisenluuVas</tabstop>
   <tabstop>lnJalkatKovettumatVas</tabstop>
   <tabstop>cbJalkatTakaosanAsentoKuormOik</tabstop>
