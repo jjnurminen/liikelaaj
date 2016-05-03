@@ -514,6 +514,7 @@ class EntryApp(QtGui.QMainWindow):
             fname = unicode(fname)
             try:
                 self.load_file(fname)
+                self.last_saved_filename = fname
             except self.json_io_exceptions:
                 self.message_dialog(ll_msgs.cannot_open+fname)
 
