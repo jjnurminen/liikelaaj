@@ -231,6 +231,7 @@ class EntryApp(QtGui.QMainWindow):
         self.save_to_tmp = True
         # whether data was saved into a patient-specific file
         self.saved_to_file = False
+        self.last_saved_filename = ''
         # whether to update internal dict of variables
         self.update_dict = True
         # load tmp file if it exists
@@ -525,13 +526,18 @@ class EntryApp(QtGui.QMainWindow):
             try:
                 self.save_file(fname)
                 self.saved_to_file = True
+                self.last_saved_filename = fname
                 self.statusbar.showMessage(ll_msgs.status_saved+fname)
             except self.json_io_exceptions:
                 self.message_dialog(ll_msgs.cannot_save+fname)
 
     def save_report_dialog(self):
         """ Bring up save dialog and save report. """
-        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title, self.data_root_fldr,
+        if self.last_saved_filename:
+            filename_def = self.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.txt'
+        else:
+            filename_def = self.data_root_fldr
+        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title, filename_def,
                                                   self.text_filter)
         if fname:
             fname = unicode(fname)
