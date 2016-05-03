@@ -230,7 +230,7 @@ class EntryApp(QtGui.QMainWindow):
         # whether to save to temp file whenever input widget data changes
         self.save_to_tmp = True
         # whether data was saved into a patient-specific file
-        self.saved_to_file = False
+        self.saved_to_file = True
         self.last_saved_filename = ''
         # whether to update internal dict of variables
         self.update_dict = True
@@ -515,6 +515,7 @@ class EntryApp(QtGui.QMainWindow):
             try:
                 self.load_file(fname)
                 self.last_saved_filename = fname
+                self.saved_to_file = True
             except self.json_io_exceptions:
                 self.message_dialog(ll_msgs.cannot_open+fname)
 
