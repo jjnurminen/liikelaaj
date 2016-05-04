@@ -21,8 +21,8 @@ class Text():
         # some special conversion for reporting purposes
         # add units as suffixes to data values
         self.data = {}
-        # if value is in not_measured_vals, it's counted as not measured and ignored
-        self.not_measured_vals = [u'Ei mitattu', u'', 'EI']  # 'EI' is the checkbox (QtCheckBox) 'No' value
+        # if value is in not_measured_vals, it's counted as not measured and the corresponding variable is ignored (not reported)
+        self.not_measured_vals = [u'Ei mitattu', u'', u'EI']  # 'EI' is the checkbox (QtCheckBox) 'No' value
         # special values that don't take units as suffix
         self.nounits_vals = [u'NR', u'Ei']
         for fld in data:
@@ -30,6 +30,7 @@ class Text():
                 self.data[fld] = unicode(data[fld])+units[fld]
             else:
                 self.data[fld] = unicode(data[fld])
+
 
     @staticmethod
     def get_field(s):
@@ -67,6 +68,7 @@ class Text():
         # DEBUG: can edit template while running
         #reload(text_templates)
         ###
+        postprocess_dict = {'EI': 'Ei'}  # after creating the report, strings can be replaced via this
         report = text_templates.report
         # check which fields are (not) present in report
         flds_report = set(Text.get_field(''.join(report)))
@@ -79,7 +81,11 @@ class Text():
         # format fields and join into string
         rep_text = ''.join([Text.cond_format(s, self.data, self.not_measured_vals) for s in report])
         # process backspaces
-        return Text.backspace(rep_text)
+        rep_text = Text.backspace(rep_text)
+        for it in postprocess_dict:
+            rep_text = rep_text.replace(it, postprocess_dict[it])
+        return rep_text
+        
 
     def make_text_list(self):
         """ Make a simple list of all variables + values. """
