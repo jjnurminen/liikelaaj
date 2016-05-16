@@ -20,8 +20,10 @@ chars (widget type)
 -data is saved into temp directory whenever any values are changed by user
 
 
+
 TODO:
 
+hamstring catch ja polven popliteakulmat, pakota negatiiviseksi
 
 
 
@@ -453,7 +455,7 @@ class EntryApp(QtGui.QMainWindow):
             
     def make_report(self):
         """ Make report using the input data. """
-        report = ll_reporter.Text(self.data, self.units)
+        report = ll_reporter.Report(self.data, self.units)
         report_txt = report.make_text_report()
         print(report_txt)
         fname = 'report_koe.txt'
@@ -544,7 +546,7 @@ class EntryApp(QtGui.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Text(self.data, self.units)
+                report = ll_reporter.Report(self.data, self.units)
                 report_txt = report.make_text_report()
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)

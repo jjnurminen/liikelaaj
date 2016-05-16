@@ -2,20 +2,22 @@
 """
 Created on Fri Jan 29 10:37:47 2016
 
-Create liikelaajuus report.
+Create liikelaajuus (movement range) reports.
 
 @author: jussi
 """
-
-#from pandas import DataFrame
 
 import html_templates
 import text_templates
 import liikelaajuus
 import string        
+from xlrd import open_workbook
+from xlutils.copy import copy
+
         
 
-class Text():
+class Report():
+    """ Make various reports based on the data. """    
     
     def __init__(self, data, units):
         # some special conversion for reporting purposes
@@ -71,7 +73,7 @@ class Text():
         postprocess_dict = {'EI': 'Ei'}  # after creating the report, strings can be replaced via this
         report = text_templates.report
         # check which fields are (not) present in report
-        flds_report = set(Text.get_field(''.join(report)))
+        flds_report = set(Report.get_field(''.join(report)))
         flds_data = set(self.data.keys())
         flds_cmn = flds_data.intersection(flds_report)
         not_in_rep = flds_data - flds_cmn
@@ -79,13 +81,12 @@ class Text():
         for fld in sorted(not_in_rep):
             print(fld)
         # format fields and join into string
-        rep_text = ''.join([Text.cond_format(s, self.data, self.not_measured_vals) for s in report])
+        rep_text = ''.join([Report.cond_format(s, self.data, self.not_measured_vals) for s in report])
         # process backspaces
-        rep_text = Text.backspace(rep_text)
+        rep_text = Report.backspace(rep_text)
         for it in postprocess_dict:
             rep_text = rep_text.replace(it, postprocess_dict[it])
         return rep_text
-        
 
     def make_text_list(self):
         """ Make a simple list of all variables + values. """
@@ -94,11 +95,62 @@ class Text():
             li.append(key+':'+unicode(self.data[key])+'\n')
         return u''.join(li)
 
-    def excel(self, fn):
-        """ Export report to Excel (filename fn) TODO"""
-        # example (two columns:)
-        # df = DataFrame( {'Item': list_items, 'Value': list_values} )
-        # df.to_excel('test.xlsx', sheet_name='sheet1', index=False)
+    """ Next 2 methods for Excel manipulation copied from: 
+        http://stackoverflow.com/questions/3723793/
+        preserving-styles-using-pythons-xlrd-xlwt-and-xlutils-copy?lq=1 """
+
+    @staticmethod                    
+    def _getOutCell(outSheet, colIndex, rowIndex):
+        """ HACK: Extract the internal xlwt cell representation. """
+        row = outSheet._Worksheet__rows.get(rowIndex)
+        if not row: return None
+    
+        cell = row._Row__cells.get(colIndex)
+        return cell
+
+    @staticmethod                        
+    def setOutCell(outSheet, col, row, value):
+        """ Change cell value without changing formatting. """
+        # HACK to retain cell style.
+        previousCell = Report._getOutCell(outSheet, col, row)
+        # END HACK, PART I
+        outSheet.write(row, col, value)
+        # HACK, PART II
+        if previousCell:
+            newCell = Report._getOutCell(outSheet, col, row)
+            if newCell:
+                newCell.xf_idx = previousCell.xf_idx
+        # END HACK
+                
+    @staticmethod                    
+    def get_one_field(s):
+        """ If cell value is a field (variable name), return the name """
+        if s and s[0] == '{' and s[-1] == '}':
+            return s[1:-1]
+        else:
+            return None
+
+    def make_excel(self, fn_save, fn_template):
+        """ Export report to .xls file fn_save. Variable names in fn_template 
+        are filled in. """
+        
+        rb = open_workbook(fn_template, formatting_info=True)
+        wb = copy(rb)
+        r_sheet = rb.sheet_by_index(0)
+        w_sheet = wb.get_sheet(0)
+        
+        for row in range(r_sheet.nrows-100):
+            for col in range(r_sheet.ncols):
+                cl = r_sheet.cell(row, col)
+                varname = Report.get_one_field(cl.value)
+                if varname:
+                    Report.setOutCell(w_sheet, col, row, self.data[varname])
+        wb.save(fn_save)
+            
+        
+        
+        
+        
         
 
 
