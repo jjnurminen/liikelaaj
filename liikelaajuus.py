@@ -23,7 +23,10 @@ chars (widget type)
 
 TODO:
 
-hamstring catch ja polven popliteakulmat, pakota negatiiviseksi
+-hamstring catch ja polven popliteakulmat, pakota negatiiviseksi
+-fix xls template
+-templates into templates dir
+-gui button for xls report
 
 
 
