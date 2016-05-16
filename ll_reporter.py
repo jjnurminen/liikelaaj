@@ -93,7 +93,7 @@ class Report():
             li.append(key+':'+unicode(self.data[key])+'\n')
         return u''.join(li)
 
-    """ Next 2 methods for Excel manipulation copied from: 
+    """ Next 2 xlrd hacks copied from: 
         http://stackoverflow.com/questions/3723793/
         preserving-styles-using-pythons-xlrd-xlwt-and-xlutils-copy?lq=1 """
 
@@ -101,8 +101,8 @@ class Report():
     def _getOutCell(outSheet, colIndex, rowIndex):
         """ HACK: Extract the internal xlwt cell representation. """
         row = outSheet._Worksheet__rows.get(rowIndex)
-        if not row: return None
-    
+        if not row:
+            return None
         cell = row._Row__cells.get(colIndex)
         return cell
 
