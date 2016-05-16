@@ -269,6 +269,7 @@ class EntryApp(QtGui.QMainWindow):
         self.global_fontsize = 11
         self.traceback_file = 'traceback.txt'
         self.help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
+        self.xls_template_file = "ROM-muuttujat.xls"        
         
     def init_widgets(self):
         """ Make a dict of our input widgets and install some callbacks and 
@@ -463,6 +464,11 @@ class EntryApp(QtGui.QMainWindow):
             f.write(report_txt)
         self.statusbar.showMessage(ll_msgs.wrote_report.format(filename=fname))
 
+    def make_excel_report(self):
+        report = ll_reporter.Report(self.data, self.units)
+        report.make_excel('test_excel_report.xls', self.xls_template_file)
+        #self.statusbar.showMessage(ll_msgs.wrote_report.format(filename=fname))
+
     def values_changed(self, w):
         if self.update_dict:
             # DEBUG
@@ -473,6 +479,7 @@ class EntryApp(QtGui.QMainWindow):
             #reload(ll_reporter)  # can edit reporter / template while running
             #self.make_report()
             ###
+            self.make_excel_report()
         self.saved_to_file = False
         if self.save_to_tmp:
             self.save_temp()

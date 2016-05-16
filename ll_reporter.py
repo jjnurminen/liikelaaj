@@ -7,9 +7,7 @@ Create liikelaajuus (movement range) reports.
 @author: jussi
 """
 
-import html_templates
 import text_templates
-import liikelaajuus
 import string        
 from xlrd import open_workbook
 from xlutils.copy import copy
@@ -59,7 +57,7 @@ class Report():
     def cond_format(s, di, emptyvals=[None]):
         """ Conditionally format string s using dict di: if all field values
         are in emptyvals list, return empty string. """
-        flds = list(Text.get_field(s))
+        flds = list(Report.get_field(s))
         if not flds or any([di[fld] not in emptyvals for fld in flds]):
             return s.format(**di)
         else:
@@ -132,78 +130,33 @@ class Report():
 
     def make_excel(self, fn_save, fn_template):
         """ Export report to .xls file fn_save. Variable names in fn_template 
-        are filled in. """
-        
+        are filled in. 
+        fn_template should have Python-style format strings at cells that
+        should be filled in, e.g. {TiedotNimi} would fill the cell using
+        the corresponding key in self.data.
+        fn_template must be .xls (not xlsx) format, since formatting info
+        cannot be read from xlsx. 
+        xlrd and friends are weird, so this code is  """
         rb = open_workbook(fn_template, formatting_info=True)
         wb = copy(rb)
         r_sheet = rb.sheet_by_index(0)
         w_sheet = wb.get_sheet(0)
-        
-        for row in range(r_sheet.nrows-100):
+        # loop through cells, conditionally replace fields with variable names
+        for row in range(r_sheet.nrows):
             for col in range(r_sheet.ncols):
                 cl = r_sheet.cell(row, col)
-                varname = Report.get_one_field(cl.value)
+                varname = cl.value
                 if varname:
-                    Report.setOutCell(w_sheet, col, row, self.data[varname])
+                    newval = Report.cond_format(varname, self.data, 
+                                                self.not_measured_vals)
+                    Report.setOutCell(w_sheet, col, row, newval)
         wb.save(fn_save)
-            
-        
-        
-        
-        
-        
-
-
-
-
-
-class html():
-    
-    def __init__(self, data):
-        self.data = data
-
-    def multiline_to_html(self, str):
-        """ Convert multiline string to html """
-        html_output = []
-        for li in str.splitlines():
-            html_output.append('<p>'+li+'</p>')
-        return ''.join(html_output)
-        
-    def format_comments(self, comments):
-        """ Make given comments field (multiline string) into HTML """
-        if comments:
-            return u'<h2>Kommentit</h2>'+'\n'+self.multiline_to_html(comments)
-        else:
-            return ''
-
-    def html_table(self, data):
-        """ Make a multicolumn html table. data is a list of rows
-        (list of lists of str). """
-        table = ['<table style="width:100%">']
-        for row in data:
-            table.append['<tr>']
-            for item in row:
-                table.append('<td>'+item+'</td>')
-            table.append['</tr>']
-        table.append['</table>']
-        return ''.join(table)
-        
-    def format_section(self, sec):
-        # format html for given section & add comments field
-        return html_templates.section[sec].format(**self.data)
-
-    def make_html(self):
-        # TODO: for key in html_templates.sections...
-        return html_templates.header + self.sec_tiedot() + html_templates.footer
-
-        
-        
            
-    
+        
+        
+        
+        
+        
 
-     
-     
-     
- 
 
 
