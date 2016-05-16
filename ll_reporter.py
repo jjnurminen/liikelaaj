@@ -120,14 +120,6 @@ class Report():
                 newCell.xf_idx = previousCell.xf_idx
         # END HACK
                 
-    @staticmethod                    
-    def get_one_field(s):
-        """ If cell value is a field (variable name), return the name """
-        if s and s[0] == '{' and s[-1] == '}':
-            return s[1:-1]
-        else:
-            return None
-
     def make_excel(self, fn_save, fn_template):
         """ Export report to .xls file fn_save. Variable names in fn_template 
         are filled in. 
