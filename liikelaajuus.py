@@ -25,8 +25,6 @@ TODO:
 
 -hamstring catch ja polven popliteakulmat, pakota negatiiviseksi
 -fix xls template
--templates into templates dir
--gui button for xls report
 
 
 
@@ -112,7 +110,6 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.degSpinBox = QtGui.QSpinBox()
         # these should be implemented as qt properties w/ getter and setter methods,
         # so they could be e.g. changed within Qt Designer
-        self.degSpinBox.setRange(-181, 180.0)
         self.degSpinBox.setValue(-181)
         #self.degSpinBox.setSuffix(u'°')
         self.specialtext = u'Ei mitattu'
@@ -138,8 +135,11 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.setFocusProxy(self.degSpinBox)
         
+        # defaults
         self.setDefaultText(u'NR')
         self.setSuffix(u'°')
+        self.setMinimum(-181)
+        self.setMaximum(180)
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
@@ -148,6 +148,8 @@ class CheckDegSpinBox(QtGui.QWidget):
             self.toggleCheckBox()
         else:
             super(self.__class__, self).keyPressEvent(event)
+
+    # set Qt properties
        
     def setDefaultText(self, text):
         self.normalCheckBox.setText(text)
@@ -160,10 +162,24 @@ class CheckDegSpinBox(QtGui.QWidget):
         
     def getSuffix(self):
         return self.degSpinBox.suffix()
+        
+    def setMinimum(self, min):
+        self.degSpinBox.setMinimum(min)
 
-    # set properties
+    def getMinimum(self):
+        return self.degSpinBox.minimum()
+        
+    def setMaximum(self, max):
+        self.degSpinBox.setMaximum(max)
+
+    def getMaximum(self):
+        return self.degSpinBox.maximum()
+        
     defaultText = QtCore.pyqtProperty('QString', getDefaultText, setDefaultText)
     suffix = QtCore.pyqtProperty('QString', getSuffix, setSuffix)
+    minimum = QtCore.pyqtProperty('int', getMinimum, setMinimum)
+    maximum = QtCore.pyqtProperty('int', getMaximum, setMaximum)        
+
 
     def value(self):
         if self.normalCheckBox.checkState() == 0:

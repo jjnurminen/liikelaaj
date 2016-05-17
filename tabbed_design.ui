@@ -1859,7 +1859,11 @@
            </widget>
           </item>
           <item row="15" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Vas"/>
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Vas">
+            <property name="maximum">
+             <number>0</number>
+            </property>
+           </widget>
           </item>
           <item row="10" column="4">
            <widget class="CheckDegSpinBox" name="csbPolviRectusCatchVas">
@@ -2025,6 +2029,9 @@
             <property name="defaultText">
              <string>Ei</string>
             </property>
+            <property name="maximum">
+             <number>0</number>
+            </property>
            </widget>
           </item>
           <item row="11" column="6">
@@ -2108,6 +2115,9 @@
            <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchOik">
             <property name="defaultText">
              <string>Ei</string>
+            </property>
+            <property name="maximum">
+             <number>0</number>
             </property>
            </widget>
           </item>
@@ -2219,13 +2229,25 @@
            </widget>
           </item>
           <item row="15" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Oik"/>
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Oik">
+            <property name="maximum">
+             <number>0</number>
+            </property>
+           </widget>
           </item>
           <item row="14" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Vas"/>
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Vas">
+            <property name="maximum">
+             <number>0</number>
+            </property>
+           </widget>
           </item>
           <item row="14" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Oik"/>
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Oik">
+            <property name="maximum">
+             <number>0</number>
+            </property>
+           </widget>
           </item>
           <item row="10" column="1">
            <widget class="QLabel" name="label_234">
