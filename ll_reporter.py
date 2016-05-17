@@ -31,7 +31,6 @@ class Report():
             else:
                 self.data[fld] = unicode(data[fld])
 
-
     @staticmethod
     def get_field(s):
         """ Return all fields in a format string. """
@@ -68,7 +67,8 @@ class Report():
         # DEBUG: can edit template while running
         #reload(text_templates)
         ###
-        postprocess_dict = {'EI': 'Ei'}  # after creating the report, strings can be replaced via this
+        # string replacements to do after formatting the whole report
+        postprocess_dict = {'EI': 'Ei'}  
         report = text_templates.report
         # check which fields are (not) present in report
         flds_report = set(Report.get_field(''.join(report)))
@@ -87,7 +87,7 @@ class Report():
         return rep_text
 
     def make_text_list(self):
-        """ Make a simple list of all variables + values. """
+        """ Return a simple list of all variables + values. """
         li = []
         for key in sorted(self.data):
             li.append(key+':'+unicode(self.data[key])+'\n')
@@ -96,7 +96,6 @@ class Report():
     """ Next 2 xlrd hacks copied from: 
         http://stackoverflow.com/questions/3723793/
         preserving-styles-using-pythons-xlrd-xlwt-and-xlutils-copy?lq=1 """
-
     @staticmethod                    
     def _getOutCell(outSheet, colIndex, rowIndex):
         """ HACK: Extract the internal xlwt cell representation. """
@@ -121,26 +120,37 @@ class Report():
         # END HACK
                 
     def make_excel(self, fn_save, fn_template):
-        """ Export report to .xls file fn_save. Variable names in fn_template 
+        """ Export report to .xls file fn_save. Variables found in fn_template 
         are filled in. 
         fn_template should have Python-style format strings at cells that
         should be filled in, e.g. {TiedotNimi} would fill the cell using
         the corresponding key in self.data.
-        fn_template must be .xls (not xlsx) format, since formatting info
+        fn_template must be in .xls (not xlsx) format, since formatting info
         cannot be read from xlsx (xlutils limitation). 
         xlrd and friends are weird, so this code is also weird. """
+        # string replacements to do after a cell is formatted
+        postprocess_dict = {u'(EI)':'', u'(Kyllä)':u'(kl.)'}
         rb = open_workbook(fn_template, formatting_info=True)
         wb = copy(rb)
         r_sheet = rb.sheet_by_index(0)
         w_sheet = wb.get_sheet(0)
         # loop through cells, conditionally replace fields with variable names
+        # for unknown reasons, wb and rb are very different structures,
+        # so we read from rb and write to wb (using the hacky methods above)
         for row in range(r_sheet.nrows):
             for col in range(r_sheet.ncols):
                 cl = r_sheet.cell(row, col)
                 varname = cl.value
                 if varname:
+                    # conditionally format cell
                     newval = Report.cond_format(varname, self.data, 
                                                 self.not_measured_vals)
+                    # apply replacement dict only if formatting actually did
+                    # something. this is to avoid changing text-only cells.
+                    if newval != varname:
+                        for key in postprocess_dict:
+                            if key in newval:
+                                newval = newval.replace(key, postprocess_dict[key])
                     Report.setOutCell(w_sheet, col, row, newval)
         wb.save(fn_save)
            
