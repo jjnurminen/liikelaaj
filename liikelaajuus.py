@@ -23,9 +23,8 @@ chars (widget type)
 
 TODO:
 
--hamstring catch ja polven popliteakulmat, pakota negatiiviseksi
 -fix xls template
-
+-disable debug (gen xls at evry update)
 
 
 @author: Jussi (jnu@iki.fi)
@@ -475,7 +474,7 @@ class EntryApp(QtGui.QMainWindow):
         """ Show help. """
         webbrowser.open(self.help_url)
             
-    def make_report(self):
+    def debug_make_report(self):
         """ Make report using the input data. """
         report = ll_reporter.Report(self.data, self.units)
         report_txt = report.make_text_report()
@@ -485,10 +484,10 @@ class EntryApp(QtGui.QMainWindow):
             f.write(report_txt)
         self.statusbar.showMessage(ll_msgs.wrote_report.format(filename=fname))
 
-    def make_excel_report(self):
+    def debug_make_excel_report(self):
+        """ DEBUG: save into temporary .xls """
         report = ll_reporter.Report(self.data, self.units)
         report.make_excel('test_excel_report.xls', self.xls_template_file)
-        #self.statusbar.showMessage(ll_msgs.wrote_report.format(filename=fname))
 
     def values_changed(self, w):
         if self.update_dict:
@@ -498,9 +497,9 @@ class EntryApp(QtGui.QMainWindow):
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: make report on every widget update
             #reload(ll_reporter)  # can edit reporter / template while running
-            #self.make_report()
-            ###
-            self.make_excel_report()
+            #self.debug_make_report()
+            # DEBUG: xls at every update
+            self.debug_make_excel_report()
         self.saved_to_file = False
         if self.save_to_tmp:
             self.save_temp()
@@ -659,7 +658,6 @@ class EntryApp(QtGui.QMainWindow):
             self.data[self.widget_to_var[wname]] = self.input_widgets[wname].getVal()
 
 def main():
-
     """ Work around stdout and stderr not being available, if app is run
     using pythonw.exe on Windows. Without this, exception will be raised
     e.g. on any print statement. """
