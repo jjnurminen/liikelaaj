@@ -23,9 +23,6 @@ chars (widget type)
 
 TODO:
 
--polvi 0 ast pois lonkkasivulta (2 kohtaa)
-etuosan asento 1:
-lisää kohdat valg* (1. säde)
 
 
 @author: Jussi (jnu@iki.fi)
