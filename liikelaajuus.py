@@ -23,10 +23,7 @@ chars (widget type)
 
 TODO:
 
--fix xls template
--disable debug (gen xls at evry update)
 -polvi 0 ast pois lonkkasivulta (2 kohtaa)
-
 etuosan asento 1:
 lisää kohdat valg* (1. säde)
 
@@ -499,11 +496,11 @@ class EntryApp(QtGui.QMainWindow):
             #print('updating dict for:', w.objectName(),'new value:',w.getVal())
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
-            # DEBUG: make report on every widget update
+            # DEBUG: text report on every widget update
             #reload(ll_reporter)  # can edit reporter / template while running
             #self.debug_make_report()
             # DEBUG: xls at every update
-            self.debug_make_excel_report()
+            #self.debug_make_excel_report()
         self.saved_to_file = False
         if self.save_to_tmp:
             self.save_temp()
