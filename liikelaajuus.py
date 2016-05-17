@@ -269,10 +269,11 @@ class EntryApp(QtGui.QMainWindow):
         self.json_io_exceptions = (UnicodeDecodeError, EOFError, IOError, TypeError)
         self.json_filter = u'JSON files (*.json)'
         self.text_filter = u'Text files (*.txt)'
+        self.excel_filter = u'Excel files (*.xls)'
         self.global_fontsize = 11
         self.traceback_file = 'traceback.txt'
         self.help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
-        self.xls_template_file = "ROM-muuttujat.xls"        
+        self.xls_template_file = "rom_excel_template.xls"        
         
     def init_widgets(self):
         """ Make a dict of our input widgets and install some callbacks and 
@@ -383,6 +384,7 @@ class EntryApp(QtGui.QMainWindow):
         self.btnLoad.clicked.connect(self.load_dialog)
         self.btnClear.clicked.connect(self.clear_forms_dialog)
         self.btnReport.clicked.connect(self.save_report_dialog)
+        self.btnExcelReport.clicked.connect(self.save_excel_report_dialog)
         self.btnHelp.clicked.connect(self.open_help)
         self.btnQuit.clicked.connect(self.close)
         # method call on tab change
@@ -563,7 +565,24 @@ class EntryApp(QtGui.QMainWindow):
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 self.message_dialog(ll_msgs.cannot_save+fname)
-                
+
+    def save_excel_report_dialog(self):
+        """ Bring up save dialog and save Excel report. """
+        if self.last_saved_filename:
+            filename_def = self.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.xls'
+        else:
+            filename_def = self.data_root_fldr
+        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title, filename_def,
+                                                  self.excel_filter)
+        if fname:
+            fname = unicode(fname)
+            try:
+                report = ll_reporter.Report(self.data, self.units)
+                report_txt = report.make_excel(fname, self.xls_template_file)
+                self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
+            except (IOError):
+                self.message_dialog(ll_msgs.cannot_save+fname)
+
     def n_modified(self):
         """ Count modified values. """
         return len([x for x in self.data if self.data[x] != self.data_empty[x]])

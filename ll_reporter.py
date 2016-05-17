@@ -127,8 +127,8 @@ class Report():
         should be filled in, e.g. {TiedotNimi} would fill the cell using
         the corresponding key in self.data.
         fn_template must be .xls (not xlsx) format, since formatting info
-        cannot be read from xlsx. 
-        xlrd and friends are weird, so this code is  """
+        cannot be read from xlsx (xlutils limitation). 
+        xlrd and friends are weird, so this code is also weird. """
         rb = open_workbook(fn_template, formatting_info=True)
         wb = copy(rb)
         r_sheet = rb.sheet_by_index(0)

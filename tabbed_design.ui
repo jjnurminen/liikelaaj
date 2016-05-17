@@ -12393,6 +12393,13 @@ lonkka fleksiossa</string>
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="btnExcelReport">
+        <property name="text">
+         <string>Tee Excel-raportti</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btnHelp">
         <property name="text">
          <string>Ohje</string>
