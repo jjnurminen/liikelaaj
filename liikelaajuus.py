@@ -105,10 +105,6 @@ class CheckDegSpinBox(QtGui.QWidget):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.degSpinBox = QtGui.QSpinBox()
-        # these should be implemented as qt properties w/ getter and setter methods,
-        # so they could be e.g. changed within Qt Designer
-
-        #self.degSpinBox.setSuffix(u'°')
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
         self.degSpinBox.setMinimumSize(100,0)
        
@@ -129,7 +125,7 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.setFocusProxy(self.degSpinBox)
         
-        # defaults
+        # defaults specific to 
         self.setDefaultText(u'NR')
         self.setSuffix(u'°')
         self.setMinimum(-181)
@@ -146,8 +142,8 @@ class CheckDegSpinBox(QtGui.QWidget):
         else:
             super(self.__class__, self).keyPressEvent(event)
 
-    # set Qt properties
-       
+    """ Set some values as Qt properties, mostly so that they can be easily
+    changed from Qt Designer. """
     def setDefaultText(self, text):
         self.normalCheckBox.setText(text)
         
@@ -223,12 +219,10 @@ class CheckDegSpinBox(QtGui.QWidget):
 
     def isEnabled(self):
         return self.degSpinBox.isEnabled()
-        
-        
        
-    #def sizeHint(self):
+    # not sure if useful       
+    #def sizeHint(self):  
     #    return QSize(150,20)
-
 
 
 class EntryApp(QtGui.QMainWindow):
@@ -236,7 +230,7 @@ class EntryApp(QtGui.QMainWindow):
     
     def __init__(self):
         super(self.__class__, self).__init__()
-        # load user interface made with designer
+        # load user interface made with Qt Designer
         uic.loadUi('tabbed_design.ui', self)
         set_taborder(self)
         self.set_constants()
