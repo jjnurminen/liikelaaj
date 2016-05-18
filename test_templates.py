@@ -5,6 +5,7 @@
 @author: hus20664877
 """
 
+from nose.tools import assert_set_equal, assert_in
 from xlrd import open_workbook
 import io
 import json
@@ -38,19 +39,15 @@ def test_xls_template():
                 # extract all fields (variable names)
                 flds = Report.get_field(varname)
                 for fld in flds:
-                    assert fld in data_emptyvals
+                    assert_in(fld, data_emptyvals)
 
 def test_text_template():
     """ Test validity of text template: all vars in report and 
     no unknown vars in report """
-    used = set()
+    vars = set()
     for li in text_templates.report:
-        flds = Report.get_field(li)
-        for fld in flds:
-            assert fld in data_emptyvals
-            used.add(fld)
-    assert used == set(data_emptyvals.keys())
-
+        vars.update(set(Report.get_field(li)))
+    assert_set_equal(vars, set(data_emptyvals.keys()))
 
 def test_widgets ():
     """ Check classes of Qt widgets. Check that variable names derived
@@ -83,7 +80,7 @@ def test_widgets ():
             varname = wname[3:]
         if varname:
             varnames.add(unicode(varname))
-    assert varnames == set(data_emptyvals.keys())
+    assert_set_equal(varnames, set(data_emptyvals.keys()))
         
 
          
