@@ -347,7 +347,15 @@ class EntryApp(QtGui.QMainWindow):
                 obj.setValue(obj.minimum())
             else:
                 super(obj.__class__, obj).keyPressEvent(event)
-
+                
+        def isint(x):
+            """ Test for integer """
+            try:
+                int(x)
+                return True
+            except ValueError:
+                return False
+                
         """ Change lineEdit to custom one for spinboxes. This cannot be done in the 
         main widget loop below, because the old QLineEdits get destroyed in the process (by Qt)
         and the loop then segfaults while trying to dereference them (the loop collects
@@ -368,7 +376,7 @@ class EntryApp(QtGui.QMainWindow):
         for w in self.findChildren(QtGui.QWidget):            
             wname = unicode(w.objectName())
             wsave = True
-            w.unit = ''  # if a widget input has units, set it below
+            w.unit = lambda: ''  # if a widget input has units, set it below
             if wname[:2] == 'sp':
                 # -lambdas need default arguments because of late binding
                 # -lambda expression needs to consume unused 'new value' argument,
@@ -377,7 +385,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.no_value_text = Config.spinbox_novalue_text
                 w.setVal = lambda val, w=w: spinbox_setval(w, val)
                 w.getVal = lambda w=w: spinbox_getval(w)
-                w.unit = lambda w: w.suffix() if isint(w.getVal()) else ''
+                w.unit = lambda w=w: w.suffix() if isint(w.getVal()) else ''
             elif wname[:2] == 'ln':
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = w.setText
@@ -400,7 +408,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.valueChanged.connect(lambda w=w: self.values_changed(w))
                 w.getVal = w.value
                 w.setVal = w.setValue
-                w.unit = lambda w: w.getSuffix() if isint(w.getVal()) else ''
+                w.unit = lambda w=w: w.getSuffix() if isint(w.getVal()) else ''
             else:
                 wsave = False
             if wsave:
@@ -450,17 +458,16 @@ class EntryApp(QtGui.QMainWindow):
         self.setStyleSheet('QWidget { font-size: %dpt;}'%Config.global_fontsize)
 
     def units(self):
-        """ Return dict indicating units for each widget. This may change dynamically
-        as the unit may be set to '' for special values. """
-        return {self.widget_to_var[wname]: self.input_widgets[wname].unit for wname in self.input_widgets}
+        """ Return dict indicating the units for each variable. This may change 
+        dynamically as the unit may be set to '' for special values. """
+        return {self.widget_to_var[wname]: self.input_widgets[wname].unit() for wname in self.input_widgets}
      
     def vars_default(self):
         """ Return a list of variables that are at default state. """
-        #return {key: val == self.data_empty[key] for (key, val) in self.data.iteritems()}
         return [key for key in self.data if self.data[key] == self.data_empty[key]]
      
     def confirm_dialog(self, msg):
-        """ Show yes/no dialog """
+        """ Show yes/no dialog. """
         dlg = QtGui.QMessageBox()
         dlg.setText(msg)
         dlg.setWindowTitle(ll_msgs.message_title)
@@ -470,7 +477,7 @@ class EntryApp(QtGui.QMainWindow):
         return dlg.buttonRole(dlg.clickedButton())
         
     def message_dialog(self, msg):
-        """ Show message with an 'OK' button """
+        """ Show message with an 'OK' button. """
         dlg = QtGui.QMessageBox()
         dlg.setWindowTitle(ll_msgs.message_title)
         dlg.setText(msg)

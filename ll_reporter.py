@@ -19,8 +19,8 @@ class Report():
     
     def __init__(self, data, vars_default, units):
         # convert values to Unicode and add corresponding units as suffices
-        self.data = {unicode(data[key]) + units[key] for key in data}
-        # list of variables which have default values (no data was entered)
+        self.data = {key: unicode(data[key]) + units[key] for key in data}
+        # list of variables which have default values (=no data was entered)
         self.vars_default = vars_default
 
     @staticmethod
