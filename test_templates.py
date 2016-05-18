@@ -24,6 +24,8 @@ with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
 
 
+
+
 def test_xls_template():
     """ Test validity of xls report template: no unknown vars
     in template """
