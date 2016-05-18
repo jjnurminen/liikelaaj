@@ -294,6 +294,8 @@ class EntryApp(QtGui.QMainWindow):
         self.input_widgets = {}
 
         def spinbox_getval(w, mintext):
+            """ Return spinbox value. If it is at minimum, the special
+            value mintext will be returned. """
             val = w.value()
             if val == w.minimum():
                 return mintext
@@ -301,12 +303,16 @@ class EntryApp(QtGui.QMainWindow):
                 return val
                 
         def spinbox_setval(w, val, mintext):
+            """ Set spinbox value. val == mintext causes value to
+            be set to minimum. """
             if val == mintext:
                 w.setValue(w.minimum())
             else:
                 w.setValue(val)
-                
+            
         def checkbox_getval(w, yestext, notext):
+            """ Return yestext or notext for checkbox enabled/disabled,
+            respetively. """
             val = int(w.checkState())
             if val == 0:
                 return notext
@@ -316,6 +322,8 @@ class EntryApp(QtGui.QMainWindow):
                 raise Exception('Unexpected checkbox value')
                 
         def checkbox_setval(w, val, yestext, notext):
+            """ Set checkbox value to enabled for val == yestext and
+            disabled for val == notext """
             if val == yestext:
                 w.setCheckState(2)
             elif val == notext:
@@ -324,29 +332,30 @@ class EntryApp(QtGui.QMainWindow):
                 raise Exception('Unexpected checkbox entry value')
 
         def keyPressEvent_resetOnEsc(obj, event):
-            print('this is resetOnEsc')
+            """ Special event handler for spinboxes. Resets value (sets it
+            to minimum) when Esc is pressed. """
             if event.key() == QtCore.Qt.Key_Escape:
                 obj.setValue(obj.minimum())
             else:
                 super(obj.__class__, obj).keyPressEvent(event)
 
-        """ Changing lineEdit to custom one for spinboxes. This cannot be done in the 
-        main loop below, because the old QLineEdits get destroyed in the process (by Qt)
+        """ Change lineEdit to custom one for spinboxes. This cannot be done in the 
+        main widget loop below, because the old QLineEdits get destroyed in the process (by Qt)
         and the loop then segfaults while trying to dereference them (the loop collects
-        all QLineEdits when starting) """
-        
+        all QLineEdits at the start).
+        Also install special keypress event handler. """
         for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
             wname = unicode(w.objectName())
             if wname[:2] == 'sp':
                 w.setLineEdit(MyLineEdit())
                 w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
         
+        """ CheckDegSpinBox class gets a special LineEdit that catches space
+        and mouse press events """
         for w in self.findChildren((liikelaajuus.CheckDegSpinBox)):
             w.degSpinBox.setLineEdit(DegLineEdit())
-            #w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
 
         """ Set various widget convenience methods/properties """        
-        #for w in self.findChildren((liikelaajuus.CheckDegSpinBox,QtGui.QSpinBox,QtGui.QDoubleSpinBox,QtGui.QLineEdit,QtGui.QComboBox,QtGui.QCheckBox,QtGui.QTextEdit)):
         for w in self.findChildren(QtGui.QWidget):            
             wname = unicode(w.objectName())
             wsave = True
@@ -358,6 +367,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.valueChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = lambda val, w=w: spinbox_setval(w, val, self.not_measured_text)
                 w.getVal = lambda w=w: spinbox_getval(w, self.not_measured_text)
+                #w.measured = lambda: w.getVal() != w.not_measured
                 w.unit = w.suffix()
             elif wname[:2] == 'ln':
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
