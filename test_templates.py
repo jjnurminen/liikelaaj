@@ -23,16 +23,11 @@ uifile = "tabbed_design.ui"
 with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
 
-
-
-
 def test_xls_template():
     """ Test validity of xls report template: no unknown vars
     in template """
     rb = open_workbook(fn_xls_template, formatting_info=True)
     r_sheet = rb.sheet_by_index(0)
-    with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
-        data_emptyvals = json.load(f)
     for row in range(r_sheet.nrows):
         for col in range(r_sheet.ncols):
             cl = r_sheet.cell(row, col)
