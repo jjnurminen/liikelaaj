@@ -154,7 +154,6 @@ class Report():
                                 newval = newval.replace(key, postprocess_dict[key])
                     Report.setOutCell(w_sheet, col, row, newval)
         wb.save(fn_save)
-           
         
         
         

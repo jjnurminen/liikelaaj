@@ -591,7 +591,7 @@ class EntryApp(QtGui.QMainWindow):
             fname = unicode(fname)
             try:
                 report = ll_reporter.Report(self.data, self.units)
-                report_txt = report.make_excel(fname, self.xls_template_file)
+                report.make_excel(fname, self.xls_template_file)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 self.message_dialog(ll_msgs.cannot_save+fname)
