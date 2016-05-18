@@ -57,7 +57,7 @@ class Config(object):
     """ Similar to above. Only gets written to the file, the visible value
     is set in Qt Designer. """
     combobox_novalue_text = u'Ei mitattu'
-    # 'yes' and 'no' values for checkboxes. written to data files.
+    """ 'yes' and 'no' values for checkboxes. Written to data files. """
     checkbox_yestext = u'Kyllä'
     checkbox_notext = u'EI'
     # Set dirs according to platform
@@ -296,7 +296,6 @@ class EntryApp(QtGui.QMainWindow):
         #for key in sorted(self.data.keys()):
         #    print('{%s}'%key)
         #print(self.units)
-            
         
     def init_widgets(self):
         """ Make a dict of our input widgets and install some callbacks and 
@@ -325,18 +324,18 @@ class EntryApp(QtGui.QMainWindow):
             respetively. """
             val = int(w.checkState())
             if val == 0:
-                return w.notext
+                return w.no_text
             elif val == 2:
-                return w.yestext
+                return w.yes_text
             else:
                 raise Exception('Unexpected checkbox value')
                 
         def checkbox_setval(w, val):
             """ Set checkbox value to enabled for val == yestext and
             disabled for val == notext """
-            if val == w.yestext:
+            if val == w.yes_text:
                 w.setCheckState(2)
-            elif val == w.notext:
+            elif val == w.no_text:
                 w.setCheckState(0)
             else:
                 raise Exception('Unexpected checkbox entry value')
@@ -378,7 +377,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.no_value_text = Config.spinbox_novalue_text
                 w.setVal = lambda val, w=w: spinbox_setval(w, val)
                 w.getVal = lambda w=w: spinbox_getval(w)
-                w.unit = w.suffix()
+                w.unit = lambda w: w.suffix() if isint(w.getVal()) else ''
             elif wname[:2] == 'ln':
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = w.setText
@@ -401,7 +400,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.valueChanged.connect(lambda w=w: self.values_changed(w))
                 w.getVal = w.value
                 w.setVal = w.setValue
-                w.unit = w.getSuffix()  # this works differently from the Qt spinbox
+                w.unit = lambda w: w.getSuffix() if isint(w.getVal()) else ''
             else:
                 wsave = False
             if wsave:
@@ -445,18 +444,20 @@ class EntryApp(QtGui.QMainWindow):
             else:
                 varname = wname[2:]
             self.widget_to_var[wname] = varname
-        # collect variable units into a dict
-        self.units = {}
-        for wname in self.input_widgets:
-            self.units[self.widget_to_var[wname]] = self.input_widgets[wname].unit
         # try to increase font size
         #self.maintab.setStyleSheet('QTabBar { font-size: 14pt;}')
         #self.maintab.setStyleSheet('QWidget { font-size: 14pt;}')
         self.setStyleSheet('QWidget { font-size: %dpt;}'%Config.global_fontsize)
+
+    def units(self):
+        """ Return dict indicating units for each widget. This may change dynamically
+        as the unit may be set to '' for special values. """
+        return {self.widget_to_var[wname]: self.input_widgets[wname].unit for wname in self.input_widgets}
      
-    def is_default(self):
-        """ Return a dict indicating which variables are at default state. """
-        return {key: val == self.data_empty[key] for (key, val) in self.data.iteritems()}
+    def vars_default(self):
+        """ Return a list of variables that are at default state. """
+        #return {key: val == self.data_empty[key] for (key, val) in self.data.iteritems()}
+        return [key for key in self.data if self.data[key] == self.data_empty[key]]
      
     def confirm_dialog(self, msg):
         """ Show yes/no dialog """
@@ -494,7 +495,7 @@ class EntryApp(QtGui.QMainWindow):
             
     def debug_make_report(self):
         """ Make report using the input data. """
-        report = ll_reporter.Report(self.data, self.is_default(), self.units)
+        report = ll_reporter.Report(self.data, self.vars_default(), self.units())
         report_txt = report.make_text_report()
         print(report_txt)
         fname = 'report_koe.txt'
@@ -504,7 +505,7 @@ class EntryApp(QtGui.QMainWindow):
 
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
-        report = ll_reporter.Report(self.data, self.is_default(), self.units)
+        report = ll_reporter.Report(self.data, self.vars_default(), self.units())
         report.make_excel('test_excel_report.xls', Config.xls_template_file)
 
     def values_changed(self, w):
@@ -591,7 +592,7 @@ class EntryApp(QtGui.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.is_default(), self.units)
+                report = ll_reporter.Report(self.data, self.vars_default(), self.units())
                 report_txt = report.make_text_report()
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
@@ -610,7 +611,7 @@ class EntryApp(QtGui.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.is_default(), self.units)
+                report = ll_reporter.Report(self.data, self.vars_default(), self.units())
                 report.make_excel(fname, Config.xls_template_file)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):

@@ -17,20 +17,11 @@ from xlutils.copy import copy
 class Report():
     """ Make various reports based on the data. """    
     
-    def __init__(self, data, is_default, units):
-        # some special conversion for reporting purposes
-        # add units as suffixes to data values
-        self.data = {}
-        # special values that don't take units as suffix
-        self.nounits_vals = [u'NR', u'Ei']
-        """ Add units as suffix to values that 1) have been input by user
-        and 2) are not in the list of no_units values """
-        for var in data:
-            if not is_default[var] and data[var] not in self.nounits_vals:
-                self.data[var] = unicode(data[var]) + units[var]
-            else:
-                self.data[var] = unicode(data[var])
-        self.empty_fields = [key for key in is_default if is_default[key]]
+    def __init__(self, data, vars_default, units):
+        # convert values to Unicode and add corresponding units as suffices
+        self.data = {unicode(data[key]) + units[key] for key in data}
+        # list of variables which have default values (no data was entered)
+        self.vars_default = vars_default
 
     @staticmethod
     def get_field(s):
@@ -54,13 +45,13 @@ class Report():
         return ''.join(sout)
     
     @staticmethod
-    def cond_format(s, di, empty_fields):
+    def cond_format(s, di, fields_at_default):
         """ Conditionally format string s using dict di. If s has fields and
         they all are in the empty_fields list, an empty string is returned. 
-        Otherwise the fields are formatted, and any other (non-field) is returned
-        as is. """
+        Otherwise all the fields are formatted, and any other (non-field) text 
+        is returned as is. """
         flds = list(Report.get_field(s))
-        if not flds or any([fld not in empty_fields for fld in flds]):
+        if not flds or any([fld not in fields_at_default for fld in flds]):
             return s.format(**di)
         else:
             return ''
@@ -83,7 +74,7 @@ class Report():
             for fld in sorted(not_in_rep):
                 print(fld)
         # format fields and join into string
-        rep_text = ''.join([Report.cond_format(s, self.data, self.empty_fields) for s in report])
+        rep_text = ''.join([Report.cond_format(s, self.data, self.vars_default) for s in report])
         # process backspaces
         rep_text = Report.backspace(rep_text)
         for it in postprocess_dict:
@@ -133,6 +124,7 @@ class Report():
         cannot be read from xlsx (xlutils limitation). 
         xlrd and friends are weird, so this code is also weird. """
         # string replacements to do after a cell is formatted
+        # WARNING: currently a bit hacky; watch out for unwanted changes
         postprocess_dict = {u'(EI)':'', u'(Kyllä)':u'(kl.)'}
         rb = open_workbook(fn_template, formatting_info=True)
         wb = copy(rb)
@@ -148,7 +140,7 @@ class Report():
                 if varname:
                     # conditionally format cell
                     newval = Report.cond_format(varname, self.data, 
-                                                self.empty_fields)
+                                                self.vars_default)
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
                     if newval != varname:
