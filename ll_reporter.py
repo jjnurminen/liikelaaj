@@ -75,9 +75,10 @@ class Report():
         flds_data = set(self.data.keys())
         flds_cmn = flds_data.intersection(flds_report)
         not_in_rep = flds_data - flds_cmn
-        print('Fields in data but not used in report:')
-        for fld in sorted(not_in_rep):
-            print(fld)
+        if not_in_rep:
+            print('Fields in data but not used in report:')
+            for fld in sorted(not_in_rep):
+                print(fld)
         # format fields and join into string
         rep_text = ''.join([Report.cond_format(s, self.data, self.not_measured_vals) for s in report])
         # process backspaces
