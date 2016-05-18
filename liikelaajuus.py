@@ -48,8 +48,15 @@ from fix_taborder import set_taborder
 class Config(object):
     """ Configurable things. In the future, might read some of these from
     a config file. """
-    # 'not measured' value for spinboxes. shown in widget, written to data files.
-    spinbox_not_measured_text = u'Ei mitattu'
+    """ The 'not measured' value for spinboxes. For regular spinboxes, this
+    is the value that gets written to data files, but it does not affect
+    the value shown next to the spinbox (that is set in Qt Designer).
+    For the CheckDegSpinBox class, this value is also shown next to the widget
+    in the user interface. """
+    spinbox_novalue_text = u'Ei mitattu'
+    """ Similar to above. Only gets written to the file, the visible value
+    is set in Qt Designer. """
+    combobox_novalue_text = u'Ei mitattu'
     # 'yes' and 'no' values for checkboxes. written to data files.
     checkbox_yestext = u'Kyllä'
     checkbox_notext = u'EI'
@@ -163,7 +170,7 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setMinimum(-181)
         self.setMaximum(180)
         self.degSpinBox.setValue(-181)
-        self.specialtext = Config.spinbox_not_measured_text
+        self.specialtext = Config.spinbox_novalue_text
         self.degSpinBox.setSpecialValueText(self.specialtext)
 
     def keyPressEvent(self, event):
@@ -296,40 +303,40 @@ class EntryApp(QtGui.QMainWindow):
         convenience methods etc. """
         self.input_widgets = {}
 
-        def spinbox_getval(w, mintext):
+        def spinbox_getval(w):
             """ Return spinbox value. If it is at minimum, the special
             value mintext will be returned. """
             val = w.value()
             if val == w.minimum():
-                return mintext
+                return w.no_value_text
             else:
                 return val
                 
-        def spinbox_setval(w, val, mintext):
+        def spinbox_setval(w, val):
             """ Set spinbox value. val == mintext causes value to
             be set to minimum. """
-            if val == mintext:
+            if val == w.no_value_text:
                 w.setValue(w.minimum())
             else:
                 w.setValue(val)
             
-        def checkbox_getval(w, yestext, notext):
+        def checkbox_getval(w):
             """ Return yestext or notext for checkbox enabled/disabled,
             respetively. """
             val = int(w.checkState())
             if val == 0:
-                return notext
+                return w.notext
             elif val == 2:
-                return yestext
+                return w.yestext
             else:
                 raise Exception('Unexpected checkbox value')
                 
-        def checkbox_setval(w, val, yestext, notext):
+        def checkbox_setval(w, val):
             """ Set checkbox value to enabled for val == yestext and
             disabled for val == notext """
-            if val == yestext:
+            if val == w.yestext:
                 w.setCheckState(2)
-            elif val == notext:
+            elif val == w.notext:
                 w.setCheckState(0)
             else:
                 raise Exception('Unexpected checkbox entry value')
@@ -368,9 +375,9 @@ class EntryApp(QtGui.QMainWindow):
                 # -lambda expression needs to consume unused 'new value' argument,
                 # therefore two parameters (except for QTextEdit...)
                 w.valueChanged.connect(lambda x, w=w: self.values_changed(w))
-                w.setVal = lambda val, w=w: spinbox_setval(w, val, Config.spinbox_not_measured_text)
-                w.getVal = lambda w=w: spinbox_getval(w, Config.spinbox_not_measured_text)
-                #w.measured = lambda: w.getVal() != w.not_measured
+                w.no_value_text = Config.spinbox_novalue_text
+                w.setVal = lambda val, w=w: spinbox_setval(w, val)
+                w.getVal = lambda w=w: spinbox_getval(w)
                 w.unit = w.suffix()
             elif wname[:2] == 'ln':
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
@@ -386,8 +393,10 @@ class EntryApp(QtGui.QMainWindow):
                 w.getVal = lambda w=w: unicode(w.toPlainText()).strip()
             elif wname[:2] == 'xb':
                 w.stateChanged.connect(lambda x, w=w: self.values_changed(w))
-                w.setVal = lambda val, w=w: checkbox_setval(w, val, Config.checkbox_yestext, Config.checkbox_notext)
-                w.getVal = lambda w=w: checkbox_getval(w, Config.checkbox_yestext, Config.checkbox_notext)
+                w.yes_text = Config.checkbox_yestext
+                w.no_text = Config.checkbox_notext                
+                w.setVal = lambda val, w=w: checkbox_setval(w, val)
+                w.getVal = lambda w=w: checkbox_getval(w)
             elif wname[:3] == 'csb':
                 w.valueChanged.connect(lambda w=w: self.values_changed(w))
                 w.getVal = w.value
@@ -444,7 +453,11 @@ class EntryApp(QtGui.QMainWindow):
         #self.maintab.setStyleSheet('QTabBar { font-size: 14pt;}')
         #self.maintab.setStyleSheet('QWidget { font-size: 14pt;}')
         self.setStyleSheet('QWidget { font-size: %dpt;}'%Config.global_fontsize)
-       
+     
+    def is_default(self):
+        """ Return a dict indicating which variables are at default state. """
+        return {key: val == self.data_empty[key] for (key, val) in self.data.iteritems()}
+     
     def confirm_dialog(self, msg):
         """ Show yes/no dialog """
         dlg = QtGui.QMessageBox()
@@ -481,7 +494,7 @@ class EntryApp(QtGui.QMainWindow):
             
     def debug_make_report(self):
         """ Make report using the input data. """
-        report = ll_reporter.Report(self.data, self.units)
+        report = ll_reporter.Report(self.data, self.is_default(), self.units)
         report_txt = report.make_text_report()
         print(report_txt)
         fname = 'report_koe.txt'
@@ -491,7 +504,7 @@ class EntryApp(QtGui.QMainWindow):
 
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
-        report = ll_reporter.Report(self.data, self.units)
+        report = ll_reporter.Report(self.data, self.is_default(), self.units)
         report.make_excel('test_excel_report.xls', Config.xls_template_file)
 
     def values_changed(self, w):
@@ -578,7 +591,7 @@ class EntryApp(QtGui.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.units)
+                report = ll_reporter.Report(self.data, self.is_default(), self.units)
                 report_txt = report.make_text_report()
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
@@ -597,7 +610,7 @@ class EntryApp(QtGui.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.units)
+                report = ll_reporter.Report(self.data, self.is_default(), self.units)
                 report.make_excel(fname, Config.xls_template_file)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
@@ -658,7 +671,8 @@ class EntryApp(QtGui.QMainWindow):
         self.update_dict = True
             
     def read_forms(self):
-        """ Read self.data from widget inputs. """
+        """ Read self.data from widget inputs. Usually not needed, since
+        it's updated automatically. """
         for wname in self.input_widgets:
             self.data[self.widget_to_var[wname]] = self.input_widgets[wname].getVal()
 

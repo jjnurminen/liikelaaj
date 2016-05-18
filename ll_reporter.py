@@ -17,19 +17,20 @@ from xlutils.copy import copy
 class Report():
     """ Make various reports based on the data. """    
     
-    def __init__(self, data, units):
+    def __init__(self, data, is_default, units):
         # some special conversion for reporting purposes
         # add units as suffixes to data values
         self.data = {}
-        # if value is in not_measured_vals, it's counted as not measured and the corresponding variable is ignored (not reported)
-        self.not_measured_vals = [u'Ei mitattu', u'', u'EI']  # 'EI' is the checkbox (QtCheckBox) 'No' value
         # special values that don't take units as suffix
         self.nounits_vals = [u'NR', u'Ei']
-        for fld in data:
-            if data[fld] not in self.not_measured_vals+self.nounits_vals:
-                self.data[fld] = unicode(data[fld])+units[fld]
+        """ Add units as suffix to values that 1) have been input by user
+        and 2) are not in the list of no_units values """
+        for var in data:
+            if not is_default[var] and data[var] not in self.nounits_vals:
+                self.data[var] = unicode(data[var]) + units[var]
             else:
-                self.data[fld] = unicode(data[fld])
+                self.data[var] = unicode(data[var])
+        self.empty_fields = [key for key in is_default if is_default[key]]
 
     @staticmethod
     def get_field(s):
@@ -53,11 +54,13 @@ class Report():
         return ''.join(sout)
     
     @staticmethod
-    def cond_format(s, di, emptyvals=[None]):
-        """ Conditionally format string s using dict di: if all field values
-        are in emptyvals list, return empty string. """
+    def cond_format(s, di, empty_fields):
+        """ Conditionally format string s using dict di. If s has fields and
+        they all are in the empty_fields list, an empty string is returned. 
+        Otherwise the fields are formatted, and any other (non-field) is returned
+        as is. """
         flds = list(Report.get_field(s))
-        if not flds or any([di[fld] not in emptyvals for fld in flds]):
+        if not flds or any([fld not in empty_fields for fld in flds]):
             return s.format(**di)
         else:
             return ''
@@ -80,7 +83,7 @@ class Report():
             for fld in sorted(not_in_rep):
                 print(fld)
         # format fields and join into string
-        rep_text = ''.join([Report.cond_format(s, self.data, self.not_measured_vals) for s in report])
+        rep_text = ''.join([Report.cond_format(s, self.data, self.empty_fields) for s in report])
         # process backspaces
         rep_text = Report.backspace(rep_text)
         for it in postprocess_dict:
@@ -145,7 +148,7 @@ class Report():
                 if varname:
                     # conditionally format cell
                     newval = Report.cond_format(varname, self.data, 
-                                                self.not_measured_vals)
+                                                self.empty_fields)
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
                     if newval != varname:
