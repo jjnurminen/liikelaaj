@@ -45,6 +45,33 @@ import webbrowser
 from fix_taborder import set_taborder
 
 
+class Config(object):
+    """ Configurable things. In the future, might read some of these from
+    a config file. """
+    # 'not measured' value for spinboxes. shown in widget, written to data files.
+    not_measured_text = u'Ei mitattu'
+    # 'yes' and 'no' values for checkboxes. written to data files.
+    checkbox_yestext = u'Kyllä'
+    checkbox_notext = u'EI'
+    # Set dirs according to platform
+    if sys.platform == 'win32':
+        tmp_fldr = '/Temp'
+        data_root_fldr = 'C:/'
+    else:  # Linux
+        tmp_fldr = '/tmp'
+        data_root_fldr = '/'
+    tmpfile = tmp_fldr + '/liikelaajuus_tmp.json'
+    # exceptions that might be generated when parsing and loading/saving json
+    # these should all be caught
+    json_io_exceptions = (UnicodeDecodeError, EOFError, IOError, TypeError)
+    json_filter = u'JSON files (*.json)'
+    text_filter = u'Text files (*.txt)'
+    excel_filter = u'Excel files (*.xls)'
+    global_fontsize = 11
+    traceback_file = 'traceback.txt'
+    help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
+    xls_template_file = "rom_excel_template.xls"        
+
 
 class MyLineEdit(QtGui.QLineEdit):
     """ Custom line edit that selects the input on mouse click. """
@@ -233,7 +260,6 @@ class EntryApp(QtGui.QMainWindow):
         # load user interface made with Qt Designer
         uic.loadUi('tabbed_design.ui', self)
         set_taborder(self)
-        self.set_constants()
         self.init_widgets()
         self.data = {}
         # save empty form (default states for widgets)
@@ -247,7 +273,7 @@ class EntryApp(QtGui.QMainWindow):
         # whether to update internal dict of variables
         self.update_dict = True
         # load tmp file if it exists
-        if os.path.isfile(self.tmpfile):
+        if os.path.isfile(Config.tmpfile):
             self.message_dialog(ll_msgs.temp_found)            
             self.load_temp()
         # TODO: set locale and options if needed
@@ -259,28 +285,6 @@ class EntryApp(QtGui.QMainWindow):
         #    print('{%s}'%key)
         #print(self.units)
             
-    def set_constants(self):
-        self.not_measured_text = u'Ei mitattu'
-        self.checkbox_yestext = u'Kyllä'
-        self.checkbox_notext = u'EI'
-        # Set dirs according to platform
-        if sys.platform == 'win32':
-            self.tmp_fldr = '/Temp'
-            self.data_root_fldr = 'C:/'
-        else:  # Linux
-            self.tmp_fldr = '/tmp'
-            self.data_root_fldr = '/'
-        self.tmpfile = self.tmp_fldr + '/liikelaajuus_tmp.json'
-        # exceptions that might be generated when parsing and loading/saving json
-        # these should all be caught
-        self.json_io_exceptions = (UnicodeDecodeError, EOFError, IOError, TypeError)
-        self.json_filter = u'JSON files (*.json)'
-        self.text_filter = u'Text files (*.txt)'
-        self.excel_filter = u'Excel files (*.xls)'
-        self.global_fontsize = 11
-        self.traceback_file = 'traceback.txt'
-        self.help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
-        self.xls_template_file = "rom_excel_template.xls"        
         
     def init_widgets(self):
         """ Make a dict of our input widgets and install some callbacks and 
@@ -359,8 +363,8 @@ class EntryApp(QtGui.QMainWindow):
                 # -lambda expression needs to consume unused 'new value' argument,
                 # therefore two parameters (except for QTextEdit...)
                 w.valueChanged.connect(lambda x, w=w: self.values_changed(w))
-                w.setVal = lambda val, w=w: spinbox_setval(w, val, self.not_measured_text)
-                w.getVal = lambda w=w: spinbox_getval(w, self.not_measured_text)
+                w.setVal = lambda val, w=w: spinbox_setval(w, val, Config.not_measured_text)
+                w.getVal = lambda w=w: spinbox_getval(w, Config.not_measured_text)
                 #w.measured = lambda: w.getVal() != w.not_measured
                 w.unit = w.suffix()
             elif wname[:2] == 'ln':
@@ -377,8 +381,8 @@ class EntryApp(QtGui.QMainWindow):
                 w.getVal = lambda w=w: unicode(w.toPlainText()).strip()
             elif wname[:2] == 'xb':
                 w.stateChanged.connect(lambda x, w=w: self.values_changed(w))
-                w.setVal = lambda val, w=w: checkbox_setval(w, val, self.checkbox_yestext, self.checkbox_notext)
-                w.getVal = lambda w=w: checkbox_getval(w, self.checkbox_yestext, self.checkbox_notext)
+                w.setVal = lambda val, w=w: checkbox_setval(w, val, Config.checkbox_yestext, Config.checkbox_notext)
+                w.getVal = lambda w=w: checkbox_getval(w, Config.checkbox_yestext, Config.checkbox_notext)
             elif wname[:3] == 'csb':
                 w.valueChanged.connect(lambda w=w: self.values_changed(w))
                 w.getVal = w.value
@@ -434,7 +438,7 @@ class EntryApp(QtGui.QMainWindow):
         # try to increase font size
         #self.maintab.setStyleSheet('QTabBar { font-size: 14pt;}')
         #self.maintab.setStyleSheet('QWidget { font-size: 14pt;}')
-        self.setStyleSheet('QWidget { font-size: %dpt;}'%self.global_fontsize)
+        self.setStyleSheet('QWidget { font-size: %dpt;}'%Config.global_fontsize)
        
     def confirm_dialog(self, msg):
         """ Show yes/no dialog """
@@ -468,7 +472,7 @@ class EntryApp(QtGui.QMainWindow):
             
     def open_help(self):
         """ Show help. """
-        webbrowser.open(self.help_url)
+        webbrowser.open(Config.help_url)
             
     def debug_make_report(self):
         """ Make report using the input data. """
@@ -483,7 +487,7 @@ class EntryApp(QtGui.QMainWindow):
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
         report = ll_reporter.Report(self.data, self.units)
-        report.make_excel('test_excel_report.xls', self.xls_template_file)
+        report.make_excel('test_excel_report.xls', Config.xls_template_file)
 
     def values_changed(self, w):
         if self.update_dict:
@@ -533,21 +537,21 @@ class EntryApp(QtGui.QMainWindow):
 
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
-        fname = QtGui.QFileDialog.getOpenFileName(self, ll_msgs.open_title, self.data_root_fldr,
-                                                  self.json_filter)
+        fname = QtGui.QFileDialog.getOpenFileName(self, ll_msgs.open_title, Config.data_root_fldr,
+                                                  Config.json_filter)
         if fname:
             fname = unicode(fname)
             try:
                 self.load_file(fname)
                 self.last_saved_filename = fname
                 self.saved_to_file = True
-            except self.json_io_exceptions:
+            except Config.json_io_exceptions:
                 self.message_dialog(ll_msgs.cannot_open+fname)
 
     def save_dialog(self):
         """ Bring up save dialog and save data. """
-        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_report_title, self.data_root_fldr,
-                                                  self.json_filter)
+        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_report_title, Config.data_root_fldr,
+                                                  Config.json_filter)
         if fname:
             fname = unicode(fname)
             try:
@@ -555,17 +559,17 @@ class EntryApp(QtGui.QMainWindow):
                 self.saved_to_file = True
                 self.last_saved_filename = fname
                 self.statusbar.showMessage(ll_msgs.status_saved+fname)
-            except self.json_io_exceptions:
+            except Config.json_io_exceptions:
                 self.message_dialog(ll_msgs.cannot_save+fname)
 
     def save_report_dialog(self):
         """ Bring up save dialog and save report. """
         if self.last_saved_filename:
-            filename_def = self.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.txt'
+            filename_def = Config.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.txt'
         else:
-            filename_def = self.data_root_fldr
+            filename_def = Config.data_root_fldr
         fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title, filename_def,
-                                                  self.text_filter)
+                                                  Config.text_filter)
         if fname:
             fname = unicode(fname)
             try:
@@ -580,16 +584,16 @@ class EntryApp(QtGui.QMainWindow):
     def save_excel_report_dialog(self):
         """ Bring up save dialog and save Excel report. """
         if self.last_saved_filename:
-            filename_def = self.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.xls'
+            filename_def = Config.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.xls'
         else:
-            filename_def = self.data_root_fldr
+            filename_def = Config.data_root_fldr
         fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title, filename_def,
-                                                  self.excel_filter)
+                                                  Config.excel_filter)
         if fname:
             fname = unicode(fname)
             try:
                 report = ll_reporter.Report(self.data, self.units)
-                report.make_excel(fname, self.xls_template_file)
+                report.make_excel(fname, Config.xls_template_file)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 self.message_dialog(ll_msgs.cannot_save+fname)
@@ -612,20 +616,20 @@ class EntryApp(QtGui.QMainWindow):
     def save_temp(self):
         """ Save form input data into temporary backup file. Exceptions will be caught
         by the fatal exception mechanism. """
-        self.save_file(self.tmpfile)
-        self.statusbar.showMessage(ll_msgs.status_value_change.format(n=self.n_modified(), tmpfile=self.tmpfile))
+        self.save_file(Config.tmpfile)
+        self.statusbar.showMessage(ll_msgs.status_value_change.format(n=self.n_modified(), tmpfile=Config.tmpfile))
                 
     def load_temp(self):
         """ Load form input data from temporary backup file. """
         try:
-            self.load_file(self.tmpfile)
-        except self.json_load_exceptions:
+            self.load_file(Config.tmpfile)
+        except Config.json_load_exceptions:
             self.message_dialog(ll_msgs.cannot_open_tmp)
         
     def rm_temp(self):
         """ Remove temp file.  """
-        if os.path.isfile(self.tmpfile):
-            os.remove(self.tmpfile)
+        if os.path.isfile(Config.tmpfile):
+            os.remove(Config.tmpfile)
         
     def clear_forms_dialog(self):
         """ Ask whether to clear forms. If yes, set widget inputs to default values. """
@@ -671,7 +675,7 @@ def main():
         eapp.message_dialog(ll_msgs.unhandled_exception+tb_full)
         # dump traceback to file
         try:
-            with io.open(eapp.traceback_file, 'w', encoding='utf-8') as f:
+            with io.open(Config.traceback_file, 'w', encoding='utf-8') as f:
                 f.write(tb_full)
         # here is a danger of infinitely looping the exception hook,
         # so try to catch any exceptions...
