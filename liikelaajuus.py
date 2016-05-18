@@ -107,11 +107,8 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.degSpinBox = QtGui.QSpinBox()
         # these should be implemented as qt properties w/ getter and setter methods,
         # so they could be e.g. changed within Qt Designer
-        self.degSpinBox.setValue(-181)
-        #self.degSpinBox.setSuffix(u'°')
-        self.specialtext = u'Ei mitattu'
 
-        self.degSpinBox.setSpecialValueText(self.specialtext)
+        #self.degSpinBox.setSuffix(u'°')
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
         self.degSpinBox.setMinimumSize(100,0)
        
@@ -137,6 +134,9 @@ class CheckDegSpinBox(QtGui.QWidget):
         self.setSuffix(u'°')
         self.setMinimum(-181)
         self.setMaximum(180)
+        self.degSpinBox.setValue(-181)
+        self.specialtext = u'Ei mitattu'
+        self.degSpinBox.setSpecialValueText(self.specialtext)
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
