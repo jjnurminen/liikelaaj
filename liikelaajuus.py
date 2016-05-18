@@ -352,7 +352,6 @@ class EntryApp(QtGui.QMainWindow):
             wsave = True
             w.unit = ''  # if a widget input has units, set it below
             if wname[:2] == 'sp':
-                assert(w.__class__ == QtGui.QSpinBox or w.__class__ == QtGui.QDoubleSpinBox)
                 # -lambdas need default arguments because of late binding
                 # -lambda expression needs to consume unused 'new value' argument,
                 # therefore two parameters (except for QTextEdit...)
@@ -361,27 +360,22 @@ class EntryApp(QtGui.QMainWindow):
                 w.getVal = lambda w=w: spinbox_getval(w, self.not_measured_text)
                 w.unit = w.suffix()
             elif wname[:2] == 'ln':
-                assert(w.__class__ == QtGui.QLineEdit)
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = w.setText
                 w.getVal = lambda w=w: unicode(w.text()).strip()
             elif wname[:2] == 'cb':
-                assert(w.__class__ == QtGui.QComboBox)
                 w.currentIndexChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = lambda str, w=w: w.setCurrentIndex(w.findText(str))
                 w.getVal = lambda w=w: unicode(w.currentText())
             elif wname[:3] == 'cmt':
-                assert(w.__class__ == QtGui.QTextEdit)
                 w.textChanged.connect(lambda w=w: self.values_changed(w))
                 w.setVal = w.setPlainText
                 w.getVal = lambda w=w: unicode(w.toPlainText()).strip()
             elif wname[:2] == 'xb':
-                assert(w.__class__ == QtGui.QCheckBox)
                 w.stateChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = lambda val, w=w: checkbox_setval(w, val, self.checkbox_yestext, self.checkbox_notext)
                 w.getVal = lambda w=w: checkbox_getval(w, self.checkbox_yestext, self.checkbox_notext)
             elif wname[:3] == 'csb':
-                assert(w.__class__ == liikelaajuus.CheckDegSpinBox)
                 w.valueChanged.connect(lambda w=w: self.values_changed(w))
                 w.getVal = w.value
                 w.setVal = w.setValue
