@@ -49,7 +49,7 @@ class Config(object):
     """ Configurable things. In the future, might read some of these from
     a config file. """
     # 'not measured' value for spinboxes. shown in widget, written to data files.
-    not_measured_text = u'Ei mitattu'
+    spinbox_not_measured_text = u'Ei mitattu'
     # 'yes' and 'no' values for checkboxes. written to data files.
     checkbox_yestext = u'Kyllä'
     checkbox_notext = u'EI'
@@ -151,14 +151,19 @@ class CheckDegSpinBox(QtGui.QWidget):
 
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.setFocusProxy(self.degSpinBox)
-        
-        # defaults specific to 
+
+        """ Widget defaults are tailored for this program. For certain instances
+        of the widget, these values will be modified already by Qt Designer
+        (in the .ui file), so we set them only here and do not touch them 
+        later in the code. If exporting the widget, these can be deleted or
+        set to some other constants.
+        """
         self.setDefaultText(u'NR')
         self.setSuffix(u'°')
         self.setMinimum(-181)
         self.setMaximum(180)
         self.degSpinBox.setValue(-181)
-        self.specialtext = u'Ei mitattu'
+        self.specialtext = Config.spinbox_not_measured_text
         self.degSpinBox.setSpecialValueText(self.specialtext)
 
     def keyPressEvent(self, event):
@@ -363,8 +368,8 @@ class EntryApp(QtGui.QMainWindow):
                 # -lambda expression needs to consume unused 'new value' argument,
                 # therefore two parameters (except for QTextEdit...)
                 w.valueChanged.connect(lambda x, w=w: self.values_changed(w))
-                w.setVal = lambda val, w=w: spinbox_setval(w, val, Config.not_measured_text)
-                w.getVal = lambda w=w: spinbox_getval(w, Config.not_measured_text)
+                w.setVal = lambda val, w=w: spinbox_setval(w, val, Config.spinbox_not_measured_text)
+                w.getVal = lambda w=w: spinbox_getval(w, Config.spinbox_not_measured_text)
                 #w.measured = lambda: w.getVal() != w.not_measured
                 w.unit = w.suffix()
             elif wname[:2] == 'ln':
