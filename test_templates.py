@@ -18,11 +18,11 @@ import hashlib  # spark another owl...
 
 
 fn_xls_template = "rom_excel_template.xls"        
-fn_emptyvals = "empty.json"
-fn_ref = "anonyymi.json"
+fn_emptyvals = "testdata/empty.json"
+fn_ref = "testdata/anonyymi.json"
 uifile = "tabbed_design.ui"
-fn_txt_ref = "anonyymi.txt"
-fn_xls_ref = "anonyymi.xls"
+fn_txt_ref = "testdata/anonyymi.txt"
+fn_xls_ref = "testdata/anonyymi.xls"
 fn_txt_out = "nosetests_text_report.txt"
 fn_xls_out = "nosetests_xls_report.xls"
 
