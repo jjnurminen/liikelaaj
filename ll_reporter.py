@@ -12,6 +12,12 @@ import string
 from xlrd import open_workbook
 from xlutils.copy import copy
 
+
+# strings to replace in report (after filling the fields)
+text_postprocess_dict = {'EI': 'Ei'}  
+# strings to replace in .xls cells (after filling the fields)
+cell_postprocess_dict = {u'(EI)':'', u'(Kyllä)':u'(kl.)'}
+   
         
 
 class Report():
@@ -62,7 +68,7 @@ class Report():
         #reload(text_templates)
         ###
         # string replacements to do after formatting the whole report
-        postprocess_dict = {'EI': 'Ei'}  
+
         report = text_templates.report
         # check which fields are (not) present in report
         flds_report = set(Report.get_field(''.join(report)))
@@ -77,8 +83,8 @@ class Report():
         rep_text = ''.join([Report.cond_format(s, self.data, self.vars_default) for s in report])
         # process backspaces
         rep_text = Report.backspace(rep_text)
-        for it in postprocess_dict:
-            rep_text = rep_text.replace(it, postprocess_dict[it])
+        for txt, newtxt in text_postprocess_dict.iteritems():
+            rep_text = rep_text.replace(txt, newtxt)
         return rep_text
 
     def make_text_list(self):
@@ -123,30 +129,27 @@ class Report():
         fn_template must be in .xls (not xlsx) format, since formatting info
         cannot be read from xlsx (xlutils limitation). 
         xlrd and friends are weird, so this code is also weird. """
-        # string replacements to do after a cell is formatted
-        # WARNING: currently a bit hacky; watch out for unwanted changes
-        postprocess_dict = {u'(EI)':'', u'(Kyllä)':u'(kl.)'}
         rb = open_workbook(fn_template, formatting_info=True)
         wb = copy(rb)
         r_sheet = rb.sheet_by_index(0)
         w_sheet = wb.get_sheet(0)
-        # loop through cells, conditionally replace fields with variable names
-        # for unknown reasons, wb and rb are very different structures,
-        # so we read from rb and write to wb (using the hacky methods above)
+        # loop through cells, conditionally replace fields with variable names.
+        # for unclear reasons, wb and rb are very different structures,
+        # so we read from rb and write to corresponding cells of wb 
+        # (using the hacky methods above)
         for row in range(r_sheet.nrows):
             for col in range(r_sheet.ncols):
                 cl = r_sheet.cell(row, col)
                 varname = cl.value
-                if varname:
-                    # conditionally format cell
+                if varname:  # format non-empty cells
                     newval = Report.cond_format(varname, self.data, 
                                                 self.vars_default)
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
                     if newval != varname:
-                        for key in postprocess_dict:
-                            if key in newval:
-                                newval = newval.replace(key, postprocess_dict[key])
+                        for str, newstr in cell_postprocess_dict.iteritems():
+                            if str in newval:
+                                newval = newval.replace(str, newstr)
                     Report.setOutCell(w_sheet, col, row, newval)
         wb.save(fn_save)
         
