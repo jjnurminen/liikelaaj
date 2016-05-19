@@ -14,6 +14,7 @@ import text_templates
 from PyQt4 import uic, QtGui
 import liikelaajuus
 import sys
+import hashlib  # spark another owl...
 
 
 fn_xls_template = "rom_excel_template.xls"        
@@ -33,7 +34,7 @@ def test_text_report():
     """ Use app to load reference data and generate text report, compare
     with ref """
     app = QtGui.QApplication(sys.argv)
-    eapp = liikelaajuus.EntryApp()
+    eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
     report_txt = report.make_text_report()
@@ -44,6 +45,14 @@ def test_text_report():
 def test_xls_report():
     """ Use app to load reference data and generate xls report, compare
     with ref """
+    app = QtGui.QApplication(sys.argv)
+    eapp = liikelaajuus.EntryApp(check_temp_file=False)
+    eapp.load_file(fn_ref)
+    report = Report(eapp.data, eapp.vars_default(), eapp.units())
+    report.make_excel(fn_xls_out, fn_xls_template)
+    md5_ref = hashlib.md5(open(fn_xls_ref,'rb').read()).hexdigest()
+    md5_this = hashlib.md5(open(fn_xls_out,'rb').read()).hexdigest()
+    assert_equal(md5_ref, md5_this)
 
 def test_xls_template():
     """ Test validity of xls report template: no unknown vars

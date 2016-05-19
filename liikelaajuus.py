@@ -264,7 +264,7 @@ class CheckDegSpinBox(QtGui.QWidget):
 class EntryApp(QtGui.QMainWindow):
     """ Main window of application. """
     
-    def __init__(self):
+    def __init__(self, check_temp_file=True):
         super(self.__class__, self).__init__()
         # load user interface made with Qt Designer
         uic.loadUi('tabbed_design.ui', self)
@@ -282,7 +282,7 @@ class EntryApp(QtGui.QMainWindow):
         # whether to update internal dict of variables
         self.update_dict = True
         # load tmp file if it exists
-        if os.path.isfile(Config.tmpfile):
+        if os.path.isfile(Config.tmpfile) and check_temp_file:
             self.message_dialog(ll_msgs.temp_found)            
             self.load_temp()
         # TODO: set locale and options if needed
