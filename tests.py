@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 
+unit tests for liikelaajuus
+automatically run by 'nose2'
 
-@author: hus20664877
+@author: jussi (jnu@iki.fi)
 """
 
 from nose.tools import assert_set_equal, assert_in, assert_equal
@@ -39,9 +41,12 @@ with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
 app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
 
 """ Create instance of app that is not shown on screen (also event loop is not
-entered) but can be used to test various methods. """
+entered) but can be used to test various methods. NOTE: any existing temp file 
+may be deleted by the unit tests """
 eapp = liikelaajuus.EntryApp(check_temp_file=False)
 
+
+""" aux functions """
 
 def file_md5(fn):
     """ Get MD5 sum of file in a dumb way. Works for small files. """
@@ -58,6 +63,9 @@ def regen_ref_data():
     report_txt = report.make_text_report()
     with io.open(fn_txt_ref, 'w', encoding='utf-8') as f:
         f.write(report_txt)
+
+
+""" BEGIN TESTS """
 
 def test_save():
     """ Test saving data """

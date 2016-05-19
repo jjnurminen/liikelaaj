@@ -10,7 +10,7 @@ import io
 import json
 
 
-fn_emptyvals = "empty.json"
+fn_emptyvals = "testdata/empty.json"
 fn_out = "variable_list.txt"
 
 # write out variable list as text
