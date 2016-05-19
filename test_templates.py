@@ -35,10 +35,11 @@ fn_xls_out = "testdata/nosetests_xls_report.xls"
 with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
 
+app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
+
 def regen_ref_data():
     """ Create new reference reports from reference data. Overwrites previous
     ref reports without asking. Only run when reporting is known to be correct."""
-    app = QtGui.QApplication(sys.argv)
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
@@ -50,7 +51,6 @@ def regen_ref_data():
 def test_text_report():
     """ Use app to load reference data and generate text report, compare
     with ref report """
-    app = QtGui.QApplication(sys.argv)
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
@@ -62,7 +62,6 @@ def test_text_report():
 def test_xls_report():
     """ Use app to load reference data and generate xls report, compare
     with ref report """
-    app = QtGui.QApplication(sys.argv)
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
@@ -98,7 +97,6 @@ def test_widgets ():
     """ Check classes of Qt widgets. Check that variable names derived
     form the widgets match the empty json file. """
     # cannot refer to Qt widgets without creating a QApplication
-    app = QtGui.QApplication(sys.argv)
     mainui = uic.loadUi(uifile)
     widgets = mainui.findChildren(QtGui.QWidget)          
     varnames = set()
