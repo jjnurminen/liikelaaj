@@ -18,21 +18,38 @@ import hashlib  # spark another owl...
 
 
 fn_xls_template = "rom_excel_template.xls"        
+uifile = "tabbed_design.ui"
+
+""" reference json data. must be updated if variables are changed. """
 fn_emptyvals = "testdata/empty.json"
 fn_ref = "testdata/anonyymi.json"
-uifile = "tabbed_design.ui"
+
+""" reference reports. must be updated if some aspect of reporting
+changes. use regen_ref_data() below. """
 fn_txt_ref = "testdata/anonyymi.txt"
 fn_xls_ref = "testdata/anonyymi.xls"
-fn_txt_out = "nosetests_text_report.txt"
-fn_xls_out = "nosetests_xls_report.xls"
 
+""" written out by tests below """
+fn_xls_out = "testdata/nosetests_xls_report.xls"
 
 with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
 
+def regen_ref_data():
+    """ Create new reference reports from reference data. Overwrites previous
+    ref reports without asking. Only run when reporting is known to be correct."""
+    app = QtGui.QApplication(sys.argv)
+    eapp = liikelaajuus.EntryApp(check_temp_file=False)
+    eapp.load_file(fn_ref)
+    report = Report(eapp.data, eapp.vars_default(), eapp.units())
+    report.make_excel(fn_xls_ref, fn_xls_template)
+    report_txt = report.make_text_report()
+    with io.open(fn_txt_ref, 'w', encoding='utf-8') as f:
+        f.write(report_txt)
+
 def test_text_report():
     """ Use app to load reference data and generate text report, compare
-    with ref """
+    with ref report """
     app = QtGui.QApplication(sys.argv)
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
@@ -44,7 +61,7 @@ def test_text_report():
 
 def test_xls_report():
     """ Use app to load reference data and generate xls report, compare
-    with ref """
+    with ref report """
     app = QtGui.QApplication(sys.argv)
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
