@@ -5,7 +5,7 @@
 @author: hus20664877
 """
 
-from nose.tools import assert_set_equal, assert_in
+from nose.tools import assert_set_equal, assert_in, assert_equal
 from xlrd import open_workbook
 import io
 import json
@@ -18,10 +18,32 @@ import sys
 
 fn_xls_template = "rom_excel_template.xls"        
 fn_emptyvals = "empty.json"
+fn_ref = "anonyymi.json"
 uifile = "tabbed_design.ui"
+fn_txt_ref = "anonyymi.txt"
+fn_xls_ref = "anonyymi.xls"
+fn_txt_out = "nosetests_text_report.txt"
+fn_xls_out = "nosetests_xls_report.xls"
+
 
 with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
+
+def test_text_report():
+    """ Use app to load reference data and generate text report, compare
+    with ref """
+    app = QtGui.QApplication(sys.argv)
+    eapp = liikelaajuus.EntryApp()
+    eapp.load_file(fn_ref)
+    report = Report(eapp.data, eapp.vars_default(), eapp.units())
+    report_txt = report.make_text_report()
+    with io.open(fn_txt_ref, 'r', encoding='utf-8') as f:
+        report_ref = f.read()
+    assert_equal(report_ref, report_txt)
+
+def test_xls_report():
+    """ Use app to load reference data and generate xls report, compare
+    with ref """
 
 def test_xls_template():
     """ Test validity of xls report template: no unknown vars
