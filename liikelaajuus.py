@@ -51,12 +51,9 @@ class Config(object):
     """ The 'not measured' value for spinboxes. For regular spinboxes, this
     is the value that gets written to data files, but it does not affect
     the value shown next to the spinbox (that is set in Qt Designer).
-    For the CheckDegSpinBox class, this value is also shown next to the widget
-    in the user interface. """
+    For the CheckDegSpinBox class, this is also the value shown next to the 
+    widget in the user interface. """
     spinbox_novalue_text = u'Ei mitattu'
-    """ Similar to above. Only gets written to the file, the visible value
-    is set in Qt Designer. """
-    combobox_novalue_text = u'Ei mitattu'
     """ 'yes' and 'no' values for checkboxes. Written to data files. """
     checkbox_yestext = u'Kyllä'
     checkbox_notext = u'EI'
