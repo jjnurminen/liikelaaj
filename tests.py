@@ -31,6 +31,7 @@ fn_xls_ref = "testdata/anonyymi.xls"
 
 """ written out by tests below """
 fn_xls_out = "testdata/nosetests_xls_report.xls"
+fn_out = "testdata/nosetests.json"
 
 with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
@@ -41,6 +42,10 @@ app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
 entered) but can be used to test various methods. """
 eapp = liikelaajuus.EntryApp(check_temp_file=False)
 
+
+def file_md5(fn):
+    """ Get MD5 sum of file in a dumb way. Works for small files. """
+    return hashlib.md5(open(fn,'rb').read()).hexdigest()
 
 def regen_ref_data():
     """ Create new reference reports from reference data. Overwrites previous
@@ -53,6 +58,12 @@ def regen_ref_data():
     report_txt = report.make_text_report()
     with io.open(fn_txt_ref, 'w', encoding='utf-8') as f:
         f.write(report_txt)
+
+def test_save():
+    """ Test saving data """
+    eapp.load_file(fn_ref)
+    eapp.save_file(fn_out)
+    assert_equal(file_md5(fn_ref), file_md5(fn_out))
 
 def test_text_report():
     """ Use app to load reference data and generate text report, compare
@@ -70,9 +81,7 @@ def test_xls_report():
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
     report.make_excel(fn_xls_out, fn_xls_template)
-    md5_ref = hashlib.md5(open(fn_xls_ref,'rb').read()).hexdigest()
-    md5_this = hashlib.md5(open(fn_xls_out,'rb').read()).hexdigest()
-    assert_equal(md5_ref, md5_this)
+    assert_equal(file_md5(fn_xls_out), file_md5(fn_xls_ref))
 
 def test_xls_template():
     """ Test validity of xls report template: no unknown vars
