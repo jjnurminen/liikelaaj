@@ -37,9 +37,15 @@ with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
 
 app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
 
+""" Create instance of app that is not shown on screen (also event loop is not
+entered) but can be used to test various methods. """
+eapp = liikelaajuus.EntryApp(check_temp_file=False)
+
+
 def regen_ref_data():
     """ Create new reference reports from reference data. Overwrites previous
     ref reports without asking. Only run when reporting is known to be correct."""
+    app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
@@ -51,7 +57,6 @@ def regen_ref_data():
 def test_text_report():
     """ Use app to load reference data and generate text report, compare
     with ref report """
-    eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
     report_txt = report.make_text_report()
@@ -62,7 +67,6 @@ def test_text_report():
 def test_xls_report():
     """ Use app to load reference data and generate xls report, compare
     with ref report """
-    eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
     report.make_excel(fn_xls_out, fn_xls_template)
