@@ -336,6 +336,19 @@ class EntryApp(QtGui.QMainWindow):
                 w.setCheckState(0)
             else:
                 raise Exception('Unexpected checkbox entry value')
+                
+        def combobox_getval(w):
+            """ Get combobox current choice as text """
+            return unicode(w.currentText())
+
+        def combobox_setval(w, val):
+            """ Set combobox value according to val (unicode) (must be one of
+            the combobox items) """
+            idx = w.findText(val)
+            if idx >= 0:
+                w.setCurrentIndex(idx)
+            else:
+                raise ValueError('Tried to set combobox to invalid value.')
 
         def keyPressEvent_resetOnEsc(obj, event):
             """ Special event handler for spinboxes. Resets value (sets it
@@ -389,8 +402,8 @@ class EntryApp(QtGui.QMainWindow):
                 w.getVal = lambda w=w: unicode(w.text()).strip()
             elif wname[:2] == 'cb':
                 w.currentIndexChanged.connect(lambda x, w=w: self.values_changed(w))
-                w.setVal = lambda str, w=w: w.setCurrentIndex(w.findText(str))
-                w.getVal = lambda w=w: unicode(w.currentText())
+                w.setVal = lambda val, w=w: combobox_setval(w, val)
+                w.getVal = lambda w=w: combobox_getval(w)
             elif wname[:3] == 'cmt':
                 w.textChanged.connect(lambda w=w: self.values_changed(w))
                 w.setVal = w.setPlainText
