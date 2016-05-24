@@ -505,8 +505,9 @@ class EntryApp(QtGui.QMainWindow):
             event.accept()
         else:
             event.ignore()
-            
-    def open_help(self):
+
+    @staticmethod            
+    def open_help():
         """ Show help. """
         webbrowser.open(Config.help_url)
             
@@ -662,7 +663,8 @@ class EntryApp(QtGui.QMainWindow):
         except Config.json_load_exceptions:
             self.message_dialog(ll_msgs.cannot_open_tmp)
         
-    def rm_temp(self):
+    @staticmethod
+    def rm_temp():
         """ Remove temp file.  """
         if os.path.isfile(Config.tmpfile):
             os.remove(Config.tmpfile)
