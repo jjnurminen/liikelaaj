@@ -114,6 +114,10 @@ Asteikko: 0-5, missä 5 on vahvin ja 3 voittaa painovoiman. Selektiivisyys, miss
 #Kommentit (voimat): {cmtVoima1}
 {cmtVoima2}#
 
+Dynaaminen EMG:
+Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista: soleus, gastrocnemius, peroneus, tibialis anterior, rectus, med hamstring, vastus, gluteus.
+Kommentit:
+
 
 SUUNNITELMA/POHDINTA:
 

@@ -95,6 +95,10 @@ Varpaiden (2-5) koukistus 4/0 (0/0). Suorat vatsalihakset 5. Selkälihakset 1-.
 Kommentit (voimat): Polven ojennusliike provosoi polvikipua - saattaa olla vahvempi kuin 3+, mutta kivun vuoksi ei toisteta. Polvikierukkatesti provosoi kipua vasemmassa polvessa.
 
 
+Dynaaminen EMG:
+Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista: soleus, gastrocnemius, peroneus, tibialis anterior, rectus, med hamstring, vastus, gluteus.
+Kommentit:
+
 
 SUUNNITELMA/POHDINTA:
 
