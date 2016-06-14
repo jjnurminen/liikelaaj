@@ -9,6 +9,7 @@ Created on Mon Feb 08 15:15:03 2016
 temp_found = u'Väliaikainen tallennustiedosto löytyi. Ohjelmaa ei ehkä suljettu oikein. Yritetään ladata tiedosto.'
 clear = u'Haluatko varmasti tyhjentää kaikkien lomakkeiden tiedot?'
 clear_not_saved = u'Tietoja ei ole tallennettu! Haluatko varmasti tyhjentää kaikkien lomakkeiden tiedot?'
+load_not_saved = u'Tietoja ei ole tallennettu! Haluatko varmasti ladata uudet tiedot?'
 quit_ = u'Haluatko varmasti sulkea ohjelman?'
 quit_not_saved = u'Tietoja ei ole tallennettu! Haluatko varmasti sulkea ohjelman?'
 open_title = u'Avaa tiedosto'

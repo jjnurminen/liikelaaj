@@ -574,16 +574,17 @@ class EntryApp(QtGui.QMainWindow):
 
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
-        fname = QtGui.QFileDialog.getOpenFileName(self, ll_msgs.open_title, Config.data_root_fldr,
-                                                  Config.json_filter)
-        if fname:
-            fname = unicode(fname)
-            try:
-                self.load_file(fname)
-                self.last_saved_filename = fname
-                self.saved_to_file = True
-            except Config.json_io_exceptions:
-                self.message_dialog(ll_msgs.cannot_open+fname)
+        if self.saved_to_file or self.confirm_dialog(ll_msgs.load_not_saved):
+            fname = QtGui.QFileDialog.getOpenFileName(self, ll_msgs.open_title, Config.data_root_fldr,
+                                                      Config.json_filter)
+            if fname:
+                fname = unicode(fname)
+                try:
+                    self.load_file(fname)
+                    self.last_saved_filename = fname
+                    self.saved_to_file = True
+                except Config.json_io_exceptions:
+                    self.message_dialog(ll_msgs.cannot_open+fname)
 
     def save_dialog(self):
         """ Bring up save dialog and save data. """
@@ -679,6 +680,7 @@ class EntryApp(QtGui.QMainWindow):
             self.data = self.data_empty.copy()
             self.restore_forms()
             self.statusbar.showMessage(ll_msgs.status_cleared)
+            self.saved_to_file = True  # empty data assumed 'saved'
     
     def restore_forms(self):
         """ Restore widget input values from self.data. Need to disable widget callbacks
