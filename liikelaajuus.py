@@ -5,12 +5,12 @@ Tested with PyQt 4.8 and Python 2.7.
 
 
 design:
--separate ui file with all the widgets is made with Qt Designer and loaded 
+-separate ui file with all the widgets is made with Qt Designer and loaded
  using uic
 -custom widget (check+spinbox), plugin file should be made available to Qt
 designer (checkspinbox_plugin.py)
--widget naming: first 2-3 chars indicate widget type, next word indicates 
- variable category or page where widget resides, the rest indicates the 
+-widget naming: first 2-3 chars indicate widget type, next word indicates
+ variable category or page where widget resides, the rest indicates the
  variable (e.g. lnTiedotNimi)
 -widget inputs are updated into internal dict immediately when any value
  changes
@@ -29,7 +29,6 @@ TODO:
 """
 
 
-
 from __future__ import print_function
 
 from PyQt4 import QtGui, uic, QtCore
@@ -37,6 +36,7 @@ import sys
 import traceback
 import io
 import os
+import os.path as op
 import json
 import ll_reporter
 import ll_msgs
@@ -45,13 +45,14 @@ import webbrowser
 from fix_taborder import set_taborder
 
 
+
 class Config(object):
     """ Configurable things. In the future, might read some of these from
     a config file. """
     """ The 'not measured' value for spinboxes. For regular spinboxes, this
     is the value that gets written to data files, but it does not affect
     the value shown next to the spinbox (that is set in Qt Designer).
-    For the CheckDegSpinBox class, this is also the value shown next to the 
+    For the CheckDegSpinBox class, this is also the value shown next to the
     widget in the user interface. """
     spinbox_novalue_text = u'Ei mitattu'
     """ 'yes' and 'no' values for checkboxes. Written to data files. """
@@ -74,13 +75,13 @@ class Config(object):
     global_fontsize = 11
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
-    xls_template_file = "rom_excel_template.xls"        
+    xls_template_file = "rom_excel_template.xls"
 
 
 class MyLineEdit(QtGui.QLineEdit):
     """ Custom line edit that selects the input on mouse click. """
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
 
     def mousePressEvent(self, event):
@@ -88,17 +89,18 @@ class MyLineEdit(QtGui.QLineEdit):
         self.selectAll()
 
     def mouseReleaseEvent(self, event):
-        """ Make drag & release select all too (prevent selection of partial text) """
+        """ Make drag & release select all too (prevent selection
+        of partial text) """
         super(self.__class__, self).mouseReleaseEvent(event)
         self.selectAll()
-        
+
 
 class DegLineEdit(QtGui.QLineEdit):
     """ Custom line edit for CheckDegSpinBox class. Catches space key and
     passes it to CheckDegSpinBox. """
 
-    def __init__(self, parent = None):
-        #super(self.__class__, self).__init__(parent)
+    def __init__(self, parent=None):
+        # super(self.__class__, self).__init__(parent)
         QtGui.QLineEdit.__init__(self, parent)
 
     def mousePressEvent(self, event):
@@ -106,46 +108,48 @@ class DegLineEdit(QtGui.QLineEdit):
         self.selectAll()
 
     def mouseReleaseEvent(self, event):
-        """ Make drag & release select all too (prevent selection of partial text) """
+        """ Make drag & release select all too (prevent selection of
+        partial text) """
         super(self.__class__, self).mouseReleaseEvent(event)
         self.selectAll()
-    
+
     def keyPressEvent(self, event):
         # pass space key to grandparent (CheckDegSpinBox)
         if event.key() == QtCore.Qt.Key_Space:
             self.parent().parent().keyPressEvent(event)
         else:
             super(self.__class__, self).keyPressEvent(event)
-                
+
 
 class CheckDegSpinBox(QtGui.QWidget):
-    """ Custom widget: Spinbox (degrees) with checkbox signaling "default value".
-    If checkbox is checked, disable spinbox -> value() returns the default value
-    shown next to checkbox (defaultText property)
-    Otherwise value() returns spinbox value. 
-    setValue() takes either the default value, the 'special value' (not measured) or 
-    integer.
+    """ Custom widget: Spinbox (degrees) with checkbox signaling
+    "default value". If checkbox is checked, disable spinbox -> value() returns
+    the default value shown next to checkbox (defaultText property).
+    Otherwise value() returns spinbox value.
+    setValue() takes either the default value, the 'special value'
+    (not measured) or  integer.
     """
     # signal has to be defined here for unclear reasons
     # note that currently the value is not returned by the signal
     # (unlike in the Qt spinbox)
-    valueChanged = QtCore.pyqtSignal()  
+    valueChanged = QtCore.pyqtSignal()
     # for Qt designer
     __pyqtSignals__ = ('valueChanged')
-    
+
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.degSpinBox = QtGui.QSpinBox()
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
-        self.degSpinBox.setMinimumSize(100,0)
-       
+        self.degSpinBox.setMinimumSize(100, 0)
+
         self.normalCheckBox = QtGui.QCheckBox()
-        self.normalCheckBox.stateChanged.connect(lambda state: self.setSpinBox(not state))
+        self.normalCheckBox.stateChanged.connect(lambda state:
+                                                 self.setSpinBox(not state))
 
         # default text
         layout = QtGui.QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        #layout.addWidget(normalLabel, 0, 0)
+        # layout.addWidget(normalLabel, 0, 0)
         layout.addWidget(self.degSpinBox)
         layout.addWidget(self.normalCheckBox)
 
@@ -158,7 +162,7 @@ class CheckDegSpinBox(QtGui.QWidget):
 
         """ Widget defaults are tailored for this program. For certain instances
         of the widget, these values will be modified already by Qt Designer
-        (in the .ui file), so we set them only here and do not touch them 
+        (in the .ui file), so we set them only here and do not touch them
         later in the code. If exporting the widget, these can be deleted or
         set to some other constants.
         """
@@ -182,33 +186,33 @@ class CheckDegSpinBox(QtGui.QWidget):
     changed from Qt Designer. """
     def setDefaultText(self, text):
         self.normalCheckBox.setText(text)
-        
+
     def getDefaultText(self):
         return self.normalCheckBox.text()
-        
+
     def setSuffix(self, text):
         self.degSpinBox.setSuffix(text)
-        
+
     def getSuffix(self):
         return self.degSpinBox.suffix()
-        
+
     def setMinimum(self, min):
         self.degSpinBox.setMinimum(min)
 
     def getMinimum(self):
         return self.degSpinBox.minimum()
-        
+
     def setMaximum(self, max):
         self.degSpinBox.setMaximum(max)
 
     def getMaximum(self):
         return self.degSpinBox.maximum()
-        
-    defaultText = QtCore.pyqtProperty('QString', getDefaultText, setDefaultText)
+
+    defaultText = QtCore.pyqtProperty('QString', getDefaultText,
+                                      setDefaultText)
     suffix = QtCore.pyqtProperty('QString', getSuffix, setSuffix)
     minimum = QtCore.pyqtProperty('int', getMinimum, setMinimum)
-    maximum = QtCore.pyqtProperty('int', getMaximum, setMaximum)        
-
+    maximum = QtCore.pyqtProperty('int', getMaximum, setMaximum)
 
     def value(self):
         if self.normalCheckBox.checkState() == 0:
@@ -229,15 +233,15 @@ class CheckDegSpinBox(QtGui.QWidget):
                 self.degSpinBox.setValue(self.degSpinBox.minimum())
             else:
                 self.degSpinBox.setValue(val)
-                
+
     def selectAll(self):
         self.degSpinBox.selectAll()
-        
+
     def setFocus(self):
         self.degSpinBox.setFocus()
-    
+
     def setSpinBox(self, state):
-        """ Enables or disables spinbox input. Also emit valueChanged signal """
+        """ Enables or disables spinbox input. Also emit valueChanged. """
         if state and not self.isEnabled():
                 self.degSpinBox.setEnabled(True)
                 self.degSpinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
@@ -255,15 +259,15 @@ class CheckDegSpinBox(QtGui.QWidget):
 
     def isEnabled(self):
         return self.degSpinBox.isEnabled()
-       
-    # not sure if useful       
-    #def sizeHint(self):  
+
+    # not sure if useful
+    # def sizeHint(self):
     #    return QSize(150,20)
 
 
 class EntryApp(QtGui.QMainWindow):
     """ Main window of application. """
-    
+
     def __init__(self, check_temp_file=True):
         super(self.__class__, self).__init__()
         # load user interface made with Qt Designer
@@ -282,20 +286,21 @@ class EntryApp(QtGui.QMainWindow):
         # whether to update internal dict of variables
         self.update_dict = True
         # load tmp file if it exists
-        if os.path.isfile(Config.tmpfile) and check_temp_file:
-            self.message_dialog(ll_msgs.temp_found)            
+        if op.isfile(Config.tmpfile) and check_temp_file:
+            self.message_dialog(ll_msgs.temp_found)
             self.load_temp()
         # TODO: set locale and options if needed
-        #loc = QtCore.QLocale()
-        #loc.setNumberOptions(loc.OmitGroupSeparator | loc.RejectGroupSeparator)
+        # loc = QtCore.QLocale()
+        # loc.setNumberOptions(loc.OmitGroupSeparator |
+        #            loc.RejectGroupSeparator)
         # special text written out for non-measured variables
         # DEBUG: print all vars
-        #for key in sorted(self.data.keys()):
+        # for key in sorted(self.data.keys()):
         #    print('{%s}'%key)
-        #print(self.units)
-        
+        # print(self.units)
+
     def init_widgets(self):
-        """ Make a dict of our input widgets and install some callbacks and 
+        """ Make a dict of our input widgets and install some callbacks and
         convenience methods etc. """
         self.input_widgets = {}
 
@@ -307,7 +312,7 @@ class EntryApp(QtGui.QMainWindow):
                 return w.no_value_text
             else:
                 return val
-                
+
         def spinbox_setval(w, val):
             """ Set spinbox value. val == mintext causes value to
             be set to minimum. """
@@ -315,7 +320,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.setValue(w.minimum())
             else:
                 w.setValue(val)
-            
+
         def checkbox_getval(w):
             """ Return yestext or notext for checkbox enabled/disabled,
             respetively. """
@@ -326,7 +331,7 @@ class EntryApp(QtGui.QMainWindow):
                 return w.yes_text
             else:
                 raise Exception('Unexpected checkbox value')
-                
+
         def checkbox_setval(w, val):
             """ Set checkbox value to enabled for val == yestext and
             disabled for val == notext """
@@ -336,7 +341,7 @@ class EntryApp(QtGui.QMainWindow):
                 w.setCheckState(0)
             else:
                 raise Exception('Unexpected checkbox entry value')
-                
+
         def combobox_getval(w):
             """ Get combobox current choice as text """
             return unicode(w.currentText())
@@ -357,7 +362,7 @@ class EntryApp(QtGui.QMainWindow):
                 obj.setValue(obj.minimum())
             else:
                 super(obj.__class__, obj).keyPressEvent(event)
-                
+
         def isint(x):
             """ Test for integer """
             try:
@@ -365,31 +370,32 @@ class EntryApp(QtGui.QMainWindow):
                 return True
             except ValueError:
                 return False
-                
-        """ Change lineEdit to custom one for spinboxes. This cannot be done in the 
-        main widget loop below, because the old QLineEdits get destroyed in the process (by Qt)
-        and the loop then segfaults while trying to dereference them (the loop collects
-        all QLineEdits at the start).
+
+        """ Change lineEdit to custom one for spinboxes. This cannot be done in
+        the main widget loop below, because the old QLineEdits get destroyed in
+        the process (by Qt) and the loop then segfaults while trying to
+        dereference them (the loop collects all QLineEdits at the start).
         Also install special keypress event handler. """
         for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
             wname = unicode(w.objectName())
             if wname[:2] == 'sp':
                 w.setLineEdit(MyLineEdit())
-                w.keyPressEvent = lambda event, w=w: keyPressEvent_resetOnEsc(w, event)
-        
+                w.keyPressEvent = (lambda event, w=w:
+                                   keyPressEvent_resetOnEsc(w, event))
+
         """ CheckDegSpinBox class gets a special LineEdit that catches space
         and mouse press events """
         for w in self.findChildren((liikelaajuus.CheckDegSpinBox)):
             w.degSpinBox.setLineEdit(DegLineEdit())
 
-        """ Set various widget convenience methods/properties """        
-        for w in self.findChildren(QtGui.QWidget):            
+        """ Set various widget convenience methods/properties """
+        for w in self.findChildren(QtGui.QWidget):
             wname = unicode(w.objectName())
             wsave = True
             w.unit = lambda: ''  # if a widget input has units, set it below
             if wname[:2] == 'sp':
                 # -lambdas need default arguments because of late binding
-                # -lambda expression needs to consume unused 'new value' argument,
+                # -lambda expression needs to consume unused 'new value' arg,
                 # therefore two parameters (except for QTextEdit...)
                 w.valueChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.no_value_text = Config.spinbox_novalue_text
@@ -401,7 +407,8 @@ class EntryApp(QtGui.QMainWindow):
                 w.setVal = w.setText
                 w.getVal = lambda w=w: unicode(w.text()).strip()
             elif wname[:2] == 'cb':
-                w.currentIndexChanged.connect(lambda x, w=w: self.values_changed(w))
+                w.currentIndexChanged.connect(lambda x,
+                                              w=w: self.values_changed(w))
                 w.setVal = lambda val, w=w: combobox_setval(w, val)
                 w.getVal = lambda w=w: combobox_getval(w)
             elif wname[:3] == 'cmt':
@@ -411,7 +418,7 @@ class EntryApp(QtGui.QMainWindow):
             elif wname[:2] == 'xb':
                 w.stateChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.yes_text = Config.checkbox_yestext
-                w.no_text = Config.checkbox_notext                
+                w.no_text = Config.checkbox_notext
                 w.setVal = lambda val, w=w: checkbox_setval(w, val)
                 w.getVal = lambda w=w: checkbox_getval(w)
             elif wname[:3] == 'csb':
@@ -435,9 +442,9 @@ class EntryApp(QtGui.QMainWindow):
         self.btnQuit.clicked.connect(self.close)
         # method call on tab change
         self.maintab.currentChanged.connect(self.page_change)
-        """ First widget of each page. This is used to do focus/selectall on the 1st widget
-        on page change so that data can be entered immediately. Only needed for 
-        spinbox / lineedit widgets. """
+        """ First widget of each page. This is used to do focus/selectall on
+        the 1st widget on page change so that data can be entered immediately.
+        Only needed for spinbox / lineedit widgets. """
         self.firstwidget = {}
         # TODO: check/fix
         self.firstwidget[self.tabTiedot] = self.lnTiedotNimi
@@ -452,7 +459,8 @@ class EntryApp(QtGui.QMainWindow):
         # TODO: set 'important' widgets (mandatory values) .important = True
         """ Set up widget -> varname translation dict. Currently variable names
         are derived by removing 2 first characters from widget names (except
-        for comment box variables cmt* which are identical with widget names). """
+        for comment box variables cmt* which are identical with widget names).
+        """
         self.widget_to_var = {}
         for wname in self.input_widgets:
             if wname[:3] == 'cmt':
@@ -463,37 +471,43 @@ class EntryApp(QtGui.QMainWindow):
                 varname = wname[2:]
             self.widget_to_var[wname] = varname
         # try to increase font size
-        #self.maintab.setStyleSheet('QTabBar { font-size: 14pt;}')
-        #self.maintab.setStyleSheet('QWidget { font-size: 14pt;}')
-        self.setStyleSheet('QWidget { font-size: %dpt;}'%Config.global_fontsize)
+        # self.maintab.setStyleSheet('QTabBar { font-size: 14pt;}')
+        # self.maintab.setStyleSheet('QWidget { font-size: 14pt;}')
+        self.setStyleSheet('QWidget { font-size: %dpt;}'
+                           % Config.global_fontsize)
 
     def units(self):
-        """ Return dict indicating the units for each variable. This may change 
+        """ Return dict indicating the units for each variable. This may change
         dynamically as the unit may be set to '' for special values. """
-        return {self.widget_to_var[wname]: self.input_widgets[wname].unit() for wname in self.input_widgets}
-     
+        return {self.widget_to_var[wname]: self.input_widgets[wname].unit()
+                for wname in self.input_widgets}
+
     def vars_default(self):
         """ Return a list of variables that are at default state. """
-        return [key for key in self.data if self.data[key] == self.data_empty[key]]
-     
+        return [key for key in self.data if
+                self.data[key] == self.data_empty[key]]
+
     def confirm_dialog(self, msg):
         """ Show yes/no dialog. """
         dlg = QtGui.QMessageBox()
         dlg.setText(msg)
         dlg.setWindowTitle(ll_msgs.message_title)
-        dlg.addButton(QtGui.QPushButton(ll_msgs.yes_button), QtGui.QMessageBox.YesRole)
-        dlg.addButton(QtGui.QPushButton(ll_msgs.no_button), QtGui.QMessageBox.NoRole)        
+        dlg.addButton(QtGui.QPushButton(ll_msgs.yes_button),
+                      QtGui.QMessageBox.YesRole)
+        dlg.addButton(QtGui.QPushButton(ll_msgs.no_button),
+                      QtGui.QMessageBox.NoRole)
         dlg.exec_()
         return dlg.buttonRole(dlg.clickedButton())
-        
+
     def message_dialog(self, msg):
         """ Show message with an 'OK' button. """
         dlg = QtGui.QMessageBox()
         dlg.setWindowTitle(ll_msgs.message_title)
         dlg.setText(msg)
-        dlg.addButton(QtGui.QPushButton(ll_msgs.ok_button), QtGui.QMessageBox.YesRole)        
+        dlg.addButton(QtGui.QPushButton(ll_msgs.ok_button),
+                      QtGui.QMessageBox.YesRole)
         dlg.exec_()
-        
+
     def closeEvent(self, event):
         """ Confirm and close application. """
         if not self.saved_to_file:
@@ -506,44 +520,46 @@ class EntryApp(QtGui.QMainWindow):
         else:
             event.ignore()
 
-    @staticmethod            
+    @staticmethod
     def open_help():
         """ Show help. """
         webbrowser.open(Config.help_url)
-            
+
     def debug_make_report(self):
         """ Make report using the input data. """
-        report = ll_reporter.Report(self.data, self.vars_default(), self.units())
+        report = ll_reporter.Report(self.data, self.vars_default(),
+                                    self.units())
         report_txt = report.make_text_report()
         print(report_txt)
         fname = 'report_koe.txt'
-        with io.open(fname,'w',encoding='utf-8') as f:
+        with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)
         self.statusbar.showMessage(ll_msgs.wrote_report.format(filename=fname))
 
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
-        report = ll_reporter.Report(self.data, self.vars_default(), self.units())
+        report = ll_reporter.Report(self.data, self.vars_default(),
+                                    self.units())
         report.make_excel('test_excel_report.xls', Config.xls_template_file)
 
     def values_changed(self, w):
         if self.update_dict:
             # DEBUG
-            #print('updating dict for:', w.objectName(),'new value:',w.getVal())
+            # print('updating dict:', w.objectName(),'new value:',w.getVal())
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: text report on every widget update
-            #reload(ll_reporter)  # can edit reporter / template while running
-            #self.debug_make_report()
+            # reload(ll_reporter)  # can edit reporter / template while running
+            # self.debug_make_report()
             # DEBUG: xls at every update
-            #self.debug_make_excel_report()
+            # self.debug_make_excel_report()
         self.saved_to_file = False
         if self.save_to_tmp:
             self.save_temp()
-        
+
     def load_file(self, fname):
         """ Load data from given file and restore forms. """
-        if os.path.isfile(fname):
+        if op.isfile(fname):
             with io.open(fname, 'r', encoding='utf-8') as f:
                 data_loaded = json.load(f)
             keys, loaded_keys = set(self.data), set(data_loaded)
@@ -553,7 +569,8 @@ class EntryApp(QtGui.QMainWindow):
                 if key in self.data:
                     self.data[key] = data_loaded[key]
             self.restore_forms()
-            self.statusbar.showMessage(ll_msgs.status_loaded.format(filename=fname, n=self.n_modified()))
+            self.statusbar.showMessage(ll_msgs.status_loaded.format(
+                                       filename=fname, n=self.n_modified()))
 
     def keyerror_dialog(self, origkeys, newkeys):
         """ Report missing / extra keys to user. """
@@ -564,7 +581,8 @@ class EntryApp(QtGui.QMainWindow):
         if extra_in_new:
             li.append(ll_msgs.keys_extra.format(keys=', '.join(extra_in_new)))
         if not_in_new:
-            li.append(ll_msgs.keys_not_found.format(keys=', '.join(not_in_new)))
+            li.append(ll_msgs.keys_not_found.format(
+                      keys=', '.join(not_in_new)))
         self.message_dialog(''.join(li))
 
     def save_file(self, fname):
@@ -575,7 +593,9 @@ class EntryApp(QtGui.QMainWindow):
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
         if self.saved_to_file or self.confirm_dialog(ll_msgs.load_not_saved):
-            fname = QtGui.QFileDialog.getOpenFileName(self, ll_msgs.open_title, Config.data_root_fldr,
+            fname = QtGui.QFileDialog.getOpenFileName(self,
+                                                      ll_msgs.open_title,
+                                                      Config.data_root_fldr,
                                                       Config.json_filter)
             if fname:
                 fname = unicode(fname)
@@ -588,7 +608,9 @@ class EntryApp(QtGui.QMainWindow):
 
     def save_dialog(self):
         """ Bring up save dialog and save data. """
-        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_report_title, Config.data_root_fldr,
+        fname = QtGui.QFileDialog.getSaveFileName(self,
+                                                  ll_msgs.save_report_title,
+                                                  Config.data_root_fldr,
                                                   Config.json_filter)
         if fname:
             fname = unicode(fname)
@@ -603,15 +625,18 @@ class EntryApp(QtGui.QMainWindow):
     def save_report_dialog(self):
         """ Bring up save dialog and save report. """
         if self.last_saved_filename:
-            filename_def = Config.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.txt'
+            fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
+            filename_def = Config.data_root_fldr + fn_base + '.txt'
         else:
             filename_def = Config.data_root_fldr
-        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title, filename_def,
+        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
+                                                  filename_def,
                                                   Config.text_filter)
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.vars_default(), self.units())
+                report = ll_reporter.Report(self.data, self.vars_default(),
+                                            self.units())
                 report_txt = report.make_text_report()
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
@@ -622,15 +647,18 @@ class EntryApp(QtGui.QMainWindow):
     def save_excel_report_dialog(self):
         """ Bring up save dialog and save Excel report. """
         if self.last_saved_filename:
-            filename_def = Config.data_root_fldr + os.path.splitext(os.path.basename(self.last_saved_filename))[0] + '.xls'
+            fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
+            filename_def = Config.data_root_fldr + fn_base + '.xls'
         else:
             filename_def = Config.data_root_fldr
-        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title, filename_def,
+        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
+                                                  filename_def,
                                                   Config.excel_filter)
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.vars_default(), self.units())
+                report = ll_reporter.Report(self.data, self.vars_default(),
+                                            self.units())
                 report.make_excel(fname, Config.xls_template_file)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
@@ -638,8 +666,9 @@ class EntryApp(QtGui.QMainWindow):
 
     def n_modified(self):
         """ Count modified values. """
-        return len([x for x in self.data if self.data[x] != self.data_empty[x]])
-            
+        return len([x for x in self.data if
+                    self.data[x] != self.data_empty[x]])
+
     def page_change(self):
         """ Method called whenever page (tab) changes. Currently only does
         focus / selectall on the first widget of page. """
@@ -650,28 +679,31 @@ class EntryApp(QtGui.QMainWindow):
             if widget.isEnabled():
                 widget.selectAll()
                 widget.setFocus()
-        
+
     def save_temp(self):
         """ Save form input data into temporary backup file. Exceptions will be caught
         by the fatal exception mechanism. """
         self.save_file(Config.tmpfile)
-        self.statusbar.showMessage(ll_msgs.status_value_change.format(n=self.n_modified(), tmpfile=Config.tmpfile))
-                
+        msg = ll_msgs.status_value_change.format(n=self.n_modified(),
+                                                 tmpfile=Config.tmpfile)
+        self.statusbar.showMessage(msg)
+
     def load_temp(self):
         """ Load form input data from temporary backup file. """
         try:
             self.load_file(Config.tmpfile)
         except Config.json_load_exceptions:
             self.message_dialog(ll_msgs.cannot_open_tmp)
-        
+
     @staticmethod
     def rm_temp():
         """ Remove temp file.  """
-        if os.path.isfile(Config.tmpfile):
+        if op.isfile(Config.tmpfile):
             os.remove(Config.tmpfile)
-        
+
     def clear_forms_dialog(self):
-        """ Ask whether to clear forms. If yes, set widget inputs to default values. """
+        """ Ask whether to clear forms. If yes, set widget inputs to default
+        values. """
         if self.saved_to_file:
             reply = self.confirm_dialog(ll_msgs.clear)
         else:
@@ -681,22 +713,26 @@ class EntryApp(QtGui.QMainWindow):
             self.restore_forms()
             self.statusbar.showMessage(ll_msgs.status_cleared)
             self.saved_to_file = True  # empty data assumed 'saved'
-    
+
     def restore_forms(self):
-        """ Restore widget input values from self.data. Need to disable widget callbacks
-        and automatic data saving while programmatic updating of widgets is taking place. """
+        """ Restore widget input values from self.data. Need to disable widget
+        callbacks and automatic data saving while programmatic updating of
+        widgets is taking place. """
         self.save_to_tmp = False
         self.update_dict = False
         for wname in self.input_widgets:
-            self.input_widgets[wname].setVal(self.data[self.widget_to_var[wname]])
+            self.input_widgets[wname].setVal(self.data[
+                                             self.widget_to_var[wname]])
         self.save_to_tmp = True
         self.update_dict = True
-            
+
     def read_forms(self):
         """ Read self.data from widget inputs. Usually not needed, since
         it's updated automatically. """
         for wname in self.input_widgets:
-            self.data[self.widget_to_var[wname]] = self.input_widgets[wname].getVal()
+            var = self.widget_to_var[wname]
+            self.data[var] = self.input_widgets[wname].getVal()
+
 
 def main():
     """ Work around stdout and stderr not being available, if app is run
@@ -704,13 +740,13 @@ def main():
     e.g. on any print statement. """
     if sys.platform.find('win') != -1 and sys.executable.find('pythonw') != -1:
         blackhole = file(os.devnull, 'w')
-        sys.stdout = sys.stderr = blackhole    
-    
+        sys.stdout = sys.stderr = blackhole
+
     app = QtGui.QApplication(sys.argv)
     eapp = EntryApp()
-   
+
     def my_excepthook(type, value, tback):
-        """ Custom exception handler for fatal (unhandled) exceptions: 
+        """ Custom exception handler for fatal (unhandled) exceptions:
         report to user via GUI and terminate. """
         tb_full = u''.join(traceback.format_exception(type, value, tback))
         eapp.message_dialog(ll_msgs.unhandled_exception+tb_full)
@@ -722,18 +758,17 @@ def main():
         # so try to catch any exceptions...
         except Exception:
             print('Cannot dump traceback!')
-        sys.__excepthook__(type, value, tback) 
+        sys.__excepthook__(type, value, tback)
         app.quit()
-        
+
     sys.excepthook = my_excepthook
-    
+
     eapp.show()
     app.exec_()
 
 if __name__ == '__main__':
     main()
-    
-    
+
 
 
     
