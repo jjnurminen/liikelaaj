@@ -8,21 +8,20 @@ Create liikelaajuus (movement range) reports.
 """
 
 import text_templates
-import string        
+import string
 from xlrd import open_workbook
 from xlutils.copy import copy
 
 
 # strings to replace in report (after filling the fields)
-text_postprocess_dict = {'EI': 'Ei'}  
+text_postprocess_dict = {'EI': 'Ei'}
 # strings to replace in .xls cells (after filling the fields)
-cell_postprocess_dict = {u'(EI)':'', u'(Kyllä)':u'(kl.)'}
-   
-        
+cell_postprocess_dict = {u'(EI)': '', u'(Kyllä)': u'(kl.)'}
+
 
 class Report():
-    """ Make various reports based on the data. """    
-    
+    """ Make various reports based on the data. """
+
     def __init__(self, data, vars_default, units):
         # convert values to Unicode and add corresponding units as suffices
         self.data = {key: unicode(data[key]) + units[key] for key in data}
@@ -40,7 +39,8 @@ class Report():
 
     @staticmethod
     def backspace(s):
-        """ Process \b chars in string, i.e. remove preceding char and the \b for each \b """
+        """ Process \b chars in string, i.e. remove preceding char and the \b
+        for each \b """
         sout = []
         for ch in s:
             if ch == '\b':
@@ -49,23 +49,23 @@ class Report():
             else:
                 sout.append(ch)
         return ''.join(sout)
-    
+
     @staticmethod
     def cond_format(s, di, fields_at_default):
         """ Conditionally format string s using dict di. If s has fields and
-        they all are in the empty_fields list, an empty string is returned. 
-        Otherwise all the fields are formatted, and any other (non-field) text 
+        they all are in the empty_fields list, an empty string is returned.
+        Otherwise all the fields are formatted, and any other (non-field) text
         is returned as is. """
         flds = list(Report.get_field(s))
         if not flds or any([fld not in fields_at_default for fld in flds]):
             return s.format(**di)
         else:
             return ''
-        
+
     def make_text_report(self):
         """ Generates the main text report. """
         # DEBUG: can edit template while running
-        #reload(text_templates)
+        # reload(text_templates)
         ###
         # string replacements to do after formatting the whole report
 
@@ -80,7 +80,8 @@ class Report():
             for fld in sorted(not_in_rep):
                 print(fld)
         # format fields and join into string
-        rep_text = ''.join([Report.cond_format(s, self.data, self.vars_default) for s in report])
+        rep_text = ''.join([Report.cond_format(s, self.data, self.vars_default)
+                            for s in report])
         # process backspaces
         rep_text = Report.backspace(rep_text)
         for txt, newtxt in text_postprocess_dict.iteritems():
@@ -94,10 +95,10 @@ class Report():
             li.append(key+':'+unicode(self.data[key])+'\n')
         return u''.join(li)
 
-    """ Next 2 xlrd hacks copied from: 
+    """ Next 2 xlrd hacks copied from:
         http://stackoverflow.com/questions/3723793/
         preserving-styles-using-pythons-xlrd-xlwt-and-xlutils-copy?lq=1 """
-    @staticmethod                    
+    @staticmethod
     def _getOutCell(outSheet, colIndex, rowIndex):
         """ HACK: Extract the internal xlwt cell representation. """
         row = outSheet._Worksheet__rows.get(rowIndex)
@@ -106,7 +107,7 @@ class Report():
         cell = row._Row__cells.get(colIndex)
         return cell
 
-    @staticmethod                        
+    @staticmethod
     def setOutCell(outSheet, col, row, value):
         """ Change cell value without changing formatting. """
         # HACK to retain cell style.
@@ -119,15 +120,15 @@ class Report():
             if newCell:
                 newCell.xf_idx = previousCell.xf_idx
         # END HACK
-                
+
     def make_excel(self, fn_save, fn_template):
-        """ Export report to .xls file fn_save. Variables found in fn_template 
-        are filled in. 
+        """ Export report to .xls file fn_save. Variables found in fn_template
+        are filled in.
         fn_template should have Python-style format strings at cells that
         should be filled in, e.g. {TiedotNimi} would fill the cell using
         the corresponding key in self.data.
         fn_template must be in .xls (not xlsx) format, since formatting info
-        cannot be read from xlsx (xlutils limitation). 
+        cannot be read from xlsx (xlutils limitation).
         xlrd and friends are weird, so this code is also weird. """
         rb = open_workbook(fn_template, formatting_info=True)
         wb = copy(rb)
@@ -135,14 +136,14 @@ class Report():
         w_sheet = wb.get_sheet(0)
         # loop through cells, conditionally replace fields with variable names.
         # for unclear reasons, wb and rb are very different structures,
-        # so we read from rb and write to corresponding cells of wb 
+        # so we read from rb and write to corresponding cells of wb
         # (using the hacky methods above)
         for row in range(r_sheet.nrows):
             for col in range(r_sheet.ncols):
                 cl = r_sheet.cell(row, col)
                 varname = cl.value
                 if varname:  # format non-empty cells
-                    newval = Report.cond_format(varname, self.data, 
+                    newval = Report.cond_format(varname, self.data,
                                                 self.vars_default)
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
@@ -152,11 +153,3 @@ class Report():
                                 newval = newval.replace(str, newstr)
                     Report.setOutCell(w_sheet, col, row, newval)
         wb.save(fn_save)
-        
-        
-        
-        
-        
-
-
-

@@ -90,7 +90,7 @@ Lonkan ojennus (polvi 0°) 4/3+ (0/1). Lonkan ojennus (polvi 90°) 4/1+ (1/2). L
 Loitonnus, lonkka fleksiossa 1+/1. Lähennys 4/3+. Lonkan ulkokierto 0+/0+ (2/2).
 Lonkan sisäkierto 1/1 (1/0). Polven ojennus 4/3+ (1/1). Polven koukistus 1-/2- (0/1). Nilkan koukistus 4/3- (0/1) (1/2). Nilkan ojennus (soleus) 1-/1. 
 Inversio 4/2. Eversio 4/0(1/1). Isovarpaan ojennus 4/0 (2/0).
-Isovarpaan koukistus 4/0 (0/1). Varpaiden (2-5) ojennus 4/0 (11).
+Isovarpaan koukistus 4/0 (0/1). Varpaiden (2-5) ojennus 4/0 (1/1).
 Varpaiden (2-5) koukistus 4/0 (0/0). Suorat vatsalihakset 5. Selkälihakset 1-. 
 Kommentit (voimat): Polven ojennusliike provosoi polvikipua - saattaa olla vahvempi kuin 3+, mutta kivun vuoksi ei toisteta. Polvikierukkatesti provosoi kipua vasemmassa polvessa.
 

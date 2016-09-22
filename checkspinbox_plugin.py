@@ -12,37 +12,34 @@ from PyQt4 import QtGui, QtCore, QtDesigner
 
 
 class CheckDegSpinBoxPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
-    
-    def __init__(self, parent = None):
-        
+
+    def __init__(self, parent=None):
+
         QtDesigner.QPyDesignerCustomWidgetPlugin.__init__(self)
-        
         self.initialized = False
-        
-        
+
     def initialize(self, core):
-        
+
         if self.initialized:
             return
-            
+
         self.initialized = True
-        
+
     def isInitialized(self):
-        
+
         return self.initialized
-    
+
     def createWidget(self, parent):
         return CheckDegSpinBox(parent)
-        
+
     def name(self):
         return "CheckDegSpinBox"
-        
+
     def group(self):
         return "PyQt Examples"
-        
+
     def isContainer(self):
         return False
-        
+
     def includeFile(self):
         return "liikelaajuus"
-        

@@ -19,7 +19,7 @@ import sys
 import hashlib  # spark another owl...
 
 
-fn_xls_template = "rom_excel_template.xls"        
+fn_xls_template = "rom_excel_template.xls"
 uifile = "tabbed_design.ui"
 
 """ reference json data. must be updated if variables are changed. """
@@ -41,7 +41,7 @@ with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
 app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
 
 """ Create instance of app that is not shown on screen (also event loop is not
-entered) but can be used to test various methods. NOTE: any existing temp file 
+entered) but can be used to test various methods. NOTE: any existing temp file
 may be deleted by the unit tests """
 eapp = liikelaajuus.EntryApp(check_temp_file=False)
 
