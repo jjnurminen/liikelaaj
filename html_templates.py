@@ -7,6 +7,7 @@ HTML templates for liikelaajuus report. These are filled by reporter.py.
 Use online table generator to construct new tables:
 http://www.tablesgenerator.com/html_tables#
 
+
 @author: jussi (jnu@iki.fi)
 """
 
