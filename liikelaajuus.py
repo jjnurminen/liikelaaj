@@ -31,7 +31,7 @@ TODO:
 
 from __future__ import print_function
 
-from PyQt4 import QtGui, uic, QtCore
+from PyQt5 import QtGui, uic, QtCore, QtWidgets
 import sys
 import traceback
 import io
@@ -78,7 +78,7 @@ class Config(object):
     xls_template_file = "rom_excel_template.xls"
 
 
-class MyLineEdit(QtGui.QLineEdit):
+class MyLineEdit(QtWidgets.QLineEdit):
     """ Custom line edit that selects the input on mouse click. """
 
     def __init__(self, parent=None):
@@ -95,13 +95,13 @@ class MyLineEdit(QtGui.QLineEdit):
         self.selectAll()
 
 
-class DegLineEdit(QtGui.QLineEdit):
+class DegLineEdit(QtWidgets.QLineEdit):
     """ Custom line edit for CheckDegSpinBox class. Catches space key and
     passes it to CheckDegSpinBox. """
 
     def __init__(self, parent=None):
         # super(self.__class__, self).__init__(parent)
-        QtGui.QLineEdit.__init__(self, parent)
+        QtWidgets.QLineEdit.__init__(self, parent)
 
     def mousePressEvent(self, event):
         super(self.__class__, self).mousePressEvent(event)
@@ -121,7 +121,7 @@ class DegLineEdit(QtGui.QLineEdit):
             super(self.__class__, self).keyPressEvent(event)
 
 
-class CheckDegSpinBox(QtGui.QWidget):
+class CheckDegSpinBox(QtWidgets.QWidget):
     """ Custom widget: Spinbox (degrees) with checkbox signaling
     "default value". If checkbox is checked, disable spinbox -> value() returns
     the default value shown next to checkbox (defaultText property).
@@ -138,16 +138,16 @@ class CheckDegSpinBox(QtGui.QWidget):
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
-        self.degSpinBox = QtGui.QSpinBox()
+        self.degSpinBox = QtWidgets.QSpinBox()
         self.degSpinBox.valueChanged.connect(self.valueChanged.emit)
         self.degSpinBox.setMinimumSize(100, 0)
 
-        self.normalCheckBox = QtGui.QCheckBox()
+        self.normalCheckBox = QtWidgets.QCheckBox()
         self.normalCheckBox.stateChanged.connect(lambda state:
                                                  self.setSpinBox(not state))
 
         # default text
-        layout = QtGui.QHBoxLayout(self)
+        layout = QtWidgets.QHBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         # layout.addWidget(normalLabel, 0, 0)
         layout.addWidget(self.degSpinBox)
@@ -265,7 +265,7 @@ class CheckDegSpinBox(QtGui.QWidget):
     #    return QSize(150,20)
 
 
-class EntryApp(QtGui.QMainWindow):
+class EntryApp(QtWidgets.QMainWindow):
     """ Main window of application. """
 
     def __init__(self, check_temp_file=True):
@@ -376,7 +376,7 @@ class EntryApp(QtGui.QMainWindow):
         the process (by Qt) and the loop then segfaults while trying to
         dereference them (the loop collects all QLineEdits at the start).
         Also install special keypress event handler. """
-        for w in self.findChildren((QtGui.QSpinBox, QtGui.QDoubleSpinBox)):
+        for w in self.findChildren((QtWidgets.QSpinBox, QtWidgets.QDoubleSpinBox)):
             wname = unicode(w.objectName())
             if wname[:2] == 'sp':
                 w.setLineEdit(MyLineEdit())
@@ -389,7 +389,7 @@ class EntryApp(QtGui.QMainWindow):
             w.degSpinBox.setLineEdit(DegLineEdit())
 
         """ Set various widget convenience methods/properties """
-        for w in self.findChildren(QtGui.QWidget):
+        for w in self.findChildren(QtWidgets.QWidget):
             wname = unicode(w.objectName())
             wsave = True
             w.unit = lambda: ''  # if a widget input has units, set it below
@@ -489,23 +489,23 @@ class EntryApp(QtGui.QMainWindow):
 
     def confirm_dialog(self, msg):
         """ Show yes/no dialog. """
-        dlg = QtGui.QMessageBox()
+        dlg = QtWidgets.QMessageBox()
         dlg.setText(msg)
         dlg.setWindowTitle(ll_msgs.message_title)
-        dlg.addButton(QtGui.QPushButton(ll_msgs.yes_button),
-                      QtGui.QMessageBox.YesRole)
-        dlg.addButton(QtGui.QPushButton(ll_msgs.no_button),
-                      QtGui.QMessageBox.NoRole)
+        dlg.addButton(QtWidgets.QPushButton(ll_msgs.yes_button),
+                      QtWidgets.QMessageBox.YesRole)
+        dlg.addButton(QtWidgets.QPushButton(ll_msgs.no_button),
+                      QtWidgets.QMessageBox.NoRole)
         dlg.exec_()
         return dlg.buttonRole(dlg.clickedButton())
 
     def message_dialog(self, msg):
         """ Show message with an 'OK' button. """
-        dlg = QtGui.QMessageBox()
+        dlg = QtWidgets.QMessageBox()
         dlg.setWindowTitle(ll_msgs.message_title)
         dlg.setText(msg)
-        dlg.addButton(QtGui.QPushButton(ll_msgs.ok_button),
-                      QtGui.QMessageBox.YesRole)
+        dlg.addButton(QtWidgets.QPushButton(ll_msgs.ok_button),
+                      QtWidgets.QMessageBox.YesRole)
         dlg.exec_()
 
     def closeEvent(self, event):
@@ -514,7 +514,7 @@ class EntryApp(QtGui.QMainWindow):
             reply = self.confirm_dialog(ll_msgs.quit_not_saved)
         else:
             reply = self.confirm_dialog(ll_msgs.quit_)
-        if reply == QtGui.QMessageBox.YesRole:
+        if reply == QtWidgets.QMessageBox.YesRole:
             self.rm_temp()
             event.accept()
         else:
@@ -593,10 +593,11 @@ class EntryApp(QtGui.QMainWindow):
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
         if self.saved_to_file or self.confirm_dialog(ll_msgs.load_not_saved):
-            fname = QtGui.QFileDialog.getOpenFileName(self,
-                                                      ll_msgs.open_title,
-                                                      Config.data_root_fldr,
-                                                      Config.json_filter)
+            fout = QtWidgets.QFileDialog.getOpenFileName(self,
+                                                         ll_msgs.open_title,
+                                                         Config.data_root_fldr,
+                                                         Config.json_filter)
+            fname = fout[0]
             if fname:
                 fname = unicode(fname)
                 try:
@@ -608,10 +609,11 @@ class EntryApp(QtGui.QMainWindow):
 
     def save_dialog(self):
         """ Bring up save dialog and save data. """
-        fname = QtGui.QFileDialog.getSaveFileName(self,
-                                                  ll_msgs.save_report_title,
-                                                  Config.data_root_fldr,
-                                                  Config.json_filter)
+        fout = QtWidgets.QFileDialog.getSaveFileName(self,
+                                                     ll_msgs.save_report_title,
+                                                     Config.data_root_fldr,
+                                                     Config.json_filter)
+        fname = fout[0]
         if fname:
             fname = unicode(fname)
             try:
@@ -629,9 +631,10 @@ class EntryApp(QtGui.QMainWindow):
             filename_def = Config.data_root_fldr + fn_base + '.txt'
         else:
             filename_def = Config.data_root_fldr
-        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
-                                                  filename_def,
-                                                  Config.text_filter)
+        fout = QtWidgets.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
+                                                     filename_def,
+                                                     Config.text_filter)
+        fname = fout[0]
         if fname:
             fname = unicode(fname)
             try:
@@ -651,9 +654,10 @@ class EntryApp(QtGui.QMainWindow):
             filename_def = Config.data_root_fldr + fn_base + '.xls'
         else:
             filename_def = Config.data_root_fldr
-        fname = QtGui.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
-                                                  filename_def,
-                                                  Config.excel_filter)
+        fout = QtWidgets.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
+                                                     filename_def,
+                                                     Config.excel_filter)
+        fname = fout[0]
         if fname:
             fname = unicode(fname)
             try:
@@ -708,7 +712,7 @@ class EntryApp(QtGui.QMainWindow):
             reply = self.confirm_dialog(ll_msgs.clear)
         else:
             reply = self.confirm_dialog(ll_msgs.clear_not_saved)
-        if reply == QtGui.QMessageBox.YesRole:
+        if reply == QtWidgets.QMessageBox.YesRole:
             self.data = self.data_empty.copy()
             self.restore_forms()
             self.statusbar.showMessage(ll_msgs.status_cleared)
@@ -742,7 +746,7 @@ def main():
         blackhole = file(os.devnull, 'w')
         sys.stdout = sys.stderr = blackhole
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     eapp = EntryApp()
 
     def my_excepthook(type, value, tback):

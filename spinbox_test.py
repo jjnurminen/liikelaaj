@@ -6,8 +6,8 @@ Created on Wed Feb  3 18:56:52 2016
 """
 
 import sys
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 class MyQSpinBox(QSpinBox):
 

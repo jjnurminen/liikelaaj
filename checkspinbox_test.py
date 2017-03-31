@@ -7,7 +7,7 @@ Created on Wed Feb  3 18:56:52 2016
 
 from __future__ import print_function
 import sys
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore
 from liikelaajuus import CheckDegSpinBox, MyLineEdit
 
 

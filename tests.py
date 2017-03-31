@@ -13,7 +13,7 @@ import io
 import json
 from ll_reporter import Report
 import text_templates
-from PyQt4 import uic, QtGui
+from PyQt5 import uic, QtGui, QtWidgets
 import liikelaajuus
 import sys
 import hashlib  # spark another owl...
@@ -38,7 +38,7 @@ fn_out = "testdata/nosetests.json"
 with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
 
-app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
+app = QtWidgets.QApplication(sys.argv)  # needed for Qt stuff to function
 
 """ Create instance of app that is not shown on screen (also event loop is not
 entered) but can be used to test various methods. NOTE: any existing temp file
@@ -55,7 +55,7 @@ def file_md5(fn):
 def regen_ref_data():
     """ Create new reference reports from reference data. Overwrites previous
     ref reports without asking. Only run when reporting is known to be correct."""
-    app = QtGui.QApplication(sys.argv)  # needed for Qt stuff to function
+    app = QtWidgets.QApplication(sys.argv)  # needed for Qt stuff to function
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data, eapp.vars_default(), eapp.units())
@@ -119,25 +119,25 @@ def test_widgets ():
     form the widgets match the empty json file. """
     # cannot refer to Qt widgets without creating a QApplication
     mainui = uic.loadUi(uifile)
-    widgets = mainui.findChildren(QtGui.QWidget)          
+    widgets = mainui.findChildren(QtWidgets.QWidget)          
     varnames = set()
     for w in widgets:
         wname = w.objectName()
         varname = ''
         if wname[:2] == 'sp':
-            assert(w.__class__ == QtGui.QSpinBox or w.__class__ == QtGui.QDoubleSpinBox)
+            assert(w.__class__ == QtWidgets.QSpinBox or w.__class__ == QtWidgets.QDoubleSpinBox)
             varname = wname[2:]
         elif wname[:2] == 'ln':
-            assert(w.__class__ == QtGui.QLineEdit)
+            assert(w.__class__ == QtWidgets.QLineEdit)
             varname = wname[2:]
         elif wname[:2] == 'cb':
-            assert(w.__class__ == QtGui.QComboBox)
+            assert(w.__class__ == QtWidgets.QComboBox)
             varname = wname[2:]
         elif wname[:3] == 'cmt':
-            assert(w.__class__ == QtGui.QTextEdit)
+            assert(w.__class__ == QtWidgets.QTextEdit)
             varname = wname
         elif wname[:2] == 'xb':
-            assert(w.__class__ == QtGui.QCheckBox)
+            assert(w.__class__ == QtWidgets.QCheckBox)
             varname = wname[2:]
         elif wname[:3] == 'csb':
             assert(w.__class__ == liikelaajuus.CheckDegSpinBox)

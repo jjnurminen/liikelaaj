@@ -8,7 +8,7 @@ Qt Designer plugin for checkspinbox
 """
 
 from liikelaajuus import CheckDegSpinBox
-from PyQt4 import QtGui, QtCore, QtDesigner
+from PyQt5 import QtGui, QtCore, QtDesigner
 
 
 class CheckDegSpinBoxPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
