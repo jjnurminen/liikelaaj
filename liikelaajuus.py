@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Tabbed form for input of movement range data.
-Tested with PyQt 4.8 and Python 2.7.
 
 
 design:
@@ -21,17 +20,13 @@ chars (widget type)
 
 
 
-TODO:
-
-
-
 @author: Jussi (jnu@iki.fi)
 """
 
 
 from __future__ import print_function
 
-from PyQt5 import QtGui, uic, QtCore, QtWidgets
+from PyQt5 import uic, QtCore, QtWidgets
 import sys
 import traceback
 import io
@@ -43,7 +38,6 @@ import ll_msgs
 import liikelaajuus
 import webbrowser
 from fix_taborder import set_taborder
-
 
 
 class Config(object):
