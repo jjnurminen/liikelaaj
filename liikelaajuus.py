@@ -42,6 +42,7 @@ import ll_reporter
 import ll_msgs
 import liikelaajuus
 import webbrowser
+from datetime import date
 from fix_taborder import set_taborder
 
 
@@ -61,10 +62,14 @@ class Config(object):
     # Set dirs according to platform
     if sys.platform == 'win32':
         tmp_fldr = '/Temp'
-        data_root_fldr = 'C:/'
+        # data_root_fldr = 'C:/'
+        data_root_fldr = ('Z:/Other Data_May2013/ROM/ROM_' +
+                          str(date.today().year))
     else:  # Linux
         tmp_fldr = '/tmp'
         data_root_fldr = '/'
+    text_report_fldr = data_root_fldr + '/Raportit'
+    excel_report_fldr = data_root_fldr + '/Raportit_Excel'
     tmpfile = tmp_fldr + '/liikelaajuus_tmp.json'
     # start of default Excel filename
     excel_report_prefix = 'Excel_'
@@ -630,7 +635,8 @@ class EntryApp(QtGui.QMainWindow):
         """ Bring up save dialog and save report. """
         if self.last_saved_filename:
             fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
-            filename_def = (Config.data_root_fldr + Config.text_report_prefix +
+            filename_def = (Config.text_report_fldr + '/' +
+                            Config.text_report_prefix +
                             fn_base + '.txt')
         else:
             filename_def = Config.data_root_fldr
@@ -653,7 +659,7 @@ class EntryApp(QtGui.QMainWindow):
         """ Bring up save dialog and save Excel report. """
         if self.last_saved_filename:
             fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
-            filename_def = (Config.data_root_fldr +
+            filename_def = (Config.excel_report_fldr + '/' +
                             Config.excel_report_prefix + fn_base + '.xls')
         else:
             filename_def = Config.data_root_fldr
