@@ -1,24 +1,32 @@
 # -*- coding: utf-8 -*-
 """
-Tabbed form for input of movement range data.
 
+Program for input and reporting of ROM (range of motion), strength and other
+measurements.
 
-design:
--separate ui file with all the widgets is made with Qt Designer and loaded
- using uic
--custom widget (check+spinbox), plugin file should be made available to Qt
-designer (checkspinbox_plugin.py)
+Design:
+
+-uses a separate ui file made with Qt Designer and loaded using uic
+
+-custom widget (CheckDegSpinBox): plugin file should be made available to Qt
+ designer (checkspinbox_plugin.py). export PYQTDESIGNERPATH=path
+
 -widget naming: first 2-3 chars indicate widget type, next word indicates
  variable category or page where widget resides, the rest indicates the
  variable (e.g. lnTiedotNimi)
--widget inputs are updated into internal dict immediately when any value
- changes
+
+-widget inputs are updated into an internal dict whenever any value changes
+
 -dict keys are taken automatically from widget names by removing first 2-3
-chars (widget type)
+ chars (widget type)
+
 -for saving, dict data is turned into json unicode and written out in utf-8
+
 -data is saved into temp directory whenever any values are changed by user
 
-
+-files do not include any version info (maybe a stupid decision), instead
+ mismatches between the widgets and loaded json are detected and reported
+ to the user
 
 @author: Jussi (jnu@iki.fi)
 """
@@ -33,7 +41,7 @@ import io
 import os
 import os.path as op
 import json
-import ll_reporter
+import reporter
 import ll_msgs
 import liikelaajuus
 import webbrowser
@@ -46,12 +54,15 @@ class Config(object):
     a config file. """
     """ The 'not measured' value for spinboxes. For regular spinboxes, this
     is the value that gets written to data files, but it does not affect
-    the value shown next to the spinbox (that is set in Qt Designer).
+    the value shown next to the spinbox (which is set in Qt Designer).
     For the CheckDegSpinBox class, this is also the value shown next to the
     widget in the user interface. """
     spinbox_novalue_text = u'Ei mitattu'
-    """ 'yes' and 'no' values for checkboxes. Written to data files. """
+    # 'yes' and 'no' values for checkboxes. Written to data files.
     checkbox_yestext = u'Kyllä'
+    # the (silly) idea here was that by case sensitivity, 'EI' could be
+    # changed in the reports by search&replace operations without affecting
+    # other 'Ei' strings
     checkbox_notext = u'EI'
     # Set dirs according to platform
     if sys.platform == 'win32':
@@ -78,7 +89,8 @@ class Config(object):
     global_fontsize = 11
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
-    xls_template_file = "rom_excel_template.xls"
+    xls_template = 'templates/rom_excel_template.xls'
+    text_template = 'templates/text_template.py'
 
 
 class MyLineEdit(QtWidgets.QLineEdit):
@@ -126,9 +138,10 @@ class DegLineEdit(QtWidgets.QLineEdit):
 
 class CheckDegSpinBox(QtWidgets.QWidget):
     """ Custom widget: Spinbox (degrees) with checkbox signaling
-    "default value". If checkbox is checked, disable spinbox -> value() returns
+    "default value". If checkbox is checked, disable spinbox,
+    in which case value() will return
     the default value shown next to checkbox (defaultText property).
-    Otherwise value() returns spinbox value.
+    Otherwise value() will return the spinbox value.
     setValue() takes either the default value, the 'special value'
     (not measured) or  integer.
     """
@@ -163,7 +176,7 @@ class CheckDegSpinBox(QtWidgets.QWidget):
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.setFocusProxy(self.degSpinBox)
 
-        """ Widget defaults are tailored for this program. For certain instances
+        """ Widget defaults are tailored for this program. For some instances
         of the widget, these values will be modified already by Qt Designer
         (in the .ui file), so we set them only here and do not touch them
         later in the code. If exporting the widget, these can be deleted or
@@ -296,7 +309,6 @@ class EntryApp(QtWidgets.QMainWindow):
         # loc = QtCore.QLocale()
         # loc.setNumberOptions(loc.OmitGroupSeparator |
         #            loc.RejectGroupSeparator)
-        # special text written out for non-measured variables
         # DEBUG: print all vars
         # for key in sorted(self.data.keys()):
         #    print('{%s}'%key)
@@ -379,7 +391,8 @@ class EntryApp(QtWidgets.QMainWindow):
         the process (by Qt) and the loop then segfaults while trying to
         dereference them (the loop collects all QLineEdits at the start).
         Also install special keypress event handler. """
-        for w in self.findChildren((QtWidgets.QSpinBox, QtWidgets.QDoubleSpinBox)):
+        for w in self.findChildren((QtWidgets.QSpinBox,
+                                    QtWidgets.QDoubleSpinBox)):
             wname = unicode(w.objectName())
             if wname[:2] == 'sp':
                 w.setLineEdit(MyLineEdit())
@@ -479,14 +492,17 @@ class EntryApp(QtWidgets.QMainWindow):
         self.setStyleSheet('QWidget { font-size: %dpt;}'
                            % Config.global_fontsize)
 
+    @property
     def units(self):
         """ Return dict indicating the units for each variable. This may change
         dynamically as the unit may be set to '' for special values. """
         return {self.widget_to_var[wname]: self.input_widgets[wname].unit()
                 for wname in self.input_widgets}
 
+    @property
     def vars_default(self):
-        """ Return a list of variables that are at default state. """
+        """ Return a list of variables that are at their default (unmodified)
+        state. """
         return [key for key in self.data if
                 self.data[key] == self.data_empty[key]]
 
@@ -528,12 +544,20 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Show help. """
         webbrowser.open(Config.help_url)
 
+    @property
+    def data_with_units(self):
+        """Return data dict, with units appended to values"""
+        return {key: u'%s%s' % (self.data[key], self.units[key]) for key in
+                self.data}
+
+    @property
+    def report(self):
+        """Return Report instance with current data"""
+        return reporter.Report(self.data_with_units, self.vars_default)
+
     def debug_make_report(self):
-        """ Make report using the input data. """
-        report = ll_reporter.Report(self.data, self.vars_default(),
-                                    self.units())
-        report_txt = report.make_text_report()
-        print(report_txt)
+        """ DEBUG: make and save text report using the input data. """
+        report_txt = self.report.make_report(Config.text_template)
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)
@@ -541,46 +565,47 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
-        report = ll_reporter.Report(self.data, self.vars_default(),
-                                    self.units())
-        report.make_excel('test_excel_report.xls', Config.xls_template_file)
+        self.report.make_excel('test_excel_report.xls',
+                               Config.xls_template)
 
     def values_changed(self, w):
+        """ Callback to update internal data dict whenever inputs change """
         if self.update_dict:
             # DEBUG
             # print('updating dict:', w.objectName(),'new value:',w.getVal())
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
-            # DEBUG: text report on every widget update
-            # reload(ll_reporter)  # can edit reporter / template while running
+            # DEBUG: make text report on every widget update
+            # reload(reporter)  # can edit reporter / template while running
             # self.debug_make_report()
-            # DEBUG: xls at every update
+            # DEBUG: make xls report at every update
             # self.debug_make_excel_report()
         self.saved_to_file = False
         if self.save_to_tmp:
             self.save_temp()
 
     def load_file(self, fname):
-        """ Load data from given file and restore forms. """
+        """ Load data from JSON file and restore forms. """
         if op.isfile(fname):
             with io.open(fname, 'r', encoding='utf-8') as f:
                 data_loaded = json.load(f)
             keys, loaded_keys = set(self.data), set(data_loaded)
-            if not keys == loaded_keys:  # keys mismatch
+            # warn the user about key mismatch
+            if keys != loaded_keys:
                 self.keyerror_dialog(keys, loaded_keys)
-            for key in data_loaded:
-                if key in self.data:
-                    self.data[key] = data_loaded[key]
+            # update values (but exclude unknown keys)
+            for key in keys.intersection(loaded_keys):
+                self.data[key] = data_loaded[key]
             self.restore_forms()
             self.statusbar.showMessage(ll_msgs.status_loaded.format(
                                        filename=fname, n=self.n_modified()))
 
     def keyerror_dialog(self, origkeys, newkeys):
-        """ Report missing / extra keys to user. """
+        """ Report missing / unknown keys to user. """
         cmnkeys = origkeys.intersection(newkeys)
         extra_in_new = newkeys - cmnkeys
         not_in_new = origkeys - cmnkeys
-        li = [ll_msgs.keyerror_msg]
+        li = list()
         if extra_in_new:
             li.append(ll_msgs.keys_extra.format(keys=', '.join(extra_in_new)))
         if not_in_new:
@@ -643,9 +668,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.vars_default(),
-                                            self.units())
-                report_txt = report.make_text_report()
+                report_txt = self.report.make_report(Config.text_template)
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
@@ -667,9 +690,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.vars_default(),
-                                            self.units())
-                report.make_excel(fname, Config.xls_template_file)
+                self.report.make_excel(fname, Config.xls_template)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 self.message_dialog(ll_msgs.cannot_save+fname)
@@ -691,8 +712,8 @@ class EntryApp(QtWidgets.QMainWindow):
                 widget.setFocus()
 
     def save_temp(self):
-        """ Save form input data into temporary backup file. Exceptions will be caught
-        by the fatal exception mechanism. """
+        """ Save form input data into temporary backup file. Exceptions will be
+        caught by the fatal exception mechanism. """
         self.save_file(Config.tmpfile)
         msg = ll_msgs.status_value_change.format(n=self.n_modified(),
                                                  tmpfile=Config.tmpfile)
@@ -776,9 +797,6 @@ def main():
     eapp.show()
     app.exec_()
 
+
 if __name__ == '__main__':
     main()
-
-
-
-    

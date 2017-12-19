@@ -1,48 +1,25 @@
 ﻿
 
+
 TODO:
--fixes_2017 branch
+
+-merge fixes_2017 and update PCs
+
+-setup.py etc.?
 
 
 tekstiraportti:
 
+-tekstikentät (esim Coleman, kovettumat) näyttää hassulta jos toista puolta ei
+tulosteta
 
-oheismittausten tulokset:
+Excel-raportti
 
-otsikko i -> I  (johtuu replace -operaatiosta EI->Ei)
+lisää:
+-EMG?
 
-lonkka, polvi, nilkka omalta riviltä, ei muita rivinvaihtoja
-paitsi kommentit omilta riveiltään
 
-liikaa välejä ennen "Luiset virheasennot" -kohtaa?
-
-Alaraajojen spastisuus -kohta -> Nivelten aktiiviset liikelaajuudet -kohdan jälkeen
-(siir.)
-
-Jalkaterä -kohdat: rivinvaihdot pois (ja ylim. välit)
-
-Lisää lyhenteiden selitykset (esim. ennen + ++ +++ -kohtaa)
-NEU neutraali
-TYYP 
-RAJ
-VAR
-VALG
-
-Painelevy mitattu -> Painelevymittaus
-+ ehkä tekstikenttä ohjelmaan (painelevymittauksen kuvaus)
-
-Alaraajan pituudet kop. myös Muita mittauksia -kohtaan
-
-Manuaalisesti mitatut lihasvoimat -kohta:
-poist. rivinvaihdot
-
-Lisää Navicular drop (arvo millimetreissä vasen/oikea)
-
-Lisää EMG-sivu; mitä elektrodeja mitattiin
-
-Etuosan asento 1: 
-lisää VAR+,++,+++ (1. säde)
--OK
+ohjelma:
 
 Isometrinen lihasvoima -tab
 + oma raportti (Excel + teksti)?

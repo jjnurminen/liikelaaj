@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 08 15:15:03 2016
+Finnish status messages for liikelaajuus
 
-@author: hus20664877
+@author: Jussi (jnu@iki.fi)
 """
 
 
@@ -29,7 +29,6 @@ status_saved = u'Tallennettu tiedosto: '
 status_report_saved = u'Tallennettu raportti: '
 status_value_change = u'{n} arvoa kirjattu. Väliaikaistiedosto: {tmpfile}'
 wrote_report = u'Raportti tallennettu tiedostoon {filename}'
-keyerror_msg = u'Kaikki muuttujia ei voitu ladata. Tiedosto on ehkä tehty ohjelman vanhalla versiolla.\n'
-keys_not_found = u'Seuraavia ohjelman käyttämiä muuttujia ei löytynyt tiedostosta: {keys} \n'
+keys_not_found = u'Seuraavia ohjelman käyttämiä muuttujia ei löytynyt tiedostosta:\n{keys}\n'
 keys_extra = u'Seuraavat tiedostossa olevat muuttujat ovat tuntemattomia: {keys} \n'
 unhandled_exception = u'Ohjelma jouduttiin lopettamaan käsittelemättömän virheen vuoksi:\n'

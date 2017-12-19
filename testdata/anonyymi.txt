@@ -6,7 +6,7 @@ Patient code: xxxxxx
 Patient name: Anonyymi potilas
 Social security number: xxxxxx-9999k
 Diagnosis: G81.9 Määrittämätön hemiplegia, epilepsia
-Date of gait analysis: 21.3.2016 
+Date of gait analysis: 21.3.2016
 Kommentit: Vasen polvi kipea ja turvonnut. Lumpio korkealla molemmin puolin. Vasemmassa alaraajassa tuntopuutoksia.
 
 ANTROPOMETRISET MITAT:
@@ -16,11 +16,10 @@ Polvet: 104 mm / 111 mm
 Paino: 54.0 kg
 Pituus: 1590 mm
 SIAS: 210 mm
-
+Kommentit: Pitkät jalat
 
 MITTAAJAT:
 Tuula, Essi
-
 
 TULOSYY:
 
@@ -31,74 +30,59 @@ PÄÄTULOKSET KÄVELYANALYYSIN POHJALTA:
 TESTAUS- JA ARVIOINTITULOKSET:
 
 
-OHEiSMITTAUSTEN TULOKSET:
+OHEISMITTAUSTEN TULOKSET:
+
 
 Nivelten passiiviset liikelaajuudet (oikea/vasen), NR = normaalin rajoissa:
-Lonkka: Thomasin testi (vapaasti) NR/NR. Thomasin testi (avustettuna) NR/NR. 
-Koukistus NR/Ei mitattu. Loitonnus (lonkka 0°, polvi 90°) NR/NR. Loitonnus (lonkka 0°, polvi 0°) NR/NR. 
-Loitonnus (lonkka 90°) NR/NR. Sisäkierto 53°/53°. Ulkokierto 40°/40°.  
+Lonkka: Thomasin testi (vapaasti) NR/NR. Thomasin testi (avustettuna) NR/NR. Koukistus NR/-. Loitonnus (lonkka 0°, polvi 90°) NR/NR. Loitonnus (lonkka 0°, polvi 0°) NR/NR. Loitonnus (lonkka 90°) NR/NR. Sisäkierto 53°/53°. Ulkokierto 40°/40°. 
 Kommentit: Vasen lonkka pyrkii abduktioon lonkan ojennuksessa.
-Polvi: Ojennus (vapaasti) 0°/0°. Ojennus (avustettuna) 7°/2°. Koukistus (vatsamakuu) NR/120°. 
-Popliteakulma 33°/40°, popliteakulma (true) 25°/26°.  
+
+Polvi: Ojennus (vapaasti) 0°/0°. Ojennus (avustettuna) 7°/2°. Koukistus (vatsamakuu) NR/120°. Popliteakulma 33°/40°, popliteakulma (true) 25°/26°.
 Kommentit: Polven liikuttelu provosoi polvikipua.
-Nilkka: Koukistus (polvi 90°) NR/22°. Koukistus (polvi 0°) NR/20°. Ojennus NR/NR. 
+
+Nilkka: Koukistus (polvi 90°) NR/22°. Koukistus (polvi 0°) NR/20°. Ojennus NR/NR.
 Kommentit: Nilkan erittäin jäykkä aluksi, sulaa hitaasti passiivisessa koukistusliikkeessä. Aktiivinen liike yhdistettynä passiiviseen rentouttaa pohjetta.
 
 Nivelten aktiiviset liikelaajuudet: 
-Nilkka: Koukistus (polvi 90°) 30°/4°. Koukistus (polvi 0°) 15°/-16° (eversio Ei/Kyllä). 
+Nilkka: Koukistus (polvi 90°) 30°/4°. Koukistus (polvi 0°) 15°/-16° (pyrkii lisäksi eversioon Ei/Kyllä). 
 Kommentit: Hyvä aktiivinen liike
 
+Alaraajojen spastisuus:
+Catch: Lonkan adduktorit Ei/Ei. Hamstringit Ei/Ei. Rectus femorikset Ei/-38°. Soleukset Ei/-10° (klonus Ei/Kyllä). Gastrocnemiukset Ei/-24° (klonus Kyllä/Kyllä). 
+Kommentit (lonkka): Lievää spastisuutta havaittavissa
+Kommentit (nilkka): Spastisuutta on
+Kommentit (polvi): Polvessakin on spastisuutta
+
 Luiset virheasennot: 
-Jalkaterä-reisi -kulma 14°/20°. Jalkaterän etu- takaosan kulma 0°/0°.  
+Jalkaterä-reisi -kulma 14°/20°. Jalkaterän etu- takaosan kulma 0°/0°. Polven valgus valg_oik/valg_vas. 
 
 Muita mittauksia:
-Extensor lag 0°/-5°. Kommentit (lonkka): Selinmakuulla vasen lonkka spontaanisti ulkokierrossa.
+Alaraajat: 845 mm / 828 mm. Extensor lag 0°/-5°. Tasapaino: yhdellä jalalla seisominen 5 s/6 s. 
+Kommentit (lonkka): Selinmakuulla vasen lonkka spontaanisti ulkokierrossa.
 
-Jalkaterä kuormittamattomana (+ = lievä, ++ = kohtalainen, +++ = voimakas): 
-Subtalar neutraali-asento: Kyllä/Kyllä. Takaosan asento NEU/VAR++. Takaosan liike eversioon TYYP/TYYP. 
-Takaosan liike inversioon TYYP/TYYP. Med. holvikaari korkea/korkea. Keskiosan liike TYYP/TYYP. Etuosan asento 1: VALG++/VALG+.   
-Etuosan asento 2: NEU/ADD+. 1. säde: mobiili/mobiili. 1 MTP dorsifleksio 67°/40°. Vaivaisenluu Ei/Ei. 
-Kovettumat: oikean isovarpaan lateraalisivulla ja pikkuvarpaan lateraalisivulla/.
+Jalkaterä kuormittamattomana (+ = lievä, ++ = kohtalainen, +++ = voimakas)
+Lyhenteet: NEU=neutraali, TYYP=tyypillinen, RAJ=rajoittunut, VAR=varus, VALG=valgus:
+Subtalar neutraali-asento: Kyllä/Kyllä. Takaosan asento NEU/VAR++. Takaosan liike eversioon TYYP/TYYP. Takaosan liike inversioon TYYP/TYYP. Med. holvikaari korkea/korkea. Keskiosan liike TYYP/TYYP. Etuosan asento 1: VALG++/VALG+. Etuosan asento 2: NEU/ADD+. 1. säde: mobiili/mobiili. 1 MTP dorsifleksio 67°/40°. Vaivaisenluu Ei/Ei. Kovettumat: oikean isovarpaan lateraalisivulla ja pikkuvarpaan lateraalisivulla/.
 Kommentit (jalkaterä): Klonus laukeaa herkästi nilkan koukistusliikkeessä. Hitaasti tehtynä vasemman jalkaterän keskiosan liike onnistuu tyypilliseöllä liikelaajuudella. Aluksi tuntuu jäykältä. Vasen isovarvas alkaa vetäytymään koukkuun vasaravarpaaksi.
 
 Jalkaterä kuormitettuna: (+ = lievä, ++ = kohtalainen, +++ = voimakas):
-Takaosan (kantaluun) asento NEU/VAR++. Keskiosan asento NEU/VAR++. Etuosan asento 1: VAR+/VAR++, etuosan asento 2: NEU/ADD++. 
-Coleman's block test: /vasemman jalkaterän takaosan asento korjaantuu, ei fiksaatiota. Feissin linja: 1/3 / 2/3. 
+Takaosan (kantaluun) asento NEU/VAR++. Keskiosan asento NEU/VAR++. Etuosan asento 1: VAR+/VAR++, etuosan asento 2: NEU/ADD++. Coleman's block test: /vasemman jalkaterän takaosan asento korjaantuu, ei fiksaatiota. Feissin linja: 1/3 / 2/3. 
+Painelevymittaus: Kyllä
+Painelevymittaus, lisätietoja: painetta riittää
 Kommentit (jalkaterä): Seistessä paino oikealla, vasen alaraaja koukussa.
-Painelevy mitattu: Kyllä
 
-Alaraajojen spastisuus:
-Catch: Lonkan adduktorit Ei/Ei. Hamstringit Ei/Ei. Rectus femorikset Ei/-38°. Soleukset Ei/-10° (klonus Ei/Kyllä). 
-Gastrocnemiukset Ei/-24° (klonus Kyllä/Kyllä). 
-Kommentit (lonkka): Lievää spastisuutta havaittavissa
-
-Modified Ashworth: Lonkan koukistajat 1/1+. Lonkan ojentajat 2/2. Lonkan lähentäjät 1/1. Hamstringit 1/1. 
-Rectus femoris 1+/2. Lonkan sisäkierto 1/1+. Lonkan ulkokierto 1+/0. Soleus 1+/1. Gastrocnemius 1+/3. 
+Modified Ashworth:
+Lonkan koukistajat 1/1+. Lonkan ojentajat 2/2. Lonkan lähentäjät 1/1. Hamstringit 1/1. Rectus femoris 1+/2. Lonkan sisäkierto 1/1+. Lonkan ulkokierto 1+/0. Soleus 1+/1. Gastrocnemius 1+/3.
 Kommentit (lonkka): Lievää spastisuutta havaittavissa
 
 Manuaalisesti mitatut lihasvoimat ja selektiivisyys (oikea lihasvoima/vasen lihasvoima, (oikea selekt./vasen selekt.)):
-Asteikko: 0-5, missä 5 on vahvin ja 3 voittaa painovoiman. Selektiivisyys, missä 0=kokonaisliikemalli, 1=osittain eriytynyt ja 2=eriytynyt koko liikelaajuudella:
-Lonkan ojennus (polvi 0°) 4/3+ (0/1). Lonkan ojennus (polvi 90°) 4/1+ (1/2). Lonkan koukistus 4/4- (0/1). Loitonnus (lonkka 0°) 4/4- (0/1).Loitonnus, lonkka fleksiossa 1+/1. Lähennys 4/3+. Lonkan ulkokierto 0+/0+ (2/2).
-Lonkan sisäkierto 1/1 (1/0). Polven ojennus 4/3+ (1/1). Polven koukistus 1-/2- (0/1). Nilkan koukistus 4/3- (0/1 (1/2). Nilkan ojennus (soleus) 1-/1. 
-Inversio 4/2. Eversio 4/0(1/1). Isovarpaan ojennus 4/0 (2/0).Isovarpaan koukistus 4/0 (0/1). Varpaiden (2-5) ojennus 4/0 (1/1).
-Varpaiden (2-5) koukistus 4/0 (0/0). Suorat vatsalihakset 5. Selkälihakset 1-.Kommentit (voimat): Polven ojennusliike provosoi polvikipua - saattaa olla vahvempi kuin 3+, mutta kivun vuoksi ei toisteta. Polvikierukkatesti provosoi kipua vasemmassa polvessa. 
+Asteikko: 0-5, missä 5 on vahvin ja 3 voittaa painovoiman koko potilaan liikelaajuudella.
+Selektiivisyys: 0-2, missä 0=kokonaisliikemalli, 1=osittain eriytynyt ja 2=eriytynyt koko liikelaajuudella:
+Lonkan ojennus (polvi 0°) 4/3+ (0/1). Lonkan ojennus (polvi 90°) 4/1+ (1/2). Lonkan koukistus 4/4- (0/1). Loitonnus (lonkka 0°) 4/4- (0/1). Loitonnus, lonkka fleksiossa 1+/1. Lähennys 4/3+. Lonkan ulkokierto 0+/0+ (2/2). Lonkan sisäkierto 1/1 (1/0). Polven ojennus 4/3+ (1/1). Polven koukistus 1-/2- (0/1). Nilkan koukistus 4/3- (0/1).  (1/2). Nilkan ojennus (soleus) 1-/1. Inversio 4/2. Eversio 4/0 (1/1). Isovarpaan ojennus 4/0 (2/0). Isovarpaan koukistus 4/0 (0/1). Varpaiden (2-5) ojennus 4/0 (1/1). Varpaiden (2-5) koukistus 4/0 (0/0). Suorat vatsalihakset 5. Selkälihakset 1-.
+Kommentit (voimat): Polven ojennusliike provosoi polvikipua - saattaa olla vahvempi kuin 3+, mutta kivun vuoksi ei toisteta. Polvikierukkatesti provosoi kipua vasemmassa polvessa.  
 
 Dynaaminen EMG:
-Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista: soleus, gastrocnemius, peroneus, tibialis anterior, rectus, med hamstring, vastus, gluteus.
-Kommentit:
-
+Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista:
+peroneous, gastrocnemius, tibialis anterior, soleus
 
 SUUNNITELMA/POHDINTA:
-
-
-
-
-
-, fysioterapeutti
-Liikelaboratorio
-HYKS, Lastenlinna
-
-Jakelu:
-
-Kotiin 2kpl, joista toinen kuntouttavalle fysioterapeutille.
-.LL14
