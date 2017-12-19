@@ -530,11 +530,11 @@ class EntryApp(QtWidgets.QMainWindow):
         webbrowser.open(Config.help_url)
 
     def debug_make_report(self):
-        """ Make report using the input data. """
+        """ DEBUG: make and save text report using the input data. """
         report = ll_reporter.Report(self.data, self.vars_default(),
                                     self.units())
         report_txt = report.make_text_report()
-        # print(report_txt)
+        # print(report_txt)  # fails with encoding error
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)

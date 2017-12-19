@@ -23,8 +23,9 @@ class Report():
     """ Make various reports based on the data. """
 
     def __init__(self, data, vars_default, units):
+        """ Data is a dict of data variables """
         # convert values to Unicode and add corresponding units as suffices
-        self.data = {key: unicode(data[key]) + units[key] for key in data}
+        self.data = {key: u'%s%s' % (data[key], units[key]) for key in data}
         # list of variables which have default values (=no data was entered)
         self.vars_default = vars_default
 
@@ -66,9 +67,6 @@ class Report():
         """ Generates the main text report. """
         # DEBUG: can edit template while running
         # reload(text_templates)
-        ###
-        # string replacements to do after formatting the whole report
-
         report = text_templates.report
         # check which fields are (not) present in report
         flds_report = set(Report.get_field(''.join(report)))
@@ -124,7 +122,7 @@ class Report():
     def make_excel(self, fn_save, fn_template):
         """ Export report to .xls file fn_save. Variables found in fn_template
         are filled in.
-        fn_template should have Python-style format strings at cells that
+        fn_template should have Python-style format strings in cells that
         should be filled in, e.g. {TiedotNimi} would fill the cell using
         the corresponding key in self.data.
         fn_template must be in .xls (not xlsx) format, since formatting info
