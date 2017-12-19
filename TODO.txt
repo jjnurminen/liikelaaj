@@ -1,0 +1,64 @@
+﻿
+
+TODO:
+-fixes_2017 branch
+
+
+tekstiraportti:
+
+
+oheismittausten tulokset:
+
+otsikko i -> I  (johtuu replace -operaatiosta EI->Ei)
+
+lonkka, polvi, nilkka omalta riviltä, ei muita rivinvaihtoja
+paitsi kommentit omilta riveiltään
+
+liikaa välejä ennen "Luiset virheasennot" -kohtaa?
+
+Alaraajojen spastisuus -kohta -> Nivelten aktiiviset liikelaajuudet -kohdan jälkeen
+(siir.)
+
+Jalkaterä -kohdat: rivinvaihdot pois (ja ylim. välit)
+
+Lisää lyhenteiden selitykset (esim. ennen + ++ +++ -kohtaa)
+NEU neutraali
+TYYP 
+RAJ
+VAR
+VALG
+
+Painelevy mitattu -> Painelevymittaus
++ ehkä tekstikenttä ohjelmaan (painelevymittauksen kuvaus)
+
+Alaraajan pituudet kop. myös Muita mittauksia -kohtaan
+
+Manuaalisesti mitatut lihasvoimat -kohta:
+poist. rivinvaihdot
+
+Lisää Navicular drop (arvo millimetreissä vasen/oikea)
+
+Lisää EMG-sivu; mitä elektrodeja mitattiin
+
+Etuosan asento 1: 
+lisää VAR+,++,+++ (1. säde)
+-OK
+
+Isometrinen lihasvoima -tab
++ oma raportti (Excel + teksti)?
+ehkä joskus tulevaisuudessa :)
+nyt: tee uusi pohja (vertailu & perus) isom. voimamittausta varten
+                    
+                    
+
+
+
+
+
+
+
+
+
+
+
+
