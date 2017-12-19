@@ -163,7 +163,7 @@ class CheckDegSpinBox(QtWidgets.QWidget):
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.setFocusProxy(self.degSpinBox)
 
-        """ Widget defaults are tailored for this program. For certain instances
+        """ Widget defaults are tailored for this program. For some instances
         of the widget, these values will be modified already by Qt Designer
         (in the .ui file), so we set them only here and do not touch them
         later in the code. If exporting the widget, these can be deleted or
@@ -379,7 +379,8 @@ class EntryApp(QtWidgets.QMainWindow):
         the process (by Qt) and the loop then segfaults while trying to
         dereference them (the loop collects all QLineEdits at the start).
         Also install special keypress event handler. """
-        for w in self.findChildren((QtWidgets.QSpinBox, QtWidgets.QDoubleSpinBox)):
+        for w in self.findChildren((QtWidgets.QSpinBox,
+                                    QtWidgets.QDoubleSpinBox)):
             wname = unicode(w.objectName())
             if wname[:2] == 'sp':
                 w.setLineEdit(MyLineEdit())
@@ -533,7 +534,7 @@ class EntryApp(QtWidgets.QMainWindow):
         report = ll_reporter.Report(self.data, self.vars_default(),
                                     self.units())
         report_txt = report.make_text_report()
-        print(report_txt)
+        # print(report_txt)
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)
@@ -691,8 +692,8 @@ class EntryApp(QtWidgets.QMainWindow):
                 widget.setFocus()
 
     def save_temp(self):
-        """ Save form input data into temporary backup file. Exceptions will be caught
-        by the fatal exception mechanism. """
+        """ Save form input data into temporary backup file. Exceptions will be
+        caught by the fatal exception mechanism. """
         self.save_file(Config.tmpfile)
         msg = ll_msgs.status_value_change.format(n=self.n_modified(),
                                                  tmpfile=Config.tmpfile)
@@ -776,9 +777,8 @@ def main():
     eapp.show()
     app.exec_()
 
+
 if __name__ == '__main__':
     main()
-
-
 
     
