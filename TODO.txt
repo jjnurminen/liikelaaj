@@ -4,6 +4,8 @@ TODO:
 -fixes_2017 branch
 
 
+
+
 tekstiraportti:
 
 oheismittausten tulokset:
@@ -38,13 +40,13 @@ Navicular drop -arvot
 
 
 
+Excel-raportti
+
+Navicular drop?
+
+
+
 ohjelma:
-
-Lisää Navicular drop (arvo millimetreissä vasen/oikea)
-
-Lisää EMG-sivu; mitä elektrodeja mitattiin
-
-Painelevy, lisätietoja?
 
 Isometrinen lihasvoima -tab
 + oma raportti (Excel + teksti)?

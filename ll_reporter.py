@@ -26,12 +26,13 @@ class Report():
         """ Data is a dict of data variables """
         # convert values to Unicode and add corresponding units as suffices
         self.data = {key: u'%s%s' % (data[key], units[key]) for key in data}
-        # list of variables which have default values (=no data was entered)
+        # list of variables which have default values (= no data was entered)
         self.vars_default = vars_default
 
     @staticmethod
     def get_field(s):
-        """ Return all fields in a format string. """
+        """ Return list of fields in a format string, e.g.
+        '{foo} is {bar}'  ->  ['foo', 'bar']  """
         fi = string.Formatter()
         pit = fi.parse(s)  # returns parser generator
         for items in pit:
@@ -54,7 +55,7 @@ class Report():
     @staticmethod
     def cond_format(s, di, fields_at_default):
         """ Conditionally format string s using dict di. If s has fields and
-        they all are in the empty_fields list, an empty string is returned.
+        they all are in fields_at_default, an empty string is returned.
         Otherwise all the fields are formatted, and any other (non-field) text
         is returned as is. """
         flds = list(Report.get_field(s))
