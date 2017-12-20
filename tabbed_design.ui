@@ -24,7 +24,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>9</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabTiedot">
        <attribute name="title">
@@ -407,37 +407,6 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="2">
-           <widget class="QSpinBox" name="spAntropAlaraajaOik">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> mm</string>
-            </property>
-            <property name="minimum">
-             <number>300</number>
-            </property>
-            <property name="maximum">
-             <number>1500</number>
-            </property>
-            <property name="value">
-             <number>300</number>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="4">
            <widget class="QLabel" name="label_263">
             <property name="font">
@@ -707,6 +676,37 @@
             </property>
            </spacer>
           </item>
+          <item row="3" column="2">
+           <widget class="QSpinBox" name="spAntropAlaraajaOik">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>300</number>
+            </property>
+            <property name="maximum">
+             <number>1500</number>
+            </property>
+            <property name="value">
+             <number>300</number>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>
@@ -804,7 +804,7 @@
         <item>
          <layout class="QGridLayout" name="gridLayout">
           <item row="5" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapOik"/>
           </item>
           <item row="14" column="1">
            <widget class="QLabel" name="label_29">
@@ -839,7 +839,7 @@
            </widget>
           </item>
           <item row="8" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Oik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Oik"/>
           </item>
           <item row="16" column="1">
            <widget class="QLabel" name="label_17">
@@ -849,7 +849,7 @@
            </widget>
           </item>
           <item row="6" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvVas"/>
           </item>
           <item row="1" column="6" colspan="3">
            <widget class="QLabel" name="label_88">
@@ -881,7 +881,7 @@
            </widget>
           </item>
           <item row="18" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoVas"/>
           </item>
           <item row="19" column="1">
            <widget class="QLabel" name="label_55">
@@ -891,7 +891,7 @@
            </widget>
           </item>
           <item row="6" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvOik"/>
           </item>
           <item row="17" column="1">
            <widget class="QLabel" name="label_34">
@@ -908,13 +908,13 @@
            </widget>
           </item>
           <item row="3" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioVas"/>
           </item>
           <item row="10" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Oik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Oik"/>
           </item>
           <item row="9" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagOik"/>
           </item>
           <item row="15" column="1">
            <widget class="QLabel" name="label_16">
@@ -1026,7 +1026,7 @@
            </widget>
           </item>
           <item row="15" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioVas"/>
           </item>
           <item row="3" column="8">
            <widget class="QComboBox" name="cbLonkkaFleksioModAVas">
@@ -1194,13 +1194,13 @@
            </widget>
           </item>
           <item row="15" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioOik"/>
           </item>
           <item row="12" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Vas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Vas"/>
           </item>
           <item row="12" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Oik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Oik"/>
           </item>
           <item row="8" column="1">
            <widget class="QLabel" name="label_11">
@@ -1215,10 +1215,10 @@
            </widget>
           </item>
           <item row="14" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksVas"/>
           </item>
           <item row="14" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksOik"/>
           </item>
           <item row="3" column="1">
            <widget class="QLabel" name="label_7">
@@ -1240,13 +1240,13 @@
            </widget>
           </item>
           <item row="5" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapVas"/>
           </item>
           <item row="3" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioOik"/>
           </item>
           <item row="8" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Vas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Vas"/>
           </item>
           <item row="2" column="8">
            <widget class="QLabel" name="label_90">
@@ -1288,7 +1288,7 @@
            </widget>
           </item>
           <item row="18" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoOik"/>
           </item>
           <item row="1" column="2" colspan="3">
            <widget class="QLabel" name="label_77">
@@ -1331,30 +1331,30 @@
            </widget>
           </item>
           <item row="19" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoVas"/>
           </item>
           <item row="10" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Vas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Vas"/>
           </item>
           <item row="9" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagVas"/>
           </item>
           <item row="11" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="11" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="19" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoOik"/>
           </item>
           <item row="5" column="8">
            <widget class="QComboBox" name="cbLonkkaEkstensioModAVas">
@@ -1852,28 +1852,28 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="10" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="15" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Vas" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Vas">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="10" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="9" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuVas"/>
           </item>
           <item row="14" column="1">
            <widget class="QLabel" name="label_23">
@@ -1937,7 +1937,7 @@
            </widget>
           </item>
           <item row="4" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapOik"/>
           </item>
           <item row="1" column="2" colspan="3">
            <widget class="QLabel" name="label_86">
@@ -1956,7 +1956,7 @@
            </widget>
           </item>
           <item row="9" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuOik"/>
           </item>
           <item row="5" column="1">
            <widget class="QLabel" name="label_27">
@@ -2019,17 +2019,17 @@
            </widget>
           </item>
           <item row="4" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapVas"/>
           </item>
           <item row="5" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvVas"/>
           </item>
           <item row="11" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
-            <property name="maximum" stdset="0">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
@@ -2093,10 +2093,10 @@
            </widget>
           </item>
           <item row="5" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvOik"/>
           </item>
           <item row="8" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuVas"/>
           </item>
           <item row="2" column="9">
            <spacer name="horizontalSpacer_28">
@@ -2112,17 +2112,17 @@
            </spacer>
           </item>
           <item row="11" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
-            <property name="maximum" stdset="0">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="8" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuOik"/>
           </item>
           <item row="11" column="1">
            <widget class="QLabel" name="label_233">
@@ -2229,22 +2229,22 @@
            </widget>
           </item>
           <item row="15" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Oik" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Oik">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="14" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Vas" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Vas">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="14" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Oik" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Oik">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
@@ -2586,8 +2586,8 @@
            </widget>
           </item>
           <item row="4" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -2777,8 +2777,8 @@
            </spacer>
           </item>
           <item row="4" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -2809,10 +2809,10 @@
            </widget>
           </item>
           <item row="13" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMVas"/>
           </item>
           <item row="13" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMOik"/>
           </item>
           <item row="2" column="10">
            <widget class="QLabel" name="label_253">
@@ -2835,8 +2835,8 @@
            </widget>
           </item>
           <item row="9" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -2970,8 +2970,8 @@
            </widget>
           </item>
           <item row="9" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -3007,22 +3007,22 @@
            </widget>
           </item>
           <item row="8" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMOik"/>
           </item>
           <item row="10" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMOik"/>
           </item>
           <item row="10" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMVas"/>
           </item>
           <item row="7" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMOik"/>
           </item>
           <item row="7" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMVas"/>
           </item>
           <item row="11" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMOik"/>
           </item>
           <item row="4" column="9">
            <spacer name="horizontalSpacer_14">
@@ -3041,7 +3041,7 @@
            </spacer>
           </item>
           <item row="11" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMVas"/>
           </item>
           <item row="4" column="7">
            <spacer name="horizontalSpacer_15">
@@ -3060,7 +3060,7 @@
            </spacer>
           </item>
           <item row="8" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMVas"/>
           </item>
           <item row="4" column="4">
            <spacer name="horizontalSpacer_12">
@@ -3086,10 +3086,10 @@
            </widget>
           </item>
           <item row="14" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMOik"/>
           </item>
           <item row="14" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMVas"/>
           </item>
           <item row="11" column="3">
            <widget class="QCheckBox" name="xbNilkkaDorsifPolvi0AROMEversioOik">
@@ -3276,14 +3276,68 @@
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
          <layout class="QGridLayout" name="gridLayout_18">
-          <item row="14" column="1">
+          <item row="12" column="6">
+           <widget class="QLabel" name="label_36">
+            <property name="text">
+             <string>Navicular drop, istuen</string>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="7">
+           <widget class="QSpinBox" name="spJalkatNavDropSeistenOik">
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="maximum">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="9">
+           <widget class="QSpinBox" name="spJalkatNavDropSeistenVas">
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="maximum">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="7">
+           <widget class="QSpinBox" name="spJalkatNavDropIstuenOik">
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="maximum">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="9">
+           <widget class="QSpinBox" name="spJalkatNavDropIstuenVas">
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="maximum">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="6">
+           <widget class="QLabel" name="label_45">
+            <property name="text">
+             <string>Navicular drop, seisten</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="1">
            <widget class="QLabel" name="label_282">
             <property name="text">
              <string>Etuosan asento 2.</string>
             </property>
            </widget>
           </item>
-          <item row="14" column="2">
+          <item row="15" column="2">
            <widget class="QComboBox" name="cbJalkatEtuosanAsento2Oik">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -3399,9 +3453,14 @@
               <string>Hypermobiili</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>Ei liikettä</string>
+             </property>
+            </item>
            </widget>
           </item>
-          <item row="17" column="4">
+          <item row="18" column="4">
            <widget class="QComboBox" name="cbJalkatVaivaisenluuVas">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -3449,7 +3508,7 @@
             </property>
            </widget>
           </item>
-          <item row="17" column="3">
+          <item row="18" column="3">
            <spacer name="horizontalSpacer_9">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -3499,9 +3558,14 @@
               <string>Hypermobiili</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>Ei liikettä</string>
+             </property>
+            </item>
            </widget>
           </item>
-          <item row="14" column="4">
+          <item row="15" column="4">
            <widget class="QComboBox" name="cbJalkatEtuosanAsento2Vas">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -3557,7 +3621,7 @@
             </item>
            </widget>
           </item>
-          <item row="13" column="1">
+          <item row="14" column="1">
            <widget class="QLabel" name="label_281">
             <property name="text">
              <string>Etuosan asento 1.</string>
@@ -3704,6 +3768,11 @@
               <string>Hypermobiili</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>Ei liikettä</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item row="7" column="4">
@@ -3740,6 +3809,11 @@
               <string>Hypermobiili</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>Ei liikettä</string>
+             </property>
+            </item>
            </widget>
           </item>
           <item row="4" column="5">
@@ -3758,7 +3832,7 @@
             </property>
            </spacer>
           </item>
-          <item row="13" column="6">
+          <item row="14" column="6">
            <widget class="QLabel" name="label_292">
             <property name="text">
              <string>Coleman block test</string>
@@ -3835,17 +3909,17 @@
             </property>
            </widget>
           </item>
-          <item row="14" column="7">
+          <item row="15" column="7">
            <widget class="QCheckBox" name="xbPainelevy">
             <property name="text">
              <string>Tehty</string>
             </property>
            </widget>
           </item>
-          <item row="13" column="9">
+          <item row="14" column="9">
            <widget class="QLineEdit" name="lnJalkatColemanVas"/>
           </item>
-          <item row="18" column="1">
+          <item row="19" column="1">
            <widget class="QLabel" name="label_31">
             <property name="text">
              <string>Kovettumat</string>
@@ -4047,9 +4121,14 @@
               <string>Hypermobiili</string>
              </property>
             </item>
+            <item>
+             <property name="text">
+              <string>Ei liikettä</string>
+             </property>
+            </item>
            </widget>
           </item>
-          <item row="15" column="4">
+          <item row="16" column="4">
            <widget class="QComboBox" name="cbJalkat1sadeVas">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -4212,7 +4291,7 @@
             </property>
            </widget>
           </item>
-          <item row="14" column="6">
+          <item row="15" column="6">
            <widget class="QLabel" name="label_294">
             <property name="text">
              <string>Painelevymittaus</string>
@@ -4226,7 +4305,7 @@
             </property>
            </widget>
           </item>
-          <item row="15" column="2">
+          <item row="16" column="2">
            <widget class="QComboBox" name="cbJalkat1sadeOik">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -4257,7 +4336,7 @@
             </item>
            </widget>
           </item>
-          <item row="13" column="2">
+          <item row="14" column="2">
            <widget class="QComboBox" name="cbJalkatEtuosanAsento1Oik">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -4343,7 +4422,7 @@
             </item>
            </widget>
           </item>
-          <item row="16" column="1">
+          <item row="17" column="1">
            <widget class="QLabel" name="label_284">
             <property name="text">
              <string>1. MTP ojennus</string>
@@ -4366,7 +4445,7 @@
             </property>
            </spacer>
           </item>
-          <item row="17" column="2">
+          <item row="18" column="2">
            <widget class="QComboBox" name="cbJalkatVaivaisenluuOik">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -4407,14 +4486,14 @@
             </item>
            </widget>
           </item>
-          <item row="17" column="1">
+          <item row="18" column="1">
            <widget class="QLabel" name="label_285">
             <property name="text">
              <string>Vaivaisenluu</string>
             </property>
            </widget>
           </item>
-          <item row="18" column="4">
+          <item row="19" column="4">
            <widget class="QLineEdit" name="lnJalkatKovettumatVas"/>
           </item>
           <item row="4" column="4">
@@ -4453,10 +4532,10 @@
             </item>
            </widget>
           </item>
-          <item row="18" column="2">
+          <item row="19" column="2">
            <widget class="QLineEdit" name="lnJalkatKovettumatOik"/>
           </item>
-          <item row="15" column="1">
+          <item row="16" column="1">
            <widget class="QLabel" name="label_283">
             <property name="text">
              <string>1. säde</string>
@@ -4477,7 +4556,7 @@
             </property>
            </widget>
           </item>
-          <item row="13" column="4">
+          <item row="14" column="4">
            <widget class="QComboBox" name="cbJalkatEtuosanAsento1Vas">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -4659,7 +4738,7 @@
             </item>
            </widget>
           </item>
-          <item row="13" column="7">
+          <item row="14" column="7">
            <widget class="QLineEdit" name="lnJalkatColemanOik"/>
           </item>
           <item row="8" column="7">
@@ -4770,6 +4849,11 @@
             <item>
              <property name="text">
               <string>Hypermobiili</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ei liikettä</string>
              </property>
             </item>
            </widget>
@@ -5114,11 +5198,21 @@
             </property>
            </spacer>
           </item>
-          <item row="16" column="2">
-           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusOik" native="true"/>
+          <item row="17" column="2">
+           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusOik"/>
           </item>
-          <item row="16" column="4">
-           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusVas" native="true"/>
+          <item row="17" column="4">
+           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusVas"/>
+          </item>
+          <item row="16" column="6">
+           <widget class="QLabel" name="label_307">
+            <property name="text">
+             <string>Painelevymittaus, lisätietoja:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="7" colspan="3">
+           <widget class="QLineEdit" name="lnPainelevyTiedot"/>
           </item>
          </layout>
         </item>

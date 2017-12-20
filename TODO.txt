@@ -6,7 +6,6 @@ TODO:
 
 tekstiraportti:
 
-
 oheismittausten tulokset:
 
 otsikko i -> I  (johtuu replace -operaatiosta EI->Ei)
@@ -14,35 +13,38 @@ otsikko i -> I  (johtuu replace -operaatiosta EI->Ei)
 lonkka, polvi, nilkka omalta riviltä, ei muita rivinvaihtoja
 paitsi kommentit omilta riveiltään
 
-liikaa välejä ennen "Luiset virheasennot" -kohtaa?
+liikaa välejä ennen 
+"Luiset virheasennot" -kohtaa?
 
 Alaraajojen spastisuus -kohta -> Nivelten aktiiviset liikelaajuudet -kohdan jälkeen
 (siir.)
 
 Jalkaterä -kohdat: rivinvaihdot pois (ja ylim. välit)
 
-Lisää lyhenteiden selitykset (esim. ennen + ++ +++ -kohtaa)
+Lisää lyhenteiden selitykset (alkuun)
 NEU neutraali
 TYYP 
 RAJ
 VAR
 VALG
 
+Voittaa painovoiman -> voittaa p. koko potilaan liikelaajuudella
+
 Painelevy mitattu -> Painelevymittaus
-+ ehkä tekstikenttä ohjelmaan (painelevymittauksen kuvaus)
 
 Alaraajan pituudet kop. myös Muita mittauksia -kohtaan
 
-Manuaalisesti mitatut lihasvoimat -kohta:
-poist. rivinvaihdot
+Navicular drop -arvot
+
+
+
+ohjelma:
 
 Lisää Navicular drop (arvo millimetreissä vasen/oikea)
 
 Lisää EMG-sivu; mitä elektrodeja mitattiin
 
-Etuosan asento 1: 
-lisää VAR+,++,+++ (1. säde)
--OK
+Painelevy, lisätietoja?
 
 Isometrinen lihasvoima -tab
 + oma raportti (Excel + teksti)?
