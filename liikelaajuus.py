@@ -567,7 +567,7 @@ class EntryApp(QtWidgets.QMainWindow):
             with io.open(fname, 'r', encoding='utf-8') as f:
                 data_loaded = json.load(f)
             keys, loaded_keys = set(self.data), set(data_loaded)
-            if not keys == loaded_keys:  # keys mismatch
+            if keys != loaded_keys:  # keys mismatch
                 self.keyerror_dialog(keys, loaded_keys)
             for key in data_loaded:
                 if key in self.data:
