@@ -3,21 +3,30 @@
 Tabbed form for input of movement range data.
 
 
-design:
--separate ui file with all the widgets is made with Qt Designer and loaded
+Design:
+
+-separate ui file with all the widgets made with Qt Designer and loaded
  using uic
--custom widget (check+spinbox), plugin file should be made available to Qt
-designer (checkspinbox_plugin.py)
+
+-custom widget (check+spinbox): plugin file should be made available to Qt
+ designer (checkspinbox_plugin.py). export PYQTDESIGNERPATH=path
+
 -widget naming: first 2-3 chars indicate widget type, next word indicates
  variable category or page where widget resides, the rest indicates the
  variable (e.g. lnTiedotNimi)
--widget inputs are updated into internal dict immediately when any value
- changes
+
+-widget inputs are updated into an internal dict whenever any value changes
+
 -dict keys are taken automatically from widget names by removing first 2-3
-chars (widget type)
+ chars (widget type)
+
 -for saving, dict data is turned into json unicode and written out in utf-8
+
 -data is saved into temp directory whenever any values are changed by user
 
+-files do not include version info (maybe a stupid decision), instead key
+ mismatches between the program and loaded json are detected and reported
+ to the user
 
 
 @author: Jussi (jnu@iki.fi)
@@ -46,7 +55,7 @@ class Config(object):
     a config file. """
     """ The 'not measured' value for spinboxes. For regular spinboxes, this
     is the value that gets written to data files, but it does not affect
-    the value shown next to the spinbox (that is set in Qt Designer).
+    the value shown next to the spinbox (which is set in Qt Designer).
     For the CheckDegSpinBox class, this is also the value shown next to the
     widget in the user interface. """
     spinbox_novalue_text = u'Ei mitattu'
@@ -547,6 +556,7 @@ class EntryApp(QtWidgets.QMainWindow):
         report.make_excel('test_excel_report.xls', Config.xls_template_file)
 
     def values_changed(self, w):
+        """ Callback to update internal data dict whenever inputs change """
         if self.update_dict:
             # DEBUG
             # print('updating dict:', w.objectName(),'new value:',w.getVal())
@@ -562,26 +572,27 @@ class EntryApp(QtWidgets.QMainWindow):
             self.save_temp()
 
     def load_file(self, fname):
-        """ Load data from given file and restore forms. """
+        """ Load data from JSON file and restore forms. """
         if op.isfile(fname):
             with io.open(fname, 'r', encoding='utf-8') as f:
                 data_loaded = json.load(f)
             keys, loaded_keys = set(self.data), set(data_loaded)
-            if keys != loaded_keys:  # keys mismatch
+            # warn the user about key mismatch
+            if keys != loaded_keys:
                 self.keyerror_dialog(keys, loaded_keys)
-            for key in data_loaded:
-                if key in self.data:
-                    self.data[key] = data_loaded[key]
+            # update values (but exclude unknown keys)
+            for key in keys.intersection(loaded_keys):
+                self.data[key] = data_loaded[key]
             self.restore_forms()
             self.statusbar.showMessage(ll_msgs.status_loaded.format(
                                        filename=fname, n=self.n_modified()))
 
     def keyerror_dialog(self, origkeys, newkeys):
-        """ Report missing / extra keys to user. """
+        """ Report missing / unknown keys to user. """
         cmnkeys = origkeys.intersection(newkeys)
         extra_in_new = newkeys - cmnkeys
         not_in_new = origkeys - cmnkeys
-        li = [ll_msgs.keyerror_msg]
+        li = list()
         if extra_in_new:
             li.append(ll_msgs.keys_extra.format(keys=', '.join(extra_in_new)))
         if not_in_new:
