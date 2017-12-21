@@ -548,9 +548,8 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def debug_make_report(self):
         """ DEBUG: make and save text report using the input data. """
-        report_txt = reporter.make_report(self.data_with_units,
-                                          self.vars_default)
-        # print(report_txt)  # fails with encoding error
+        report = reporter.Report(self.data_with_units, self.vars_default)
+        report_txt = report.make_report()
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)
@@ -569,8 +568,8 @@ class EntryApp(QtWidgets.QMainWindow):
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: text report on every widget update
-            reload(reporter)  # can edit reporter / template while running
-            self.debug_make_report()
+            # reload(reporter)  # can edit reporter / template while running
+            # self.debug_make_report()
             # DEBUG: xls at every update
             # self.debug_make_excel_report()
         self.saved_to_file = False

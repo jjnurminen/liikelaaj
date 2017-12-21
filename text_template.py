@@ -179,7 +179,7 @@ report += u'Navicular drop, istuen: {JalkatNavDropIstuenOik} / {JalkatNavDropIst
 report += u'Navicular drop, seisten: {JalkatNavDropSeistenOik} / {JalkatNavDropSeistenVas}. '
 report += u'Kommentit (jalkaterä): {cmtJalkateraKuormitettuna}\n'
 report += u'Painelevymittaus: {Painelevy}\n'
-report += u'Painelevymittaus, lisätietoja: {PainelevyTiedot}\n'
+report += u'Painelevymittaus, lisätietoja: {JalkatPainelevyTiedot}\n'
 
 report += u"""
 Modified Ashworth:

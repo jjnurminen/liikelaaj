@@ -12,13 +12,6 @@ from xlrd import open_workbook
 from xlutils.copy import copy
 
 
-def make_report(data, fields_default):
-    """Create report using the template"""
-    report = Report(data, fields_default)
-    execfile('text_template.py')
-    return report.text
-
-
 """ Next 2 xlrd hacks copied from:
 http://stackoverflow.com/questions/3723793/
 preserving-styles-using-pythons-xlrd-xlwt-and-xlutils-copy?lq=1 """
@@ -101,6 +94,12 @@ class Report(object):
         for items in pit:
             if items[1]:
                 yield items[1]  # = the field
+
+    def make_report(self):
+        """Create report using the template"""
+        report = self
+        execfile('text_template.py')
+        return self.text
 
     def make_excel(self, fn_save, fn_template):
         """ Export report to .xls file fn_save. Variables found in fn_template
