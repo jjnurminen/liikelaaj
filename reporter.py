@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-Idea to avoid function call (which would require template to be written as
-function):
-    
-    -create Report() instance in calling code
-    -run execfile('template.py') which modifies the instance
+Create reports for liikelaajuus
 
 @author: Jussi (jnu@iki.fi)
 """
@@ -65,6 +61,8 @@ class Report(object):
 
     def __init__(self, data, fields_default):
         """ Init report with data dict."""
+        # strings to replace in .xls cells (after filling the fields)
+        self.cell_postprocess_dict = {u'(EI)': '', u'(Kyllä)': u'(kl.)'}
         self.text = ''
         self.data = data
         self.fields_default = fields_default
@@ -113,8 +111,6 @@ class Report(object):
         fn_template must be in .xls (not xlsx) format, since formatting info
         cannot be read from xlsx (xlutils limitation).
         xlrd and friends are weird, so this code is also weird. """
-        # strings to replace in .xls cells (after filling the fields)
-        cell_postprocess_dict = {u'(EI)': '', u'(Kyllä)': u'(kl.)'}
         rb = open_workbook(fn_template, formatting_info=True)
         wb = copy(rb)
         r_sheet = rb.sheet_by_index(0)
@@ -132,9 +128,8 @@ class Report(object):
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
                     if newval != varname:
-                        for str, newstr in cell_postprocess_dict.iteritems():
+                        for str, newstr in self.cell_postprocess_dict.iteritems():
                             if str in newval:
                                 newval = newval.replace(str, newstr)
                     _setOutCell(w_sheet, col, row, newval)
         wb.save(fn_save)
-
