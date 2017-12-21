@@ -546,10 +546,14 @@ class EntryApp(QtWidgets.QMainWindow):
         return {key: u'%s%s' % (self.data[key], self.units[key]) for key in
                 self.data}
 
+    @property
+    def report(self):
+        """Return Report instance with current data"""
+        return reporter.Report(self.data_with_units, self.vars_default)
+
     def debug_make_report(self):
         """ DEBUG: make and save text report using the input data. """
-        report = reporter.Report(self.data_with_units, self.vars_default)
-        report_txt = report.make_report()
+        report_txt = self.report.make_report()
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)
@@ -557,8 +561,8 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
-        report = reporter.Report(self.data_with_units, self.vars_default)
-        report.make_excel('test_excel_report.xls', Config.xls_template_file)
+        self.report.make_excel('test_excel_report.xls',
+                               Config.xls_template_file)
 
     def values_changed(self, w):
         """ Callback to update internal data dict whenever inputs change """
@@ -660,8 +664,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report_txt = reporter.make_report(self.data_with_units,
-                                                  self.vars_default)
+                report_txt = self.report.make_report()
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
@@ -683,9 +686,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = reporter.Report(self.data_with_units,
-                                         self.vars_default)
-                report.make_excel(fname, Config.xls_template_file)
+                self.report.make_excel(fname, Config.xls_template_file)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 self.message_dialog(ll_msgs.cannot_save+fname)
@@ -795,5 +796,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    
