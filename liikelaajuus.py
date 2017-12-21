@@ -42,7 +42,7 @@ import io
 import os
 import os.path as op
 import json
-import ll_reporter
+import reporter
 import ll_msgs
 import liikelaajuus
 import webbrowser
@@ -489,12 +489,14 @@ class EntryApp(QtWidgets.QMainWindow):
         self.setStyleSheet('QWidget { font-size: %dpt;}'
                            % Config.global_fontsize)
 
+    @property
     def units(self):
         """ Return dict indicating the units for each variable. This may change
         dynamically as the unit may be set to '' for special values. """
         return {self.widget_to_var[wname]: self.input_widgets[wname].unit()
                 for wname in self.input_widgets}
 
+    @property
     def vars_default(self):
         """ Return a list of variables that are at default state. """
         return [key for key in self.data if
@@ -538,11 +540,16 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Show help. """
         webbrowser.open(Config.help_url)
 
+    @property
+    def data_with_units(self):
+        """Return data dict, with units appended to values"""
+        return {key: u'%s%s' % (self.data[key], self.units[key]) for key in
+                self.data}
+
     def debug_make_report(self):
         """ DEBUG: make and save text report using the input data. """
-        report = ll_reporter.Report(self.data, self.vars_default(),
-                                    self.units())
-        report_txt = report.make_text_report()
+        report_txt = reporter.make_report(self.data_with_units,
+                                          self.vars_default)
         # print(report_txt)  # fails with encoding error
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
@@ -551,8 +558,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
-        report = ll_reporter.Report(self.data, self.vars_default(),
-                                    self.units())
+        report = reporter.Report(self.data_with_units, self.vars_default)
         report.make_excel('test_excel_report.xls', Config.xls_template_file)
 
     def values_changed(self, w):
@@ -563,8 +569,8 @@ class EntryApp(QtWidgets.QMainWindow):
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: text report on every widget update
-            # reload(ll_reporter)  # can edit reporter / template while running
-            # self.debug_make_report()
+            reload(reporter)  # can edit reporter / template while running
+            self.debug_make_report()
             # DEBUG: xls at every update
             # self.debug_make_excel_report()
         self.saved_to_file = False
@@ -655,9 +661,8 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.vars_default(),
-                                            self.units())
-                report_txt = report.make_text_report()
+                report_txt = reporter.make_report(self.data_with_units,
+                                                  self.vars_default)
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
@@ -679,8 +684,8 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report = ll_reporter.Report(self.data, self.vars_default(),
-                                            self.units())
+                report = reporter.Report(self.data_with_units,
+                                         self.vars_default)
                 report.make_excel(fname, Config.xls_template_file)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
