@@ -177,9 +177,10 @@ report += u"Coleman's block test: {JalkatColemanOik}/{JalkatColemanVas}. "
 report += u'Feissin linja: {JalkatFeissinLinjaOik} / {JalkatFeissinLinjaVas}. '
 report += u'Navicular drop, istuen: {JalkatNavDropIstuenOik} / {JalkatNavDropIstuenVas}. '
 report += u'Navicular drop, seisten: {JalkatNavDropSeistenOik} / {JalkatNavDropSeistenVas}. '
-report += u'Kommentit (jalkaterä): {cmtJalkateraKuormitettuna}\n'
+report += '\n'
 report += u'Painelevymittaus: {Painelevy}\n'
 report += u'Painelevymittaus, lisätietoja: {JalkatPainelevyTiedot}\n'
+report += u'Kommentit (jalkaterä): {cmtJalkateraKuormitettuna}\n'
 
 report += u"""
 Modified Ashworth:
