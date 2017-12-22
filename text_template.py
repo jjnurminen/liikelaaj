@@ -111,7 +111,7 @@ report += u'Catch: Lonkan adduktorit {LonkkaAdduktoritCatchOik}/{LonkkaAdduktori
 report += u'Hamstringit {PolviHamstringCatchOik}/{PolviHamstringCatchVas}. '
 report += u'Rectus femorikset {PolviRectusCatchOik}/{PolviRectusCatchVas}. '
 report += u'Soleukset {NilkkaSoleusCatchOik}/{NilkkaSoleusCatchVas}'
-report += ' (klonus {NilkkaSoleusKlonusOik}/{NilkkaSoleusKlonusVas})'
+report += u' (klonus {NilkkaSoleusKlonusOik}/{NilkkaSoleusKlonusVas})'
 report.item_sep()
 report += u'Gastrocnemiukset {NilkkaGastroCatchOik}/{NilkkaGastroCatchVas}'
 report += u' (klonus {NilkkaGastroKlonusOik}/{NilkkaGastroKlonusVas})'
@@ -274,14 +274,14 @@ emg_chs = {'EMGSol': 'soleus',
            'EMGGlut': 'gluteus'}
 emgs_in_use = [emg_chs[ch] for ch in emg_chs if
                report.data[ch] == liikelaajuus.Config.checkbox_yestext]
-emgs_str = ', '.join(emgs_in_use)
+emgs_str = u', '.join(emgs_in_use)
 if emgs_str:
     report += u"""
 Dynaaminen EMG:
 Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista:
 """
 report += emgs_str
-
+report += '\n'
 
 report += u"""
 SUUNNITELMA/POHDINTA:

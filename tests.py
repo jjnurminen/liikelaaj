@@ -12,14 +12,14 @@ from xlrd import open_workbook
 import io
 import json
 from reporter import Report
-import text_templates
 from PyQt5 import uic, QtGui, QtWidgets
 import liikelaajuus
 import sys
 import hashlib  # spark another owl...
 
 
-fn_xls_template = "rom_excel_template.xls"
+xls_template = liikelaajuus.Config.xls_template
+text_template = liikelaajuus.Config.text_template
 uifile = "tabbed_design.ui"
 
 """ reference json data. must be updated if variables are changed. """
@@ -31,7 +31,7 @@ changes. use regen_ref_data() below. """
 fn_txt_ref = "testdata/anonyymi.txt"
 fn_xls_ref = "testdata/anonyymi.xls"
 
-""" written out by tests below """
+""" temporary files written out by tests below """
 fn_xls_out = "testdata/nosetests_xls_report.xls"
 fn_out = "testdata/nosetests.json"
 
@@ -62,14 +62,13 @@ def regen_ref_data():
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data_with_units, eapp.vars_default)
-    report.make_excel(fn_xls_ref, fn_xls_template)
-    report_txt = report.make_report()
+    report.make_excel(fn_xls_ref, xls_template)
+    report_txt = report.make_report(text_template)
     with io.open(fn_txt_ref, 'w', encoding='utf-8') as f:
         f.write(report_txt)
 
 
 """ BEGIN TESTS """
-
 
 def test_save():
     """ Test saving data """
@@ -82,8 +81,8 @@ def test_text_report():
     """ Use app to load reference data and generate text report, compare
     with ref report """
     eapp.load_file(fn_ref)
-    report = Report(eapp.data, eapp.vars_default(), eapp.units())
-    report_txt = report.make_text_report()
+    report = Report(eapp.data_with_units, eapp.vars_default)
+    report_txt = report.make_report(text_template)
     with io.open(fn_txt_ref, 'r', encoding='utf-8') as f:
         report_ref = f.read()
     assert_equal(report_ref, report_txt)
@@ -93,34 +92,54 @@ def test_xls_report():
     """ Use app to load reference data and generate xls report, compare
     with ref report """
     eapp.load_file(fn_ref)
-    report = Report(eapp.data, eapp.vars_default(), eapp.units())
-    report.make_excel(fn_xls_out, fn_xls_template)
+    report = Report(eapp.data_with_units, eapp.vars_default)
+    report.make_excel(fn_xls_out, xls_template)
     assert_equal(file_md5(fn_xls_out), file_md5(fn_xls_ref))
 
 
 def test_xls_template():
     """ Test validity of xls report template: no unknown vars
     in template """
-    rb = open_workbook(fn_xls_template, formatting_info=True)
+    rb = open_workbook(xls_template, formatting_info=True)
     r_sheet = rb.sheet_by_index(0)
     for row in range(r_sheet.nrows):
         for col in range(r_sheet.ncols):
             cl = r_sheet.cell(row, col)
-            varname = cl.value
-            if varname:
-                # extract all fields (variable names)
-                flds = Report.get_field(varname)
+            celltext = cl.value
+            if celltext:
+                # extract all fields (variable names) in the cell
+                flds = Report._get_field(celltext)
                 for fld in flds:
                     assert_in(fld, data_emptyvals)
 
 
+class FakeReport(object):
+    """ This acts like the report class but just stores text without
+    any formatting. The purpose is to examine the report template """
+
+    def __init__(self):
+        self.text = u''
+        self.data = data_emptyvals
+
+    def __add__(self, s):
+        self.text += s
+        return self
+
+    def item_sep(self):
+        pass
+
+
 def test_text_template():
-    """ Test validity of text template: all vars in report and
+    """ Test validity of text template: all vars are referenced in report and
     no unknown vars in report """
-    vars = set()
-    for li in text_templates.report:
-        vars.update(set(Report.get_field(li)))
-    assert_set_equal(vars, set(data_emptyvals.keys()))
+    fields = set()
+    report = FakeReport()
+    execfile(text_template)
+    for li in report.text.split('\n'):
+        fields.update(set(Report._get_field(li)))
+    # the report does not reference EMG channels
+    all_fields = {fld for fld in data_emptyvals if fld[:3] != u'EMG'}
+    assert_set_equal(fields, all_fields)
 
 
 def test_widgets():
