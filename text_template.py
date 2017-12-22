@@ -87,9 +87,9 @@ report += u'Ojennus {NilkkaPlantaarifleksioPROMOik}/{NilkkaPlantaarifleksioPROMV
 report += '\n'
 report += u'Kommentit: {cmtNilkkaPROM}\n'
 
-# for 'eversio' extra info and similar cases later:
+# for 'eversio' extra info and similar things later:
 # we have to add item separators in a 'smart' way since we do not know
-# what gets printed
+# which items actually get printed
 report += u"""
 Nivelten aktiiviset liikelaajuudet: 
 """

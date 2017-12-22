@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Tabbed form for input of movement range data.
 
+Program for input and reporting of ROM (range of motion), strength and other
+measurements.
 
 Design:
 
--separate ui file with all the widgets made with Qt Designer and loaded
- using uic
+-uses a separate ui file made with Qt Designer and loaded using uic
 
--custom widget (check+spinbox): plugin file should be made available to Qt
+-custom widget (CheckDegSpinBox): plugin file should be made available to Qt
  designer (checkspinbox_plugin.py). export PYQTDESIGNERPATH=path
 
 -widget naming: first 2-3 chars indicate widget type, next word indicates
@@ -24,10 +24,9 @@ Design:
 
 -data is saved into temp directory whenever any values are changed by user
 
--files do not include version info (maybe a stupid decision), instead key
- mismatches between the program and loaded json are detected and reported
+-files do not include any version info (maybe a stupid decision), instead
+ mismatches between the widgets and loaded json are detected and reported
  to the user
-
 
 @author: Jussi (jnu@iki.fi)
 """
@@ -61,6 +60,9 @@ class Config(object):
     spinbox_novalue_text = u'Ei mitattu'
     """ 'yes' and 'no' values for checkboxes. Written to data files. """
     checkbox_yestext = u'Kyllä'
+    # the (silly) idea here was that by case sensitivity, 'EI' could be
+    # changed in the reports by search&replace operations without affecting
+    # other 'Ei' strings
     checkbox_notext = u'EI'
     # Set dirs according to platform
     if sys.platform == 'win32':
@@ -87,7 +89,8 @@ class Config(object):
     global_fontsize = 11
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
-    xls_template_file = "rom_excel_template.xls"
+    xls_template = 'rom_excel_template.xls'
+    text_template = 'text_template.py'
 
 
 class MyLineEdit(QtWidgets.QLineEdit):
@@ -135,9 +138,10 @@ class DegLineEdit(QtWidgets.QLineEdit):
 
 class CheckDegSpinBox(QtWidgets.QWidget):
     """ Custom widget: Spinbox (degrees) with checkbox signaling
-    "default value". If checkbox is checked, disable spinbox -> value() returns
+    "default value". If checkbox is checked, disable spinbox,
+    in which case value() will return
     the default value shown next to checkbox (defaultText property).
-    Otherwise value() returns spinbox value.
+    Otherwise value() will return the spinbox value.
     setValue() takes either the default value, the 'special value'
     (not measured) or  integer.
     """
@@ -305,7 +309,6 @@ class EntryApp(QtWidgets.QMainWindow):
         # loc = QtCore.QLocale()
         # loc.setNumberOptions(loc.OmitGroupSeparator |
         #            loc.RejectGroupSeparator)
-        # special text written out for non-measured variables
         # DEBUG: print all vars
         # for key in sorted(self.data.keys()):
         #    print('{%s}'%key)
@@ -498,7 +501,8 @@ class EntryApp(QtWidgets.QMainWindow):
 
     @property
     def vars_default(self):
-        """ Return a list of variables that are at default state. """
+        """ Return a list of variables that are at their default (unmodified)
+        state. """
         return [key for key in self.data if
                 self.data[key] == self.data_empty[key]]
 
@@ -553,7 +557,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def debug_make_report(self):
         """ DEBUG: make and save text report using the input data. """
-        report_txt = self.report.make_report()
+        report_txt = self.report.make_report(Config.text_template)
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)
@@ -562,7 +566,7 @@ class EntryApp(QtWidgets.QMainWindow):
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
         self.report.make_excel('test_excel_report.xls',
-                               Config.xls_template_file)
+                               Config.xls_template)
 
     def values_changed(self, w):
         """ Callback to update internal data dict whenever inputs change """
@@ -664,7 +668,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                report_txt = self.report.make_report()
+                report_txt = self.report.make_report(Config.text_template)
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
@@ -686,7 +690,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = unicode(fname)
             try:
-                self.report.make_excel(fname, Config.xls_template_file)
+                self.report.make_excel(fname, Config.xls_template)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 self.message_dialog(ll_msgs.cannot_save+fname)

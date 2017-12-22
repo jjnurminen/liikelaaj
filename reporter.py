@@ -95,10 +95,10 @@ class Report(object):
             if items[1]:
                 yield items[1]  # = the field
 
-    def make_report(self):
+    def make_report(self, fn_template):
         """Create report using the template"""
         report = self
-        execfile('text_template.py')
+        execfile(fn_template)
         return self.text
 
     def make_excel(self, fn_save, fn_template):
