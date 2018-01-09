@@ -577,7 +577,7 @@ class EntryApp(QtWidgets.QMainWindow):
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: text report on every widget update
             # reload(reporter)  # can edit reporter / template while running
-            # self.debug_make_report()
+            self.debug_make_report()
             # DEBUG: xls at every update
             # self.debug_make_excel_report()
         self.saved_to_file = False

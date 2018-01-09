@@ -3,7 +3,8 @@
 Template for text report.
 
 This is called by execfile() and works by modifying an existing variable
-called 'report' (which needs to exist as instance of Report class)
+called 'report' (which needs to exist in function locals as an instance of
+Report class)
 The idea is to avoid putting the template code inside a function
 call, which would lead to messy indentation.
 
@@ -11,6 +12,16 @@ call, which would lead to messy indentation.
 """
 
 import liikelaajuus
+
+checkbox_yes = liikelaajuus.Config.checkbox_yestext
+
+
+def cond_add_text(report, var, text):
+    """Return text if yes/no var (checkbox) has the yes value, False
+    otherwise"""
+    global checkbox_yes
+    return text if report.data[var] == checkbox_yes else u''
+
 
 report += u"""
 
@@ -94,8 +105,10 @@ report += u"""
 Nivelten aktiiviset liikelaajuudet: 
 """
 report += u'Nilkka: '
-report += u'Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}/{NilkkaDorsifPolvi90AROMVas}'
-report += u' (eversio {NilkkaDorsifPolvi90AROMEversioOik}/{NilkkaDorsifPolvi90AROMEversioVas})'
+report += u'Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}'
+report += cond_add_text(report, 'NilkkaDorsifPolvi90AROMEversioOik', ' (eversio)')
+report += u'/{NilkkaDorsifPolvi90AROMVas}'
+report += cond_add_text(report, 'NilkkaDorsifPolvi90AROMEversioVas', ' (eversio)')
 report.item_sep()
 report += u'Koukistus (polvi 0°) {NilkkaDorsifPolvi0AROMOik}/{NilkkaDorsifPolvi0AROMVas}'
 report += u' (eversio {NilkkaDorsifPolvi0AROMEversioOik}/{NilkkaDorsifPolvi0AROMEversioVas})'
@@ -273,7 +286,7 @@ emg_chs = {'EMGSol': 'soleus',
            'EMGVas': 'vastus',
            'EMGGlut': 'gluteus'}
 emgs_in_use = [emg_chs[ch] for ch in emg_chs if
-               report.data[ch] == liikelaajuus.Config.checkbox_yestext]
+               report.data[ch] == checkbox_yes]
 emgs_str = u', '.join(emgs_in_use)
 if emgs_str:
     report += u"""

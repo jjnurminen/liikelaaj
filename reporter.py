@@ -96,10 +96,15 @@ class Report(object):
                 yield items[1]  # = the field
 
     def make_report(self, fn_template):
-        """Create report using the template"""
+        """Create report using the template fn_template"""
         report = self
-        execfile(fn_template)
-        return self.text
+        res = dict()
+        """ We want to use the code in fn_template to modify a local variable
+        called report. However execfile() does not allow direct modification of
+        function locals. Thus we pass in another dict of variables to hold the
+        modified values. """
+        execfile(fn_template, locals(), res)
+        return res['report'].text
 
     def make_excel(self, fn_save, fn_template):
         """ Export report to .xls file fn_save. Variables found in fn_template
