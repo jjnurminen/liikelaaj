@@ -1,22 +1,26 @@
 ﻿
 
 TODO:
+fixes_2017 branch
 
--in fixes_2017 branch
--rearrange files
-    -templates dir
-    -setup.py etc.?
--fix nosetests
+-templates dir
+-setup.py etc.?
+-check nosetests
+
 
 tekstiraportti:
 
-fiksaa 'EI' -kohdat
+-fiksaa 'EI' -kohdat
+-klonus, eversio sun muut lisätiedot voisi laittaa nätimmin
+-tekstikentät (esim Coleman, kovettumat) näyttää hassulta jos toista puolta ei
+tulosteta
 
 
 Excel-raportti
 
-Navicular drop?
-EMG?
+lisää:
+-Navicular drop?
+-EMG?
 
 
 ohjelma:

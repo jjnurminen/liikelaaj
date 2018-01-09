@@ -3,8 +3,8 @@
 Template for text report.
 
 This is called by execfile() and works by modifying an existing variable
-called 'report' (instance of Report class)
-The idea is to avoid putting the template inside a function
+called 'report' (which needs to exist as instance of Report class)
+The idea is to avoid putting the template code inside a function
 call, which would lead to messy indentation.
 
 @author: Jussi (jnu@iki.fi)

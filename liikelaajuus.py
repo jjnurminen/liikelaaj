@@ -58,7 +58,7 @@ class Config(object):
     For the CheckDegSpinBox class, this is also the value shown next to the
     widget in the user interface. """
     spinbox_novalue_text = u'Ei mitattu'
-    """ 'yes' and 'no' values for checkboxes. Written to data files. """
+    # 'yes' and 'no' values for checkboxes. Written to data files.
     checkbox_yestext = u'Kyllä'
     # the (silly) idea here was that by case sensitivity, 'EI' could be
     # changed in the reports by search&replace operations without affecting

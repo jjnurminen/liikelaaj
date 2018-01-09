@@ -127,7 +127,8 @@ class Report(object):
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
                     if newval != varname:
-                        for str, newstr in self.cell_postprocess_dict.iteritems():
+                        for str, newstr in (self.cell_postprocess_dict.
+                                            iteritems()):
                             if str in newval:
                                 newval = newval.replace(str, newstr)
                     _setOutCell(w_sheet, col, row, newval)
