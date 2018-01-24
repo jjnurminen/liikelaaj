@@ -105,13 +105,11 @@ report += u"""
 Nivelten aktiiviset liikelaajuudet: 
 """
 report += u'Nilkka: '
-report += u'Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}'
-report += cond_add_text(report, 'NilkkaDorsifPolvi90AROMEversioOik', ' (eversio)')
-report += u'/{NilkkaDorsifPolvi90AROMVas}'
-report += cond_add_text(report, 'NilkkaDorsifPolvi90AROMEversioVas', ' (eversio)')
+report += u'Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}/{NilkkaDorsifPolvi90AROMVas}'
+report += u' (pyrkii lisäksi eversioon {NilkkaDorsifPolvi90AROMEversioOik}/{NilkkaDorsifPolvi90AROMEversioVas})'
 report.item_sep()
 report += u'Koukistus (polvi 0°) {NilkkaDorsifPolvi0AROMOik}/{NilkkaDorsifPolvi0AROMVas}'
-report += u' (eversio {NilkkaDorsifPolvi0AROMEversioOik}/{NilkkaDorsifPolvi0AROMEversioVas})'
+report += u' (pyrkii lisäksi eversioon {NilkkaDorsifPolvi0AROMEversioOik}/{NilkkaDorsifPolvi0AROMEversioVas})'
 report.item_sep()
 report += u'Ojennus {NilkkaPlantaarifleksioAROMOik}/{NilkkaPlantaarifleksioAROMVas}. '
 report += '\n'

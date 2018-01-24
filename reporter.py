@@ -54,12 +54,19 @@ class Report(object):
 
     def __init__(self, data, fields_default):
         """ Init report with data dict."""
-        # strings to replace in .xls cells (after filling the fields)
+        # value replacements for text report, to make it prettier
+        self.text_replace_dict = {u'Ei mitattu': u'-', u'EI': u'Ei'}
+        # string replacements in .xls cells (after filling in the fields)
         self.cell_postprocess_dict = {u'(EI)': '', u'(Kyllä)': u'(kl.)'}
         self.text = ''
         self.data = data
+        self.data_text = data
+        for key, it in self.data_text.iteritems():
+            if it in self.text_replace_dict:
+                self.data_text[key] = self.text_replace_dict[it]
         self.fields_default = fields_default
-        self._item_separator = '. '
+        self._item_separator = '. '  # inserted by item_sep()
+        self.did_print = False  # true if last conditional operation added text
 
     def __add__(self, s):
         """ Format and add a text block to report """
@@ -67,9 +74,9 @@ class Report(object):
         return self
 
     def item_sep(self):
-        """Insert item separator if it's not already at the end of text"""
+        """Insert item separator if needed"""
         seplen = len(self._item_separator)
-        if self.text[-seplen:] != self._item_separator:
+        if self.text[-seplen:] != self._item_separator and self.did_print:
             self.text += self._item_separator
 
     def __repr__(self):
@@ -81,8 +88,10 @@ class Report(object):
         empty string is returned. """
         flds = list(Report._get_field(s))
         if not flds or any([fld not in self.fields_default for fld in flds]):
+            self.did_print = bool(flds)  # only if we printed fields
             return s.format(**self.data)
         else:
+            self.did_print = False
             return ''
 
     @staticmethod
