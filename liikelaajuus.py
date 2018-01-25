@@ -575,10 +575,10 @@ class EntryApp(QtWidgets.QMainWindow):
             # print('updating dict:', w.objectName(),'new value:',w.getVal())
             wname = unicode(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
-            # DEBUG: text report on every widget update
+            # DEBUG: make text report on every widget update
             # reload(reporter)  # can edit reporter / template while running
-            self.debug_make_report()
-            # DEBUG: xls at every update
+            # self.debug_make_report()
+            # DEBUG: make xls report at every update
             # self.debug_make_excel_report()
         self.saved_to_file = False
         if self.save_to_tmp:
