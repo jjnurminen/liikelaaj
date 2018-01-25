@@ -89,8 +89,8 @@ class Config(object):
     global_fontsize = 11
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
-    xls_template = 'rom_excel_template.xls'
-    text_template = 'text_template.py'
+    xls_template = 'templates/rom_excel_template.xls'
+    text_template = 'templates/text_template.py'
 
 
 class MyLineEdit(QtWidgets.QLineEdit):
