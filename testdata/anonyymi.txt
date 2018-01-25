@@ -34,21 +34,21 @@ OHEISMITTAUSTEN TULOKSET:
 
 
 Nivelten passiiviset liikelaajuudet (oikea/vasen), NR = normaalin rajoissa:
-Lonkka: Thomasin testi (vapaasti) NR/NR. Thomasin testi (avustettuna) NR/NR. Koukistus NR/Ei mitattu. Loitonnus (lonkka 0°, polvi 90°) NR/NR. Loitonnus (lonkka 0°, polvi 0°) NR/NR. Loitonnus (lonkka 90°) NR/NR. Sisäkierto 53°/53°. Ulkokierto 40°/40°. 
+Lonkka: Thomasin testi (vapaasti) NR/NR. Thomasin testi (avustettuna) NR/NR. Koukistus NR/-. Loitonnus (lonkka 0°, polvi 90°) NR/NR. Loitonnus (lonkka 0°, polvi 0°) NR/NR. Loitonnus (lonkka 90°) NR/NR. Sisäkierto 53°/53°. Ulkokierto 40°/40°. 
 Kommentit: Vasen lonkka pyrkii abduktioon lonkan ojennuksessa.
 
 Polvi: Ojennus (vapaasti) 0°/0°. Ojennus (avustettuna) 7°/2°. Koukistus (vatsamakuu) NR/120°. Popliteakulma 33°/40°, popliteakulma (true) 25°/26°.
 Kommentit: Polven liikuttelu provosoi polvikipua.
 
-Nilkka: Koukistus (polvi 90°) NR/22°.Koukistus (polvi 0°) NR/20°.Ojennus NR/NR.
+Nilkka: Koukistus (polvi 90°) NR/22°. Koukistus (polvi 0°) NR/20°. Ojennus NR/NR.
 Kommentit: Nilkan erittäin jäykkä aluksi, sulaa hitaasti passiivisessa koukistusliikkeessä. Aktiivinen liike yhdistettynä passiiviseen rentouttaa pohjetta.
 
 Nivelten aktiiviset liikelaajuudet: 
-Nilkka: Koukistus (polvi 90°) 30°/4°. Koukistus (polvi 0°) 15°/-16° (eversio EI/Kyllä). 
+Nilkka: Koukistus (polvi 90°) 30°/4°. Koukistus (polvi 0°) 15°/-16° (pyrkii lisäksi eversioon Ei/Kyllä). 
 Kommentit: Hyvä aktiivinen liike
 
 Alaraajojen spastisuus:
-Catch: Lonkan adduktorit Ei/Ei. Hamstringit Ei/Ei. Rectus femorikset Ei/-38°. Soleukset Ei/-10° (klonus EI/Kyllä). Gastrocnemiukset Ei/-24° (klonus Kyllä/Kyllä). 
+Catch: Lonkan adduktorit Ei/Ei. Hamstringit Ei/Ei. Rectus femorikset Ei/-38°. Soleukset Ei/-10° (klonus Ei/Kyllä). Gastrocnemiukset Ei/-24° (klonus Kyllä/Kyllä). 
 Kommentit (lonkka): Lievää spastisuutta havaittavissa
 Kommentit (nilkka): Spastisuutta on
 Kommentit (polvi): Polvessakin on spastisuutta

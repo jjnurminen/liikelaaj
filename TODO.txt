@@ -25,7 +25,7 @@ tekstiraportti:
 
 -fiksaa 'EI' -kohdat
 -klonus, eversio sun muut lisätiedot voisi laittaa nätimmin
--muuta ne muotoon:
+-muuta ne muotoon 
 
 Koukistus (polvi 90°) 15°/- (pyrkii lisäksi eversioon Kyllä/Ei)
 
