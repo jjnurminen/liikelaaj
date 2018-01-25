@@ -66,7 +66,6 @@ class Report(object):
                 self.data_text[key] = self.text_replace_dict[it]
         self.fields_default = fields_default
         self._item_separator = '. '  # inserted by item_sep()
-        self.did_print = False  # true if last conditional operation added text
 
     def __add__(self, s):
         """ Format and add a text block to report """
@@ -74,9 +73,10 @@ class Report(object):
         return self
 
     def item_sep(self):
-        """Insert item separator if needed"""
+        """Insert item separator if appropriate"""
         seplen = len(self._item_separator)
-        if self.text[-seplen:] != self._item_separator and self.did_print:
+        if (self.text[-seplen:] != self._item_separator and
+           self.text[-2:] != ': '):  # bit of a hack
             self.text += self._item_separator
 
     def __repr__(self):
@@ -84,14 +84,12 @@ class Report(object):
 
     def _cond_format(self, s):
         """ Conditionally format string s. Fields given as {variable} are
-        formatted using the data. If there is no data for any the fields, an
+        formatted using the data. If all fields are default, an
         empty string is returned. """
         flds = list(Report._get_field(s))
         if not flds or any([fld not in self.fields_default for fld in flds]):
-            self.did_print = bool(flds)  # only if we printed fields
             return s.format(**self.data)
         else:
-            self.did_print = False
             return ''
 
     @staticmethod

@@ -16,13 +16,6 @@ import liikelaajuus
 checkbox_yes = liikelaajuus.Config.checkbox_yestext
 
 
-def cond_add_text(report, var, text):
-    """Return text if yes/no var (checkbox) has the yes value, False
-    otherwise"""
-    global checkbox_yes
-    return text if report.data[var] == checkbox_yes else u''
-
-
 report += u"""
 
 LIIKELAAJUUDET JA VOIMAT
@@ -291,8 +284,8 @@ if emgs_str:
 Dynaaminen EMG:
 Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista:
 """
-report += emgs_str
-report += '\n'
+    report += emgs_str
+    report += '\n'
 
 report += u"""
 SUUNNITELMA/POHDINTA:
