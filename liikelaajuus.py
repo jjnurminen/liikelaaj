@@ -593,6 +593,8 @@ class EntryApp(QtWidgets.QMainWindow):
             # warn the user about key mismatch
             if keys != loaded_keys:
                 self.keyerror_dialog(keys, loaded_keys)
+            # reset data before load - loaded data might not have all vars
+            self.data = self.data_empty.copy()
             # update values (but exclude unknown keys)
             for key in keys.intersection(loaded_keys):
                 self.data[key] = data_loaded[key]
