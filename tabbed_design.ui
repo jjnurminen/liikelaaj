@@ -3289,7 +3289,7 @@
              <string> mm</string>
             </property>
             <property name="maximum">
-             <number>20</number>
+             <number>100</number>
             </property>
            </widget>
           </item>
@@ -3299,7 +3299,7 @@
              <string> mm</string>
             </property>
             <property name="maximum">
-             <number>20</number>
+             <number>100</number>
             </property>
            </widget>
           </item>
@@ -3309,7 +3309,7 @@
              <string> mm</string>
             </property>
             <property name="maximum">
-             <number>20</number>
+             <number>100</number>
             </property>
            </widget>
           </item>
@@ -3319,7 +3319,7 @@
              <string> mm</string>
             </property>
             <property name="maximum">
-             <number>20</number>
+             <number>100</number>
             </property>
            </widget>
           </item>
