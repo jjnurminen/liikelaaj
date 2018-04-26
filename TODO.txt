@@ -5,8 +5,6 @@ TODO:
 
 -hetun tarkistus
 
--etuosan asento 1. vas optiot !
-
 -setup.py etc.?
 
 

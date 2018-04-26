@@ -49,6 +49,22 @@ from datetime import date
 from fix_taborder import set_taborder
 
 
+def _check_hetu(hetu):
+    """ This checks validity of a Finnish social security number (hetu) """
+    chrs = "0123456789ABCDEFHJKLMNPRSTUVWXY"
+    if len(hetu) != 11:
+        return False
+    # check day and month
+    pp, kk = int(hetu[:2]), int(hetu[2:4])
+    if not (0 <= pp <= 31 and 1 <= kk <= 12):
+        return False
+    # check 'checksum'
+    chk = chrs[(int(hetu[:6] + hetu[7:10])) % 31]
+    if hetu[-1] != chk:
+        return False
+    return True
+
+
 class Config(object):
     """ Configurable things. In the future, might read some of these from
     a config file. """
@@ -569,8 +585,8 @@ class EntryApp(QtWidgets.QMainWindow):
                                Config.xls_template)
 
     def values_changed(self, w):
-        """ Callback to update internal data dict whenever inputs change """
-        if self.update_dict:
+        """ Callback to call whenever inputs change """
+        if self.update_dict:  # update internal data dict
             # DEBUG
             # print('updating dict:', w.objectName(),'new value:',w.getVal())
             wname = unicode(w.objectName())
@@ -639,6 +655,11 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def save_dialog(self):
         """ Bring up save dialog and save data. """
+        # special ops for certain widgets
+        hetu = self.lnTiedotHetu.getVal()
+        if hetu and not _check_hetu(hetu):
+            self.message_dialog(ll_msgs.invalid_hetu)
+
         fout = QtWidgets.QFileDialog.getSaveFileName(self,
                                                      ll_msgs.save_report_title,
                                                      Config.data_root_fldr,
