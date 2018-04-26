@@ -3,38 +3,13 @@
 
 TODO:
 
--merge fixes_2017 and update PCs
+-hetun tarkistus
+
+-etuosan asento 1. vas optiot !
+
+-lisää 'Ei mitattu' navicular dropiin
 
 -setup.py etc.?
-
-
-tekstiraportti:
-
--tekstikentät (esim Coleman, kovettumat) näyttää hassulta jos toista puolta ei
-tulosteta
-
-Excel-raportti
-
-lisää:
--EMG?
-
-
-ohjelma:
-
-Isometrinen lihasvoima -tab
-+ oma raportti (Excel + teksti)?
-ehkä joskus tulevaisuudessa :)
-nyt: tee uusi pohja (vertailu & perus) isom. voimamittausta varten
-                    
-                    
-
-
-
-
-
-
-
-
 
 
 

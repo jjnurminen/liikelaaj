@@ -3285,41 +3285,77 @@
           </item>
           <item row="13" column="7">
            <widget class="QSpinBox" name="spJalkatNavDropSeistenOik">
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
             <property name="suffix">
              <string> mm</string>
             </property>
+            <property name="minimum">
+             <number>-1</number>
+            </property>
             <property name="maximum">
              <number>100</number>
+            </property>
+            <property name="value">
+             <number>-1</number>
             </property>
            </widget>
           </item>
           <item row="13" column="9">
            <widget class="QSpinBox" name="spJalkatNavDropSeistenVas">
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
             <property name="suffix">
              <string> mm</string>
             </property>
+            <property name="minimum">
+             <number>-1</number>
+            </property>
             <property name="maximum">
              <number>100</number>
+            </property>
+            <property name="value">
+             <number>-1</number>
             </property>
            </widget>
           </item>
           <item row="12" column="7">
            <widget class="QSpinBox" name="spJalkatNavDropIstuenOik">
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
             <property name="suffix">
              <string> mm</string>
             </property>
+            <property name="minimum">
+             <number>-1</number>
+            </property>
             <property name="maximum">
              <number>100</number>
+            </property>
+            <property name="value">
+             <number>-1</number>
             </property>
            </widget>
           </item>
           <item row="12" column="9">
            <widget class="QSpinBox" name="spJalkatNavDropIstuenVas">
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
             <property name="suffix">
              <string> mm</string>
             </property>
+            <property name="minimum">
+             <number>-1</number>
+            </property>
             <property name="maximum">
              <number>100</number>
+            </property>
+            <property name="value">
+             <number>-1</number>
             </property>
            </widget>
           </item>
