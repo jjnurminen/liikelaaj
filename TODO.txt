@@ -7,8 +7,6 @@ TODO:
 
 -etuosan asento 1. vas optiot !
 
--lisää 'Ei mitattu' navicular dropiin
-
 -setup.py etc.?
 
 

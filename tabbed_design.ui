@@ -4592,77 +4592,6 @@
             </property>
            </widget>
           </item>
-          <item row="14" column="4">
-           <widget class="QComboBox" name="cbJalkatEtuosanAsento1Vas">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <item>
-             <property name="text">
-              <string>Ei mitattu</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>NEU</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VALG+</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VALG++</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VALG+++</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VALG+ (1. säde)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VALG++ (1. säde)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VALG+++ (1. säde)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VAR+</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VAR++</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>VAR+++</string>
-             </property>
-            </item>
-           </widget>
-          </item>
           <item row="9" column="1" colspan="4">
            <widget class="Line" name="line_6">
             <property name="orientation">
@@ -5259,6 +5188,92 @@
           </item>
           <item row="16" column="7" colspan="3">
            <widget class="QLineEdit" name="lnJalkatPainelevyTiedot"/>
+          </item>
+          <item row="14" column="4">
+           <widget class="QComboBox" name="cbJalkatEtuosanAsento1Vas">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>Ei mitattu</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>NEU</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VALG+</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VALG++</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VALG+++</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VALG+ (1. säde)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VALG++ (1. säde)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VALG+++ (1. säde)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VAR+</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VAR++</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VAR+++</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VAR+ (1. säde)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VAR++ (1. säde)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VAR+++ (1. säde)</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
         </item>
@@ -12916,7 +12931,6 @@ lonkka fleksiossa</string>
   <tabstop>cbJalkatTakaosanLiikeInversioVas</tabstop>
   <tabstop>cbJalkatHolvikaariVas</tabstop>
   <tabstop>cbJalkatKeskiosanliikeVas</tabstop>
-  <tabstop>cbJalkatEtuosanAsento1Vas</tabstop>
   <tabstop>cbJalkatEtuosanAsento2Vas</tabstop>
   <tabstop>cbJalkat1sadeVas</tabstop>
   <tabstop>cbJalkatVaivaisenluuVas</tabstop>
