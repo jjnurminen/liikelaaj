@@ -7,6 +7,10 @@ automatically run by 'nose2'
 @author: jussi (jnu@iki.fi)
 """
 
+from past.builtins import execfile
+from builtins import str
+from builtins import range
+from builtins import object
 from nose.tools import assert_set_equal, assert_in, assert_equal, assert_true
 from xlrd import open_workbook
 import io
@@ -177,5 +181,5 @@ def test_widgets():
             assert(w.__class__ == liikelaajuus.CheckDegSpinBox)
             varname = wname[3:]
         if varname:
-            varnames.add(unicode(varname))
+            varnames.add(str(varname))
     assert_set_equal(varnames, set(data_emptyvals.keys()))

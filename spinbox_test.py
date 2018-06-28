@@ -4,7 +4,9 @@ Created on Wed Feb  3 18:56:52 2016
 
 @author: jussi
 """
+from __future__ import print_function
 
+from builtins import str
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *

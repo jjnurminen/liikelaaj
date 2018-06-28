@@ -6,6 +6,8 @@ Created on Wed Feb  3 18:56:52 2016
 """
 
 from __future__ import print_function
+from builtins import str
+from builtins import range
 import sys
 from PyQt5 import QtGui, QtCore
 from liikelaajuus import CheckDegSpinBox, MyLineEdit

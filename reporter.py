@@ -7,6 +7,9 @@ Create reports for liikelaajuus
 """
 
 
+from past.builtins import execfile
+from builtins import range
+from builtins import object
 import string
 from xlrd import open_workbook
 from xlutils.copy import copy
@@ -61,7 +64,7 @@ class Report(object):
         self.text = ''
         self.data = data
         self.data_text = data
-        for key, it in self.data_text.iteritems():
+        for key, it in self.data_text.items():
             if it in self.text_replace_dict:
                 self.data_text[key] = self.text_replace_dict[it]
         self.fields_default = fields_default
@@ -110,7 +113,10 @@ class Report(object):
         called report. However execfile() does not allow direct modification of
         function locals. Thus we pass in another dict of variables to hold the
         modified values. """
-        execfile(fn_template, locals(), res)
+        import liikelaajuus
+        checkbox_yes = liikelaajuus.Config.checkbox_yestext
+        exec(compile(open(fn_template, "rb").read(), fn_template, 'exec'),
+             locals(), res)
         return res['report'].text
 
     def make_excel(self, fn_save, fn_template):
@@ -139,8 +145,8 @@ class Report(object):
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
                     if newval != varname:
-                        for str, newstr in (self.cell_postprocess_dict.
-                                            iteritems()):
+                        for str, newstr in (iter(self.cell_postprocess_dict.
+                                            items())):
                             if str in newval:
                                 newval = newval.replace(str, newstr)
                     _setOutCell(w_sheet, col, row, newval)

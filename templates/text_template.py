@@ -13,8 +13,6 @@ call, which would lead to messy indentation.
 
 import liikelaajuus
 
-checkbox_yes = liikelaajuus.Config.checkbox_yestext
-
 
 report += u"""
 

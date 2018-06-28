@@ -34,6 +34,8 @@ Design:
 
 from __future__ import print_function
 
+from builtins import str
+from builtins import object
 from PyQt5 import uic, QtCore, QtWidgets
 import sys
 import traceback
@@ -250,11 +252,11 @@ class CheckDegSpinBox(QtWidgets.QWidget):
         if self.normalCheckBox.checkState() == 0:
             val = self.degSpinBox.value()
             if val == self.degSpinBox.minimum():
-                return unicode(self.specialtext)
+                return str(self.specialtext)
             else:
                 return val
         elif self.normalCheckBox.checkState() == 2:
-            return unicode(self.getDefaultText())
+            return str(self.getDefaultText())
 
     def setValue(self, val):
         if val == self.getDefaultText():
@@ -375,7 +377,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
         def combobox_getval(w):
             """ Get combobox current choice as text """
-            return unicode(w.currentText())
+            return str(w.currentText())
 
         def combobox_setval(w, val):
             """ Set combobox value according to val (unicode) (must be one of
@@ -409,7 +411,7 @@ class EntryApp(QtWidgets.QMainWindow):
         Also install special keypress event handler. """
         for w in self.findChildren((QtWidgets.QSpinBox,
                                     QtWidgets.QDoubleSpinBox)):
-            wname = unicode(w.objectName())
+            wname = str(w.objectName())
             if wname[:2] == 'sp':
                 w.setLineEdit(MyLineEdit())
                 w.keyPressEvent = (lambda event, w=w:
@@ -422,7 +424,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
         """ Set various widget convenience methods/properties """
         for w in self.findChildren(QtWidgets.QWidget):
-            wname = unicode(w.objectName())
+            wname = str(w.objectName())
             wsave = True
             w.unit = lambda: ''  # if a widget input has units, set it below
             if wname[:2] == 'sp':
@@ -437,7 +439,7 @@ class EntryApp(QtWidgets.QMainWindow):
             elif wname[:2] == 'ln':
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = w.setText
-                w.getVal = lambda w=w: unicode(w.text()).strip()
+                w.getVal = lambda w=w: str(w.text()).strip()
             elif wname[:2] == 'cb':
                 w.currentIndexChanged.connect(lambda x,
                                               w=w: self.values_changed(w))
@@ -446,7 +448,7 @@ class EntryApp(QtWidgets.QMainWindow):
             elif wname[:3] == 'cmt':
                 w.textChanged.connect(lambda w=w: self.values_changed(w))
                 w.setVal = w.setPlainText
-                w.getVal = lambda w=w: unicode(w.toPlainText()).strip()
+                w.getVal = lambda w=w: str(w.toPlainText()).strip()
             elif wname[:2] == 'xb':
                 w.stateChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.yes_text = Config.checkbox_yestext
@@ -589,7 +591,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if self.update_dict:  # update internal data dict
             # DEBUG
             # print('updating dict:', w.objectName(),'new value:',w.getVal())
-            wname = unicode(w.objectName())
+            wname = str(w.objectName())
             self.data[self.widget_to_var[wname]] = w.getVal()
             # DEBUG: make text report on every widget update
             # reload(reporter)  # can edit reporter / template while running
@@ -634,7 +636,7 @@ class EntryApp(QtWidgets.QMainWindow):
     def save_file(self, fname):
         """ Save data into given file in utf-8 encoding. """
         with io.open(fname, 'w', encoding='utf-8') as f:
-            f.write(unicode(json.dumps(self.data, ensure_ascii=False)))
+            f.write(str(json.dumps(self.data, ensure_ascii=False)))
 
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
@@ -645,7 +647,7 @@ class EntryApp(QtWidgets.QMainWindow):
                                                          Config.json_filter)
             fname = fout[0]
             if fname:
-                fname = unicode(fname)
+                fname = str(fname)
                 try:
                     self.load_file(fname)
                     self.last_saved_filename = fname
@@ -666,7 +668,7 @@ class EntryApp(QtWidgets.QMainWindow):
                                                      Config.json_filter)
         fname = fout[0]
         if fname:
-            fname = unicode(fname)
+            fname = str(fname)
             try:
                 self.save_file(fname)
                 self.saved_to_file = True
@@ -689,7 +691,7 @@ class EntryApp(QtWidgets.QMainWindow):
                                                      Config.text_filter)
         fname = fout[0]
         if fname:
-            fname = unicode(fname)
+            fname = str(fname)
             try:
                 report_txt = self.report.make_report(Config.text_template)
                 with io.open(fname, 'w', encoding='utf-8') as f:
@@ -711,7 +713,7 @@ class EntryApp(QtWidgets.QMainWindow):
                                                      Config.excel_filter)
         fname = fout[0]
         if fname:
-            fname = unicode(fname)
+            fname = str(fname)
             try:
                 self.report.make_excel(fname, Config.xls_template)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
