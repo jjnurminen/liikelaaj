@@ -2,17 +2,18 @@
 """
 Template for text report.
 
-This is called by execfile() and works by modifying an existing variable
-called 'report' (which needs to exist in function locals as an instance of
-Report class)
+This is called by exec() and works by modifying an existing variable
+called 'report' (instance of Report class)
+
 The idea is to avoid putting the template code inside a function
 call, which would lead to messy indentation.
 
 @author: Jussi (jnu@iki.fi)
 """
 
-import liikelaajuus
+a = 1
 
+report += str(a)
 
 report += u"""
 
@@ -274,9 +275,11 @@ emg_chs = {'EMGSol': 'soleus',
            'EMGHam': 'hamstring',
            'EMGVas': 'vastus',
            'EMGGlut': 'gluteus'}
-emgs_in_use = [emg_chs[ch] for ch in emg_chs if
-               report.data[ch] == checkbox_yes]
+
+emgs_in_use = [desc for ch, desc in emg_chs.items()
+               if report.data[ch] == checkbox_yes]
 emgs_str = u', '.join(emgs_in_use)
+
 if emgs_str:
     report += u"""
 Dynaaminen EMG:

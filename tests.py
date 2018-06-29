@@ -7,7 +7,6 @@ automatically run by 'nose2'
 @author: jussi (jnu@iki.fi)
 """
 
-from past.builtins import execfile
 from builtins import str
 from builtins import range
 from builtins import object
@@ -143,7 +142,10 @@ def test_text_template():
     no unknown vars in report """
     fields = set()
     report = FakeReport()
-    execfile(text_template)
+    checkbox_yes = liikelaajuus.Config.checkbox_yestext    
+    ldict = locals()
+    exec(compile(open(text_template, "rb").read(), text_template, 'exec'),
+         ldict, ldict)
     for li in report.text.split('\n'):
         fields.update(set(Report._get_field(li)))
     # the report does not reference EMG channels

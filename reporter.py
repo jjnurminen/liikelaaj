@@ -6,14 +6,13 @@ Create reports for liikelaajuus
 @author: Jussi (jnu@iki.fi)
 """
 
-
-from past.builtins import execfile
 from builtins import range
 from builtins import object
 import string
 from xlrd import open_workbook
 from xlutils.copy import copy
 
+import liikelaajuus
 
 """ Next 2 xlrd hacks copied from:
 http://stackoverflow.com/questions/3723793/
@@ -106,18 +105,20 @@ class Report(object):
                 yield items[1]  # = the field
 
     def make_report(self, fn_template):
-        """Create report using the template fn_template"""
-        report = self
-        res = dict()
-        """ We want to use the code in fn_template to modify a local variable
-        called report. However execfile() does not allow direct modification of
-        function locals. Thus we pass in another dict of variables to hold the
-        modified values. """
-        import liikelaajuus
+        """Create report using the template fn_template.
+        We want to use the code in fn_template to modify a local variable,
+        however function locals cannot be directly modified. Thus we pass
+        in another dict to hold the modified values. """
+        report = self  # the Report instance to modify
+        # any other variables needed by the template
         checkbox_yes = liikelaajuus.Config.checkbox_yestext
+        ldict = locals()
+        # the recommended Python 3 alternative to execfile()
+        # exec() arguments for globals and locals are a bit tricky. this form
+        # allows us to read in the function local namespace and modify it
         exec(compile(open(fn_template, "rb").read(), fn_template, 'exec'),
-             locals(), res)
-        return res['report'].text
+             ldict, ldict)
+        return ldict['report'].text
 
     def make_excel(self, fn_save, fn_template):
         """ Export report to .xls file fn_save. Variables found in fn_template
