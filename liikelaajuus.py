@@ -11,9 +11,9 @@ Design:
 -custom widget (CheckDegSpinBox): plugin file should be made available to Qt
  designer (checkspinbox_plugin.py). export PYQTDESIGNERPATH=path
 
--widget naming: first 2-3 chars indicate widget type, next word indicates
- variable category or page where widget resides, the rest indicates the
- variable (e.g. lnTiedotNimi)
+-widget naming convention: first 2-3 chars indicate widget type (mandatory),
+ next word indicate variable category or page where widget resides
+ the rest indicates the variable. E.g. 'lnTiedotNimi'
 
 -widget inputs are updated into an internal dict whenever any value changes
 
@@ -102,7 +102,7 @@ class Config(object):
     json_filter = u'JSON files (*.json)'
     text_filter = u'Text files (*.txt)'
     excel_filter = u'Excel files (*.xls)'
-    global_fontsize = 11
+    global_fontsize = 10
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
     xls_template = 'templates/rom_excel_template.xls'
@@ -609,7 +609,7 @@ class EntryApp(QtWidgets.QMainWindow):
             # warn the user about key mismatch
             if keys != loaded_keys:
                 self.keyerror_dialog(keys, loaded_keys)
-            # reset data before load - loaded data might not have all vars
+            # reset data before load (loaded data might not have all vars)
             self.data = self.data_empty.copy()
             # update values (but exclude unknown keys)
             for key in keys.intersection(loaded_keys):
@@ -625,11 +625,15 @@ class EntryApp(QtWidgets.QMainWindow):
         not_in_new = origkeys - cmnkeys
         li = list()
         if extra_in_new:
+            # keys in data but not in UI - data lost
             li.append(ll_msgs.keys_extra.format(keys=', '.join(extra_in_new)))
         if not_in_new:
+            # keys in UI but not in data. this is acceptable
             li.append(ll_msgs.keys_not_found.format(
                       keys=', '.join(not_in_new)))
-        self.message_dialog(''.join(li))
+        # only show the dialog if data was lost (not for missing values)
+        if extra_in_new:
+            self.message_dialog(''.join(li))
 
     def save_file(self, fname):
         """ Save data into given file in utf-8 encoding. """
@@ -746,7 +750,7 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Load form input data from temporary backup file. """
         try:
             self.load_file(Config.tmpfile)
-        except Config.json_load_exceptions:
+        except Config.json_io_exceptions:
             self.message_dialog(ll_msgs.cannot_open_tmp)
 
     @staticmethod
