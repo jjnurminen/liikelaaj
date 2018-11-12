@@ -33,3 +33,4 @@ keys_not_found = u'Seuraavia ohjelman käyttämiä muuttujia ei löytynyt tiedos
 keys_extra = u'Seuraavat tiedostossa olevat muuttujat ovat tuntemattomia: {keys} \n'
 unhandled_exception = u'Ohjelma jouduttiin lopettamaan käsittelemättömän virheen vuoksi:\n'
 invalid_hetu = u'Huom: tallennettava henkilötunnus ei ole kelvollinen.'
+already_running = u'Ohjelma vaikuttaa jo olevan käynnissä.'

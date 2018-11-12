@@ -45,6 +45,7 @@ import os.path as op
 import json
 import webbrowser
 import logging
+import psutil
 from datetime import date
 
 from fix_taborder import set_taborder
@@ -113,6 +114,9 @@ class Config(object):
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
     xls_template = 'templates/rom_excel_template.xls'
     text_template = 'templates/text_template.py'
+    # allowing multiple instances is problematic since they share the same
+    # backup file (tmpfile)
+    allow_multiple_instances = False
 
 
 class MyLineEdit(QtWidgets.QLineEdit):
@@ -803,12 +807,33 @@ def main():
     using pythonw.exe on Windows. Without this, exception will be raised
     e.g. on any print statement. """
 
+    def already_running():
+        """Figure out if we are already running"""
+        nprocs = 0
+        for proc in psutil.process_iter():
+            try:
+                cmdline = proc.cmdline()
+                if cmdline:
+                    if 'python' in cmdline[0]:
+                        if any([__file__ in arg for arg in cmdline]):
+                            nprocs += 1
+                            if nprocs == 2:
+                                return True
+            # catch NoSuchProcess for procs that disappear inside loop
+            except (psutil.AccessDenied, psutil.NoSuchProcess):
+                pass
+        return False
+
     if sys.platform.find('win') != -1 and sys.executable.find('pythonw') != -1:
         blackhole = file(os.devnull, 'w')
         sys.stdout = sys.stderr = blackhole
 
     app = QtWidgets.QApplication(sys.argv)
     eapp = EntryApp()
+
+    if already_running() and not Config.allow_multiple_instances:
+        eapp.message_dialog(ll_msgs.already_running)
+        return
 
     def my_excepthook(type, value, tback):
         """ Custom exception handler for fatal (unhandled) exceptions:
