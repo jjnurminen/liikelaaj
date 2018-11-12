@@ -43,12 +43,16 @@ import io
 import os
 import os.path as op
 import json
+import webbrowser
+import logging
+from datetime import date
+
+from fix_taborder import set_taborder
 import reporter
 import ll_msgs
 import liikelaajuus
-import webbrowser
-from datetime import date
-from fix_taborder import set_taborder
+
+logger = logging.getLogger(__name__)
 
 
 def _check_hetu(hetu):
@@ -798,6 +802,7 @@ def main():
     """ Work around stdout and stderr not being available, if app is run
     using pythonw.exe on Windows. Without this, exception will be raised
     e.g. on any print statement. """
+
     if sys.platform.find('win') != -1 and sys.executable.find('pythonw') != -1:
         blackhole = file(os.devnull, 'w')
         sys.stdout = sys.stderr = blackhole
