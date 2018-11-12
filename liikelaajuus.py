@@ -4,6 +4,8 @@
 Program for input and reporting of ROM (range of motion), strength and other
 measurements.
 
+Py2/3 compatible via futurize.
+
 Design:
 
 -uses a separate ui file made with Qt Designer and loaded using uic
@@ -25,8 +27,10 @@ Design:
 -data is saved into temp directory whenever any values are changed by user
 
 -files do not include any version info (maybe a stupid decision), instead
- mismatches between the widgets and loaded json are detected and reported
- to the user
+ mismatches between the input widgets and loaded json are detected and reported
+ to the user. Missing data in JSON is quietly assumed to be ok (perhaps from
+ an older version). Extra data in JSON (no corresponding widget) is reported
+ (but not fatal).
 
 @author: Jussi (jnu@iki.fi)
 """
@@ -807,8 +811,8 @@ def main():
     using pythonw.exe on Windows. Without this, exception will be raised
     e.g. on any print statement. """
 
-    def already_running():
-        """Figure out if we are already running"""
+    def _already_running():
+        """Try to figure out if we are already running"""
         nprocs = 0
         for proc in psutil.process_iter():
             try:
@@ -831,7 +835,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     eapp = EntryApp()
 
-    if already_running() and not Config.allow_multiple_instances:
+    if not Config.allow_multiple_instances and _already_running():
         eapp.message_dialog(ll_msgs.already_running)
         return
 
