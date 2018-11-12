@@ -11,10 +11,6 @@ call, which would lead to messy indentation.
 @author: Jussi (jnu@iki.fi)
 """
 
-a = 1
-
-report += str(a)
-
 report += u"""
 
 LIIKELAAJUUDET JA VOIMAT
