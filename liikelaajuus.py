@@ -108,7 +108,7 @@ class Config(object):
     json_filter = u'JSON files (*.json)'
     text_filter = u'Text files (*.txt)'
     excel_filter = u'Excel files (*.xls)'
-    global_fontsize = 10
+    global_fontsize = 11
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
     xls_template = 'templates/rom_excel_template.xls'

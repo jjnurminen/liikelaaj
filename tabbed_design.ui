@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1194</width>
+    <width>1422</width>
     <height>743</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabTiedot">
        <attribute name="title">
@@ -326,7 +326,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1135</width>
+             <width>1363</width>
              <height>823</height>
             </rect>
            </property>
@@ -13624,7 +13624,7 @@ lonkka fleksiossa</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1194</width>
+     <width>1422</width>
      <height>21</height>
     </rect>
    </property>
