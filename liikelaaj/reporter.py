@@ -12,7 +12,8 @@ import string
 from xlrd import open_workbook
 from xlutils.copy import copy
 
-import liikelaajuus
+from .config import Config
+
 
 """ Next 2 xlrd hacks copied from:
 http://stackoverflow.com/questions/3723793/
@@ -111,7 +112,7 @@ class Report(object):
         in another dict to hold the modified values. """
         report = self  # the Report instance to modify
         # any other variables needed by the template
-        checkbox_yes = liikelaajuus.Config.checkbox_yestext
+        checkbox_yes = Config.checkbox_yestext
         ldict = locals()
         # the recommended Python 3 alternative to execfile()
         # exec() arguments for globals and locals are a bit tricky. this form

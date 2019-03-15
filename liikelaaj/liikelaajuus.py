@@ -50,12 +50,11 @@ import json
 import webbrowser
 import logging
 import psutil
-from datetime import date
+from pkg_resources import resource_filename
 
-from fix_taborder import set_taborder
-import reporter
-import ll_msgs
-import liikelaajuus
+from .fix_taborder import set_taborder
+from .config import Config
+from . import reporter, ll_msgs
 
 logger = logging.getLogger(__name__)
 
@@ -75,52 +74,6 @@ def _check_hetu(hetu):
         return False
     return True
 
-
-class Config(object):
-    """ Configurable things. In the future, might read some of these from
-    a config file. """
-    """ The 'not measured' value for spinboxes. For regular spinboxes, this
-    is the value that gets written to data files, but it does not affect
-    the value shown next to the spinbox (which is set in Qt Designer).
-    For the CheckDegSpinBox class, this is also the value shown next to the
-    widget in the user interface. """
-    spinbox_novalue_text = u'Ei mitattu'
-    # 'yes' and 'no' values for checkboxes. Written to data files.
-    checkbox_yestext = u'Kyllä'
-    # the (silly) idea here was that by case sensitivity, 'EI' could be
-    # changed in the reports by search&replace operations without affecting
-    # other 'Ei' strings
-    checkbox_notext = u'EI'
-    # Set dirs according to platform
-    if sys.platform == 'win32':
-        tmp_fldr = '/Temp'
-        # data_root_fldr = 'C:/'
-        data_root_fldr = ('Z:/Other Data_May2013/ROM/ROM_' +
-                          str(date.today().year))
-    else:  # Linux
-        tmp_fldr = '/tmp'
-        data_root_fldr = '/'
-    text_report_fldr = data_root_fldr + '/Raportit'
-    excel_report_fldr = data_root_fldr + '/Raportit_Excel'
-    tmpfile = tmp_fldr + '/liikelaajuus_tmp.json'
-    # start of default Excel filename
-    excel_report_prefix = 'Excel_'
-    # start of default .txt filename
-    text_report_prefix = 'Raportti_'
-    # exceptions that might be generated when parsing and loading/saving json
-    # these should all be caught
-    json_io_exceptions = (UnicodeDecodeError, EOFError, IOError, TypeError)
-    json_filter = u'JSON files (*.json)'
-    text_filter = u'Text files (*.txt)'
-    excel_filter = u'Excel files (*.xls)'
-    global_fontsize = 11
-    traceback_file = 'traceback.txt'
-    help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
-    xls_template = 'templates/rom_excel_template.xls'
-    text_template = 'templates/text_template.py'
-    # allowing multiple instances is problematic since they share the same
-    # backup file (tmpfile)
-    allow_multiple_instances = False
 
 
 class MyLineEdit(QtWidgets.QLineEdit):
@@ -317,7 +270,8 @@ class EntryApp(QtWidgets.QMainWindow):
     def __init__(self, check_temp_file=True):
         super(self.__class__, self).__init__()
         # load user interface made with Qt Designer
-        uic.loadUi('tabbed_design.ui', self)
+        uifile = resource_filename('liikelaaj', 'tabbed_design.ui')
+        uic.loadUi(uifile, self)
         set_taborder(self)
         self.init_widgets()
         self.data = {}
@@ -431,7 +385,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
         """ CheckDegSpinBox class gets a special LineEdit that catches space
         and mouse press events """
-        for w in self.findChildren((liikelaajuus.CheckDegSpinBox)):
+        for w in self.findChildren(CheckDegSpinBox):
             w.degSpinBox.setLineEdit(DegLineEdit())
 
         """ Set various widget convenience methods/properties """

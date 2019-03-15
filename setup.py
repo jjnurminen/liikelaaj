@@ -15,7 +15,7 @@ setup(name='liikelaaj',
       url='https://github.com/jjnurminen/liikelaaj',
       packages=find_packages(),
       entry_points={
-              'console_scripts': ['liikelaaj=liikelaaj:main']
+              'console_scripts': ['liikelaaj=liikelaaj.liikelaajuus:main']
               },
       include_package_data=True,
       )

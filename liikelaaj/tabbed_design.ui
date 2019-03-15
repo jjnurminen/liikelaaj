@@ -13635,7 +13635,7 @@ lonkka fleksiossa</string>
   <customwidget>
    <class>CheckDegSpinBox</class>
    <extends>QWidget</extends>
-   <header>liikelaajuus</header>
+   <header>liikelaaj.liikelaajuus</header>
   </customwidget>
  </customwidgets>
  <tabstops>
