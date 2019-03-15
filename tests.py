@@ -14,16 +14,16 @@ from nose.tools import assert_set_equal, assert_in, assert_equal, assert_true
 from xlrd import open_workbook
 import io
 import json
-from reporter import Report
 from PyQt5 import uic, QtGui, QtWidgets
-import liikelaajuus
+from liikelaaj import liikelaajuus
+from liikelaaj.reporter import Report
 import sys
 import hashlib  # spark another owl...
 
 
 xls_template = liikelaajuus.Config.xls_template
 text_template = liikelaajuus.Config.text_template
-uifile = "tabbed_design.ui"
+uifile = "liikelaaj/tabbed_design.ui"
 
 """ reference json data. must be updated if variables are changed. """
 fn_emptyvals = "testdata/empty.json"
