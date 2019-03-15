@@ -83,6 +83,6 @@ Kommentit (voimat): Polven ojennusliike provosoi polvikipua - saattaa olla vahve
 
 Dynaaminen EMG:
 Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista:
-peroneous, gastrocnemius, tibialis anterior, soleus
+soleus, gastrocnemius, peroneous, tibialis anterior
 
 SUUNNITELMA/POHDINTA:

@@ -325,7 +325,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
+             <y>-220</y>
              <width>1363</width>
              <height>823</height>
             </rect>
@@ -403,9 +403,6 @@
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <layout class="QGridLayout" name="gridLayout_16">
-              <item row="30" column="2">
-               <widget class="QPlainTextEdit" name="cmtKysely"/>
-              </item>
               <item row="20" column="2">
                <widget class="QCheckBox" name="xbKyselyFAQKavelenJonkinVerranSisalla">
                 <property name="text">
@@ -984,6 +981,9 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item row="30" column="2">
+               <widget class="QTextEdit" name="cmtKysely"/>
               </item>
              </layout>
             </item>
