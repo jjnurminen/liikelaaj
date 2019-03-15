@@ -5,6 +5,7 @@ dependencies:
   - future
   - python
   - openpyxl
+  - jupyter
   - pyqt
   - spyder
   - xlrd
