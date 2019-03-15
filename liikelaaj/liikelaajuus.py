@@ -596,7 +596,7 @@ def main():
         return False
 
     if sys.platform.find('win') != -1 and sys.executable.find('pythonw') != -1:
-        blackhole = file(os.devnull, 'w')
+        blackhole = open(os.devnull, 'w')
         sys.stdout = sys.stderr = blackhole
 
     app = QtWidgets.QApplication(sys.argv)

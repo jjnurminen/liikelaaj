@@ -8,7 +8,7 @@ Dump current variable list
 
 import sys
 import io
-import liikelaajuus
+from liikelaaj import liikelaajuus
 from PyQt5 import QtWidgets
 
 fn_out = "variable_list.txt"
