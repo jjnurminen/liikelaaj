@@ -1,0 +1,15 @@
+name: liikelaaj
+channels:
+  - defaults
+dependencies:
+  - future
+  - python
+  - openpyxl
+  - pyqt
+  - spyder
+  - xlrd
+  - xlsxwriter
+  - xlutils
+  - pip:
+    - pytest
+
