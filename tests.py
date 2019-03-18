@@ -77,7 +77,7 @@ def regen_ref_data():
 """ BEGIN TESTS """
 
 
-def _test_save():  # no longer works, variable order is not the same
+def test_save():  # no longer works, variable order is not the same
     """Test load/save cycle"""
     eapp.load_file(fn_ref)
     eapp.save_file(fn_out)

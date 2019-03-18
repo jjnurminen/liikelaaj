@@ -45,6 +45,7 @@ class Config(object):
     global_fontsize = 11
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'
+    # template paths
     xls_template = 'templates/rom_excel_template.xls'
     text_template = 'templates/text_template.py'
     # allowing multiple instances is problematic since they share the same

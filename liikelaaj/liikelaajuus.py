@@ -55,26 +55,10 @@ from pkg_resources import resource_filename
 from .fix_taborder import set_taborder
 from .config import Config
 from .widgets import MyLineEdit, DegLineEdit, CheckDegSpinBox
+from .utils import _check_hetu
 from . import reporter, ll_msgs
 
-
 logger = logging.getLogger(__name__)
-
-
-def _check_hetu(hetu):
-    """ This checks validity of a Finnish social security number (hetu) """
-    chrs = "0123456789ABCDEFHJKLMNPRSTUVWXY"
-    if len(hetu) != 11:
-        return False
-    # check day and month
-    pp, kk = int(hetu[:2]), int(hetu[2:4])
-    if not (0 <= pp <= 31 and 1 <= kk <= 12):
-        return False
-    # check 'checksum'
-    chk = chrs[(int(hetu[:6] + hetu[7:10])) % 31]
-    if hetu[-1] != chk:
-        return False
-    return True
 
 
 class EntryApp(QtWidgets.QMainWindow):
@@ -102,6 +86,8 @@ class EntryApp(QtWidgets.QMainWindow):
         if op.isfile(Config.tmpfile) and check_temp_file:
             self.message_dialog(ll_msgs.temp_found)
             self.load_temp()
+        self.text_template = resource_filename('liikelaaj', Config.text_template)
+        self.xls_template = resource_filename('liikelaaj', Config.xls_template)
         # TODO: set locale and options if needed
         # loc = QtCore.QLocale()
         # loc.setNumberOptions(loc.OmitGroupSeparator |
@@ -354,7 +340,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def debug_make_report(self):
         """ DEBUG: make and save text report using the input data. """
-        report_txt = self.report.make_report(Config.text_template)
+        report_txt = self.report.make_report(self.text_template)
         fname = 'report_koe.txt'
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(report_txt)
@@ -363,7 +349,7 @@ class EntryApp(QtWidgets.QMainWindow):
     def debug_make_excel_report(self):
         """ DEBUG: save into temporary .xls """
         self.report.make_excel('test_excel_report.xls',
-                               Config.xls_template)
+                               self.xls_template)
 
     def values_changed(self, w):
         """ Callback to call whenever inputs change """
@@ -476,7 +462,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = str(fname)
             try:
-                report_txt = self.report.make_report(Config.text_template)
+                report_txt = self.report.make_report(self.text_template)
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
@@ -498,7 +484,7 @@ class EntryApp(QtWidgets.QMainWindow):
         if fname:
             fname = str(fname)
             try:
-                self.report.make_excel(fname, Config.xls_template)
+                self.report.make_excel(fname, self.xls_template)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 self.message_dialog(ll_msgs.cannot_save+fname)
@@ -574,19 +560,17 @@ class EntryApp(QtWidgets.QMainWindow):
 
 
 def main():
-    """ Work around stdout and stderr not being available, if app is run
-    using pythonw.exe on Windows. Without this, exception will be raised
-    e.g. on any print statement. """
 
     def _already_running():
         """Try to figure out if we are already running"""
+        SCRIPT_NAMES = ['liikelaaj-script.py']
         nprocs = 0
         for proc in psutil.process_iter():
             try:
                 cmdline = proc.cmdline()
                 if cmdline:
                     if 'python' in cmdline[0]:
-                        if any([__file__ in arg for arg in cmdline]):
+                        if any([scr in cmdline[1] for scr in SCRIPT_NAMES]):
                             nprocs += 1
                             if nprocs == 2:
                                 return True
@@ -595,6 +579,9 @@ def main():
                 pass
         return False
 
+    """ Work around stdout and stderr not being available, if app is run
+    using pythonw.exe on Windows. Without this, exception will be raised
+    e.g. on any print statement. """
     if sys.platform.find('win') != -1 and sys.executable.find('pythonw') != -1:
         blackhole = open(os.devnull, 'w')
         sys.stdout = sys.stderr = blackhole
@@ -608,7 +595,7 @@ def main():
 
     def my_excepthook(type, value, tback):
         """ Custom exception handler for fatal (unhandled) exceptions:
-        report to user via GUI and terminate. """
+        report to user via GUI and terminate program. """
         tb_full = u''.join(traceback.format_exception(type, value, tback))
         eapp.message_dialog(ll_msgs.unhandled_exception+tb_full)
         # dump traceback to file
@@ -626,7 +613,3 @@ def main():
 
     eapp.show()
     app.exec_()
-
-
-if __name__ == '__main__':
-    main()
