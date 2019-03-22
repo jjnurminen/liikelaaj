@@ -1,4 +1,4 @@
-"""Create Windows desktop shortcut for gaitutils menu.
+"""Create Windows desktop shortcut.
 This should be run in the activated environment"""
 import win32com.client
 import pythoncom
@@ -9,7 +9,7 @@ import os.path as op
 
 homedir = op.expanduser('~')
 desktop = op.join(homedir, 'Desktop')
-path = op.join(desktop, 'Liikelaajuus.lnk')
+path = op.join(desktop, 'liikelaajuus.lnk')
 
 # for some reason CONDA_ROOT is not set, so get the root from the executable path
 anaconda_python = os.environ['CONDA_PYTHON_EXE']
