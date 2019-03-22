@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1422</width>
-    <height>743</height>
+    <height>739</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -325,8 +325,8 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-220</y>
-             <width>1363</width>
+             <y>0</y>
+             <width>968</width>
              <height>823</height>
             </rect>
            </property>
@@ -1508,7 +1508,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
         <item>
          <layout class="QGridLayout" name="gridLayout">
           <item row="6" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapOik"/>
           </item>
           <item row="15" column="1">
            <widget class="QLabel" name="label_29">
@@ -1543,7 +1543,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="9" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Oik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Oik"/>
           </item>
           <item row="17" column="1">
            <widget class="QLabel" name="label_17">
@@ -1553,7 +1553,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="7" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvVas"/>
           </item>
           <item row="2" column="6" colspan="3">
            <widget class="QLabel" name="label_88">
@@ -1585,7 +1585,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="19" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoVas"/>
           </item>
           <item row="20" column="1">
            <widget class="QLabel" name="label_55">
@@ -1595,7 +1595,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="7" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioAvOik"/>
           </item>
           <item row="18" column="1">
            <widget class="QLabel" name="label_34">
@@ -1612,13 +1612,13 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="4" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioVas"/>
           </item>
           <item row="11" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Oik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Oik"/>
           </item>
           <item row="10" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagOik"/>
           </item>
           <item row="16" column="1">
            <widget class="QLabel" name="label_16">
@@ -1730,7 +1730,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="16" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioVas"/>
           </item>
           <item row="4" column="8">
            <widget class="QComboBox" name="cbLonkkaFleksioModAVas">
@@ -1898,13 +1898,13 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="16" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktioOik"/>
           </item>
           <item row="13" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Vas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Vas"/>
           </item>
           <item row="13" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Oik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Oik"/>
           </item>
           <item row="9" column="1">
            <widget class="QLabel" name="label_11">
@@ -1919,10 +1919,10 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="15" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksVas"/>
           </item>
           <item row="15" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkkaFleksOik"/>
           </item>
           <item row="4" column="1">
            <widget class="QLabel" name="label_7">
@@ -1944,13 +1944,13 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="6" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioVapVas"/>
           </item>
           <item row="4" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaFleksioOik"/>
           </item>
           <item row="9" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Vas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaEkstensioPolvi90Vas"/>
           </item>
           <item row="3" column="8">
            <widget class="QLabel" name="label_90">
@@ -1992,7 +1992,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="19" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaSisakiertoOik"/>
           </item>
           <item row="2" column="2" colspan="3">
            <widget class="QLabel" name="label_77">
@@ -2035,30 +2035,30 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="20" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoVas"/>
           </item>
           <item row="11" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Vas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaAbduktioLonkka0Polvi90Vas"/>
           </item>
           <item row="10" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaExtLagVas"/>
           </item>
           <item row="12" column="4">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="12" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbLonkkaAdduktoritCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="20" column="2">
-           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbLonkkaUlkokiertoOik"/>
           </item>
           <item row="6" column="8">
            <widget class="QComboBox" name="cbLonkkaEkstensioModAVas">
@@ -2572,28 +2572,28 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="11" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="16" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Vas" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Vas">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="11" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviRectusCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
           </item>
           <item row="10" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuVas"/>
           </item>
           <item row="15" column="1">
            <widget class="QLabel" name="label_23">
@@ -2657,7 +2657,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="5" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapOik"/>
           </item>
           <item row="2" column="2" colspan="3">
            <widget class="QLabel" name="label_86">
@@ -2676,7 +2676,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="10" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioVatsamakuuOik"/>
           </item>
           <item row="6" column="1">
            <widget class="QLabel" name="label_27">
@@ -2739,17 +2739,17 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="5" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioVapVas"/>
           </item>
           <item row="6" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvVas"/>
           </item>
           <item row="12" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
-            <property name="maximum" stdset="0">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
@@ -2813,10 +2813,10 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="6" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviEkstensioAvOik"/>
           </item>
           <item row="9" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuVas"/>
           </item>
           <item row="3" column="9">
            <spacer name="horizontalSpacer_28">
@@ -2832,17 +2832,17 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </spacer>
           </item>
           <item row="12" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviHamstringCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
-            <property name="maximum" stdset="0">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="9" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbPolviFleksioSelinmakuuOik"/>
           </item>
           <item row="12" column="1">
            <widget class="QLabel" name="label_233">
@@ -2949,22 +2949,22 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="16" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Oik" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka90Oik">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="15" column="4">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Vas" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Vas">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
           </item>
           <item row="15" column="2">
-           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Oik" native="true">
-            <property name="maximum" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbPolviPopliteaVastakkLonkka0Oik">
+            <property name="maximum">
              <number>0</number>
             </property>
            </widget>
@@ -3322,8 +3322,8 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="5" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -3513,8 +3513,8 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </spacer>
           </item>
           <item row="5" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaSoleusCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -3545,10 +3545,10 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="14" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMVas"/>
           </item>
           <item row="14" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioPROMOik"/>
           </item>
           <item row="3" column="10">
            <widget class="QLabel" name="label_253">
@@ -3571,8 +3571,8 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="10" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchOik" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchOik">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -3706,8 +3706,8 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="10" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchVas" native="true">
-            <property name="defaultText" stdset="0">
+           <widget class="CheckDegSpinBox" name="csbNilkkaGastroCatchVas">
+            <property name="defaultText">
              <string>Ei</string>
             </property>
            </widget>
@@ -3743,22 +3743,22 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="9" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMOik"/>
           </item>
           <item row="11" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMOik"/>
           </item>
           <item row="11" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0PROMVas"/>
           </item>
           <item row="8" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMOik"/>
           </item>
           <item row="8" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90PROMVas"/>
           </item>
           <item row="12" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMOik"/>
           </item>
           <item row="5" column="9">
            <spacer name="horizontalSpacer_14">
@@ -3777,7 +3777,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </spacer>
           </item>
           <item row="12" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi0AROMVas"/>
           </item>
           <item row="5" column="7">
            <spacer name="horizontalSpacer_15">
@@ -3796,7 +3796,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </spacer>
           </item>
           <item row="9" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaDorsifPolvi90AROMVas"/>
           </item>
           <item row="5" column="4">
            <spacer name="horizontalSpacer_12">
@@ -3822,10 +3822,10 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </widget>
           </item>
           <item row="15" column="2">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMOik"/>
           </item>
           <item row="15" column="5">
-           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbNilkkaPlantaarifleksioAROMVas"/>
           </item>
           <item row="12" column="3">
            <widget class="QCheckBox" name="xbNilkkaDorsifPolvi0AROMEversioOik">
@@ -5926,10 +5926,10 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
            </spacer>
           </item>
           <item row="18" column="2">
-           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusOik" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusOik"/>
           </item>
           <item row="18" column="4">
-           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusVas" native="true"/>
+           <widget class="CheckDegSpinBox" name="csbJalkat1MTPojennusVas"/>
           </item>
           <item row="17" column="6">
            <widget class="QLabel" name="label_307">
@@ -13645,6 +13645,30 @@ lonkka fleksiossa</string>
   <tabstop>lnTiedotID</tabstop>
   <tabstop>lnTiedotHetu</tabstop>
   <tabstop>lnTiedotMittaajat</tabstop>
+  <tabstop>cmtTiedot</tabstop>
+  <tabstop>lnKyselyPaivittainenMatka</tabstop>
+  <tabstop>cbKyselyPaivittainenYhtajaksMatkaApuv</tabstop>
+  <tabstop>cbKyselyPaivittainenYhtajaksMatkaIlmanApuv</tabstop>
+  <tabstop>cbFMSLyhyetMatkat</tabstop>
+  <tabstop>cbFMSKoulussa</tabstop>
+  <tabstop>cbFMSPitkatMatkat</tabstop>
+  <tabstop>lnKyselyApuvRajoittavat</tabstop>
+  <tabstop>lnKyselyApuvKaytossa</tabstop>
+  <tabstop>lnKyselyApuvMuutokset</tabstop>
+  <tabstop>xbKyselyFAQEiAskeleita</tabstop>
+  <tabstop>xbKyselyFAQAskellanTuettuna</tabstop>
+  <tabstop>xbKyselyFAQKavelenTerapiassa</tabstop>
+  <tabstop>xbKyselyFAQKavelenLyhyitaMatkojaKotona</tabstop>
+  <tabstop>xbKyselyFAQKavelenJonkinVerranSisalla</tabstop>
+  <tabstop>xbKyselyKavelenJonkinVerranUlkona</tabstop>
+  <tabstop>xbKyselyFAQKavelenPitempiaMatkojaUlkonaTasaisella</tabstop>
+  <tabstop>xbKyselyFAQKavelenPitempiaMatkojaUlkonaEpatasaisellaApua</tabstop>
+  <tabstop>xbKyselyFAQKavelenUlkonaEpatasaisellaPientaApua</tabstop>
+  <tabstop>xbKyselyFAQKavelenUlkonaKaikissaMaastoissa</tabstop>
+  <tabstop>lnKyselyFAQKOmmentit</tabstop>
+  <tabstop>xbKyselyKipujaViim6kk</tabstop>
+  <tabstop>lnKyselyKipuKuvaus</tabstop>
+  <tabstop>cmtKysely</tabstop>
   <tabstop>spAntropAlaraajaOik</tabstop>
   <tabstop>spAntropAlaraajaVas</tabstop>
   <tabstop>spAntropPolviOik</tabstop>
@@ -13654,18 +13678,15 @@ lonkka fleksiossa</string>
   <tabstop>spAntropSIAS</tabstop>
   <tabstop>spAntropPituus</tabstop>
   <tabstop>spAntropPaino</tabstop>
+  <tabstop>cmtAntrop</tabstop>
   <tabstop>csbLonkkaFleksioOik</tabstop>
   <tabstop>csbLonkkaFleksioVas</tabstop>
-  <tabstop>cbLonkkaFleksioModAOik</tabstop>
-  <tabstop>cbLonkkaFleksioModAVas</tabstop>
   <tabstop>csbLonkkaEkstensioVapOik</tabstop>
-  <tabstop>csbLonkkaEkstensioAvOik</tabstop>
-  <tabstop>csbLonkkaEkstensioPolvi90Oik</tabstop>
   <tabstop>csbLonkkaEkstensioVapVas</tabstop>
+  <tabstop>csbLonkkaEkstensioAvOik</tabstop>
   <tabstop>csbLonkkaEkstensioAvVas</tabstop>
+  <tabstop>csbLonkkaEkstensioPolvi90Oik</tabstop>
   <tabstop>csbLonkkaEkstensioPolvi90Vas</tabstop>
-  <tabstop>cbLonkkaEkstensioModAOik</tabstop>
-  <tabstop>cbLonkkaEkstensioModAVas</tabstop>
   <tabstop>csbLonkkaExtLagOik</tabstop>
   <tabstop>csbLonkkaExtLagVas</tabstop>
   <tabstop>csbLonkkaAbduktioLonkka0Polvi90Oik</tabstop>
@@ -13674,8 +13695,6 @@ lonkka fleksiossa</string>
   <tabstop>csbLonkkaAdduktoritCatchVas</tabstop>
   <tabstop>csbLonkkaAbduktioLonkka0Oik</tabstop>
   <tabstop>csbLonkkaAbduktioLonkka0Vas</tabstop>
-  <tabstop>cbLonkkaAdduktoritModAOik</tabstop>
-  <tabstop>cbLonkkaAdduktoritModAVas</tabstop>
   <tabstop>csbLonkkaAbduktioLonkkaFleksOik</tabstop>
   <tabstop>csbLonkkaAbduktioLonkkaFleksVas</tabstop>
   <tabstop>csbLonkkaAdduktioOik</tabstop>
@@ -13684,15 +13703,24 @@ lonkka fleksiossa</string>
   <tabstop>lnLonkkaOberVas</tabstop>
   <tabstop>csbLonkkaSisakiertoOik</tabstop>
   <tabstop>csbLonkkaSisakiertoVas</tabstop>
-  <tabstop>cbLonkkaSisakiertoModAOik</tabstop>
-  <tabstop>cbLonkkaSisakiertoModAVas</tabstop>
   <tabstop>csbLonkkaUlkokiertoOik</tabstop>
   <tabstop>csbLonkkaUlkokiertoVas</tabstop>
+  <tabstop>cmtLonkkaPROM</tabstop>
+  <tabstop>cmtLonkkaMuut</tabstop>
+  <tabstop>cbLonkkaFleksioModAOik</tabstop>
+  <tabstop>cbLonkkaFleksioModAVas</tabstop>
+  <tabstop>cbLonkkaEkstensioModAOik</tabstop>
+  <tabstop>cbLonkkaEkstensioModAVas</tabstop>
+  <tabstop>cbLonkkaAdduktoritModAOik</tabstop>
+  <tabstop>cbLonkkaAdduktoritModAVas</tabstop>
+  <tabstop>cbLonkkaSisakiertoModAOik</tabstop>
+  <tabstop>cbLonkkaSisakiertoModAVas</tabstop>
   <tabstop>cbLonkkaUlkokiertoModAOik</tabstop>
   <tabstop>cbLonkkaUlkokiertoModAVas</tabstop>
+  <tabstop>cmtLonkkaSpast</tabstop>
   <tabstop>csbPolviEkstensioVapOik</tabstop>
-  <tabstop>csbPolviEkstensioAvOik</tabstop>
   <tabstop>csbPolviEkstensioVapVas</tabstop>
+  <tabstop>csbPolviEkstensioAvOik</tabstop>
   <tabstop>csbPolviEkstensioAvVas</tabstop>
   <tabstop>csbPolviFleksioSelinmakuuOik</tabstop>
   <tabstop>csbPolviFleksioSelinmakuuVas</tabstop>
@@ -13700,158 +13728,175 @@ lonkka fleksiossa</string>
   <tabstop>csbPolviFleksioVatsamakuuVas</tabstop>
   <tabstop>csbPolviRectusCatchOik</tabstop>
   <tabstop>csbPolviRectusCatchVas</tabstop>
+  <tabstop>csbPolviHamstringCatchOik</tabstop>
+  <tabstop>csbPolviHamstringCatchVas</tabstop>
+  <tabstop>csbPolviPopliteaVastakkLonkka0Oik</tabstop>
+  <tabstop>csbPolviPopliteaVastakkLonkka0Vas</tabstop>
+  <tabstop>csbPolviPopliteaVastakkLonkka90Oik</tabstop>
+  <tabstop>csbPolviPopliteaVastakkLonkka90Vas</tabstop>
+  <tabstop>cmtPolviPROM</tabstop>
+  <tabstop>cmtPolviSpast</tabstop>
   <tabstop>cbPolviRectusModAOik</tabstop>
   <tabstop>cbPolviRectusModAVas</tabstop>
-  <tabstop>csbPolviHamstringCatchOik</tabstop>
-  <tabstop>csbPolviPopliteaVastakkLonkka0Oik</tabstop>
-  <tabstop>csbPolviPopliteaVastakkLonkka90Oik</tabstop>
-  <tabstop>csbPolviHamstringCatchVas</tabstop>
-  <tabstop>csbPolviPopliteaVastakkLonkka0Vas</tabstop>
-  <tabstop>csbPolviPopliteaVastakkLonkka90Vas</tabstop>
   <tabstop>cbPolviHamstringModAOik</tabstop>
   <tabstop>cbPolviHamstringModAVas</tabstop>
   <tabstop>csbNilkkaSoleusCatchOik</tabstop>
   <tabstop>xbNilkkaSoleusKlonusOik</tabstop>
   <tabstop>csbNilkkaDorsifPolvi90PROMOik</tabstop>
-  <tabstop>csbNilkkaDorsifPolvi90AROMOik</tabstop>
   <tabstop>xbNilkkaDorsifPolvi90AROMEversioOik</tabstop>
-  <tabstop>cbNilkkaSoleusModAOik</tabstop>
-  <tabstop>csbNilkkaGastroCatchOik</tabstop>
+  <tabstop>csbNilkkaDorsifPolvi90AROMOik</tabstop>
   <tabstop>xbNilkkaGastroKlonusOik</tabstop>
+  <tabstop>csbNilkkaGastroCatchOik</tabstop>
   <tabstop>csbNilkkaDorsifPolvi0PROMOik</tabstop>
   <tabstop>csbNilkkaDorsifPolvi0AROMOik</tabstop>
   <tabstop>xbNilkkaDorsifPolvi0AROMEversioOik</tabstop>
-  <tabstop>cbNilkkaGastroModAOik</tabstop>
   <tabstop>csbNilkkaPlantaarifleksioPROMOik</tabstop>
   <tabstop>csbNilkkaPlantaarifleksioAROMOik</tabstop>
+  <tabstop>lnNilkkaConfusionOik</tabstop>
   <tabstop>csbNilkkaSoleusCatchVas</tabstop>
   <tabstop>xbNilkkaSoleusKlonusVas</tabstop>
   <tabstop>csbNilkkaDorsifPolvi90PROMVas</tabstop>
   <tabstop>csbNilkkaDorsifPolvi90AROMVas</tabstop>
   <tabstop>xbNilkkaDorsifPolvi90AROMEversioVas</tabstop>
-  <tabstop>cbNilkkaSoleusModAVas</tabstop>
   <tabstop>csbNilkkaGastroCatchVas</tabstop>
   <tabstop>xbNilkkaGastroKlonusVas</tabstop>
   <tabstop>csbNilkkaDorsifPolvi0PROMVas</tabstop>
   <tabstop>csbNilkkaDorsifPolvi0AROMVas</tabstop>
   <tabstop>xbNilkkaDorsifPolvi0AROMEversioVas</tabstop>
-  <tabstop>cbNilkkaGastroModAVas</tabstop>
   <tabstop>csbNilkkaPlantaarifleksioPROMVas</tabstop>
   <tabstop>csbNilkkaPlantaarifleksioAROMVas</tabstop>
-  <tabstop>lnNilkkaConfusionOik</tabstop>
   <tabstop>lnNilkkaConfusionVas</tabstop>
+  <tabstop>cmtNilkkaPROM</tabstop>
+  <tabstop>cmtNilkkaAROM</tabstop>
+  <tabstop>cmtNilkkaSpast</tabstop>
+  <tabstop>cbNilkkaSoleusModAOik</tabstop>
+  <tabstop>cbNilkkaSoleusModAVas</tabstop>
+  <tabstop>cbNilkkaGastroModAOik</tabstop>
+  <tabstop>cbNilkkaGastroModAVas</tabstop>
   <tabstop>cbJalkatSubtalarOik</tabstop>
-  <tabstop>cbJalkatTakaosanAsentoOik</tabstop>
-  <tabstop>cbJalkatTakaosanLiikeEversioOik</tabstop>
-  <tabstop>cbJalkatTakaosanLiikeInversioOik</tabstop>
-  <tabstop>cbJalkatHolvikaariOik</tabstop>
-  <tabstop>cbJalkatKeskiosanliikeOik</tabstop>
-  <tabstop>cbJalkatEtuosanAsento1Oik</tabstop>
-  <tabstop>cbJalkatEtuosanAsento2Oik</tabstop>
-  <tabstop>cbJalkat1sadeOik</tabstop>
-  <tabstop>cbJalkatVaivaisenluuOik</tabstop>
-  <tabstop>lnJalkatKovettumatOik</tabstop>
   <tabstop>cbJalkatSubtalarVas</tabstop>
+  <tabstop>cbJalkatTakaosanAsentoOik</tabstop>
   <tabstop>cbJalkatTakaosanAsentoVas</tabstop>
+  <tabstop>cbJalkatTakaosanLiikeEversioOik</tabstop>
   <tabstop>cbJalkatTakaosanLiikeEversioVas</tabstop>
+  <tabstop>cbJalkatTakaosanLiikeInversioOik</tabstop>
   <tabstop>cbJalkatTakaosanLiikeInversioVas</tabstop>
+  <tabstop>cbJalkatHolvikaariOik</tabstop>
   <tabstop>cbJalkatHolvikaariVas</tabstop>
+  <tabstop>cbJalkatKeskiosanliikeOik</tabstop>
   <tabstop>cbJalkatKeskiosanliikeVas</tabstop>
+  <tabstop>cbJalkatEtuosanAsento1Oik</tabstop>
+  <tabstop>cbJalkatEtuosanAsento1Vas</tabstop>
+  <tabstop>cbJalkatEtuosanAsento2Oik</tabstop>
   <tabstop>cbJalkatEtuosanAsento2Vas</tabstop>
+  <tabstop>cbJalkat1sadeOik</tabstop>
   <tabstop>cbJalkat1sadeVas</tabstop>
+  <tabstop>csbJalkat1MTPojennusOik</tabstop>
+  <tabstop>csbJalkat1MTPojennusVas</tabstop>
+  <tabstop>cbJalkatVaivaisenluuOik</tabstop>
   <tabstop>cbJalkatVaivaisenluuVas</tabstop>
+  <tabstop>lnJalkatKovettumatOik</tabstop>
   <tabstop>lnJalkatKovettumatVas</tabstop>
+  <tabstop>cmtJalkateraKuormittamattomana</tabstop>
+  <tabstop>cmtJalkateraKuormitettuna</tabstop>
   <tabstop>cbJalkatTakaosanAsentoKuormOik</tabstop>
-  <tabstop>cbJalkatTakaosanKiertoKuormOik</tabstop>
-  <tabstop>cbJalkatKeskiosanAsentoKuormOik</tabstop>
-  <tabstop>cbJalkatEtuosanAsento1KuormOik</tabstop>
-  <tabstop>cbJalkatEtuosanAsento2KuormOik</tabstop>
-  <tabstop>cbJalkatFeissinLinjaOik</tabstop>
-  <tabstop>lnJalkatColemanOik</tabstop>
-  <tabstop>xbPainelevy</tabstop>
   <tabstop>cbJalkatTakaosanAsentoKuormVas</tabstop>
+  <tabstop>cbJalkatTakaosanKiertoKuormOik</tabstop>
   <tabstop>cbJalkatTakaosanKiertoKuormVas</tabstop>
+  <tabstop>cbJalkatKeskiosanAsentoKuormOik</tabstop>
   <tabstop>cbJalkatKeskiosanAsentoKuormVas</tabstop>
+  <tabstop>cbJalkatEtuosanAsento1KuormOik</tabstop>
   <tabstop>cbJalkatEtuosanAsento1KuormVas</tabstop>
+  <tabstop>cbJalkatEtuosanAsento2KuormOik</tabstop>
   <tabstop>cbJalkatEtuosanAsento2KuormVas</tabstop>
+  <tabstop>cbJalkatFeissinLinjaOik</tabstop>
   <tabstop>cbJalkatFeissinLinjaVas</tabstop>
+  <tabstop>spJalkatNavDropIstuenOik</tabstop>
+  <tabstop>spJalkatNavDropIstuenVas</tabstop>
+  <tabstop>spJalkatNavDropSeistenOik</tabstop>
+  <tabstop>spJalkatNavDropSeistenVas</tabstop>
+  <tabstop>lnJalkatColemanOik</tabstop>
   <tabstop>lnJalkatColemanVas</tabstop>
+  <tabstop>xbPainelevy</tabstop>
+  <tabstop>lnJalkatPainelevyTiedot</tabstop>
   <tabstop>cbVoimaLonkkaEkstensioPolvi0Oik</tabstop>
   <tabstop>cbVoimaLonkkaEkstensioPolvi0Vas</tabstop>
-  <tabstop>cbSelLonkkaEkstensioPolvi0Oik</tabstop>
-  <tabstop>cbSelLonkkaEkstensioPolvi0Vas</tabstop>
   <tabstop>cbVoimaLonkkaEkstensioPolvi90Oik</tabstop>
   <tabstop>cbVoimaLonkkaEkstensioPolvi90Vas</tabstop>
-  <tabstop>cbSelLonkkaEkstensioPolvi90Oik</tabstop>
-  <tabstop>cbSelLonkkaEkstensioPolvi90Vas</tabstop>
   <tabstop>cbVoimaPolviFleksioOik</tabstop>
   <tabstop>cbVoimaPolviFleksioVas</tabstop>
-  <tabstop>cbSelPolviFleksioOik</tabstop>
-  <tabstop>cbSelPolviFleksioVas</tabstop>
   <tabstop>cbVoimaLonkkaAbduktioLonkka0Oik</tabstop>
   <tabstop>cbVoimaLonkkaAbduktioLonkka0Vas</tabstop>
-  <tabstop>cbSelLonkkaAbduktioLonkka0Oik</tabstop>
-  <tabstop>cbSelLonkkaAbduktioLonkka0Vas</tabstop>
   <tabstop>cbVoimaLonkkaAbduktioLonkkaFleksOik</tabstop>
   <tabstop>cbVoimaLonkkaAbduktioLonkkaFleksVas</tabstop>
   <tabstop>cbVoimaLonkkaAdduktioOik</tabstop>
   <tabstop>cbVoimaLonkkaAdduktioVas</tabstop>
-  <tabstop>cbSelLonkkaAdduktioOik</tabstop>
-  <tabstop>cbSelLonkkaAdduktioVas</tabstop>
   <tabstop>cbVoimaSelka</tabstop>
   <tabstop>cbVoimaVatsaSuorat</tabstop>
   <tabstop>cbVoimaVatsaVinotOik</tabstop>
   <tabstop>cbVoimaVatsaVinotVas</tabstop>
   <tabstop>cbVoimaLonkkaFleksioOik</tabstop>
   <tabstop>cbVoimaLonkkaFleksioVas</tabstop>
-  <tabstop>cbSelLonkkaFleksioOik</tabstop>
-  <tabstop>cbSelLonkkaFleksioVas</tabstop>
   <tabstop>cbVoimaPolviEkstensioOik</tabstop>
   <tabstop>cbVoimaPolviEkstensioVas</tabstop>
-  <tabstop>cbSelPolviEkstensioOik</tabstop>
-  <tabstop>cbSelPolviEkstensioVas</tabstop>
   <tabstop>cbVoimaLonkkaUlkokiertoOik</tabstop>
   <tabstop>cbVoimaLonkkaUlkokiertoVas</tabstop>
-  <tabstop>cbSelLonkkaUlkokiertoOik</tabstop>
-  <tabstop>cbSelLonkkaUlkokiertoVas</tabstop>
   <tabstop>cbVoimaLonkkaSisakiertoOik</tabstop>
   <tabstop>cbVoimaLonkkaSisakiertoVas</tabstop>
+  <tabstop>cmtVoima1</tabstop>
+  <tabstop>cbSelLonkkaEkstensioPolvi0Oik</tabstop>
+  <tabstop>cbSelLonkkaEkstensioPolvi0Vas</tabstop>
+  <tabstop>cbSelLonkkaEkstensioPolvi90Oik</tabstop>
+  <tabstop>cbSelLonkkaEkstensioPolvi90Vas</tabstop>
+  <tabstop>cbSelPolviFleksioOik</tabstop>
+  <tabstop>cbSelPolviFleksioVas</tabstop>
+  <tabstop>cbSelLonkkaAbduktioLonkka0Oik</tabstop>
+  <tabstop>cbSelLonkkaAbduktioLonkka0Vas</tabstop>
+  <tabstop>cbSelLonkkaAdduktioOik</tabstop>
+  <tabstop>cbSelLonkkaAdduktioVas</tabstop>
+  <tabstop>cbSelLonkkaFleksioOik</tabstop>
+  <tabstop>cbSelLonkkaFleksioVas</tabstop>
+  <tabstop>cbSelPolviEkstensioOik</tabstop>
+  <tabstop>cbSelPolviEkstensioVas</tabstop>
+  <tabstop>cbSelLonkkaUlkokiertoOik</tabstop>
+  <tabstop>cbSelLonkkaUlkokiertoVas</tabstop>
   <tabstop>cbSelLonkkaSisakiertoOik</tabstop>
   <tabstop>cbSelLonkkaSisakiertoVas</tabstop>
   <tabstop>cbVoimaTibialisAnteriorOik</tabstop>
   <tabstop>cbVoimaTibialisAnteriorVas</tabstop>
-  <tabstop>cbSelTibialisAnteriorOik</tabstop>
-  <tabstop>cbSelTibialisAnteriorVas</tabstop>
   <tabstop>cbVoimaTibialisPosteriorOik</tabstop>
   <tabstop>cbVoimaTibialisPosteriorVas</tabstop>
-  <tabstop>cbSelTibialisPosteriorOik</tabstop>
-  <tabstop>cbSelTibialisPosteriorVas</tabstop>
   <tabstop>cbVoimaPeroneusOik</tabstop>
   <tabstop>cbVoimaPeroneusVas</tabstop>
-  <tabstop>cbSelPeroneusOik</tabstop>
-  <tabstop>cbSelPeroneusVas</tabstop>
   <tabstop>cbVoimaExtHallucisLongusOik</tabstop>
   <tabstop>cbVoimaExtHallucisLongusVas</tabstop>
-  <tabstop>cbSelExtHallucisLongusOik</tabstop>
-  <tabstop>cbSelExtHallucisLongusVas</tabstop>
   <tabstop>cbVoimaFlexHallucisLongusOik</tabstop>
   <tabstop>cbVoimaFlexHallucisLongusVas</tabstop>
-  <tabstop>cbSelFlexHallucisLongusOik</tabstop>
-  <tabstop>cbSelFlexHallucisLongusVas</tabstop>
   <tabstop>cbVoima25OjennusOik</tabstop>
   <tabstop>cbVoima25OjennusVas</tabstop>
-  <tabstop>cbSel25OjennusOik</tabstop>
-  <tabstop>cbSel25OjennusVas</tabstop>
   <tabstop>cbVoima25KoukistusOik</tabstop>
   <tabstop>cbVoima25KoukistusVas</tabstop>
-  <tabstop>cbSel25KoukistusOik</tabstop>
-  <tabstop>cbSel25KoukistusVas</tabstop>
   <tabstop>cbVoimaGastroOik</tabstop>
   <tabstop>cbVoimaGastroVas</tabstop>
-  <tabstop>cbSelGastroOik</tabstop>
-  <tabstop>cbSelGastroVas</tabstop>
   <tabstop>cbVoimaSoleusOik</tabstop>
   <tabstop>cbVoimaSoleusVas</tabstop>
+  <tabstop>cmtVoima2</tabstop>
+  <tabstop>cbSelTibialisAnteriorOik</tabstop>
+  <tabstop>cbSelTibialisAnteriorVas</tabstop>
+  <tabstop>cbSelTibialisPosteriorOik</tabstop>
+  <tabstop>cbSelTibialisPosteriorVas</tabstop>
+  <tabstop>cbSelPeroneusOik</tabstop>
+  <tabstop>cbSelPeroneusVas</tabstop>
+  <tabstop>cbSelExtHallucisLongusOik</tabstop>
+  <tabstop>cbSelExtHallucisLongusVas</tabstop>
+  <tabstop>cbSelFlexHallucisLongusOik</tabstop>
+  <tabstop>cbSelFlexHallucisLongusVas</tabstop>
+  <tabstop>cbSel25OjennusOik</tabstop>
+  <tabstop>cbSel25OjennusVas</tabstop>
+  <tabstop>cbSel25KoukistusOik</tabstop>
+  <tabstop>cbSel25KoukistusVas</tabstop>
+  <tabstop>cbSelGastroOik</tabstop>
+  <tabstop>cbSelGastroVas</tabstop>
   <tabstop>cbSelSoleusOik</tabstop>
   <tabstop>cbSelSoleusVas</tabstop>
   <tabstop>spVirheasAnteversioOik</tabstop>
@@ -13870,31 +13915,27 @@ lonkka fleksiossa</string>
   <tabstop>spVirheasBimalleoliVas</tabstop>
   <tabstop>spVirheas2ndtoeOik</tabstop>
   <tabstop>spVirheas2ndtoeVas</tabstop>
+  <tabstop>cmtVirheas</tabstop>
   <tabstop>spTasapOik</tabstop>
   <tabstop>spTasapVas</tabstop>
-  <tabstop>maintab</tabstop>
-  <tabstop>cmtTiedot</tabstop>
-  <tabstop>cmtAntrop</tabstop>
-  <tabstop>cmtLonkkaSpast</tabstop>
-  <tabstop>cmtLonkkaPROM</tabstop>
-  <tabstop>cmtLonkkaMuut</tabstop>
-  <tabstop>cmtPolviSpast</tabstop>
-  <tabstop>cmtPolviPROM</tabstop>
-  <tabstop>cmtNilkkaSpast</tabstop>
-  <tabstop>cmtNilkkaAROM</tabstop>
-  <tabstop>cmtNilkkaPROM</tabstop>
-  <tabstop>cmtJalkateraKuormittamattomana</tabstop>
-  <tabstop>cmtJalkateraKuormitettuna</tabstop>
-  <tabstop>cmtVoima1</tabstop>
-  <tabstop>cmtVoima2</tabstop>
-  <tabstop>cmtVirheas</tabstop>
   <tabstop>cmtTasap</tabstop>
+  <tabstop>xbEMGTibA</tabstop>
+  <tabstop>xbEMGPer</tabstop>
+  <tabstop>xbEMGSol</tabstop>
+  <tabstop>xbEMGGas</tabstop>
+  <tabstop>xbEMGRec</tabstop>
+  <tabstop>xbEMGVas</tabstop>
+  <tabstop>xbEMGHam</tabstop>
+  <tabstop>xbEMGGlut</tabstop>
   <tabstop>btnSave</tabstop>
   <tabstop>btnLoad</tabstop>
   <tabstop>btnClear</tabstop>
   <tabstop>btnReport</tabstop>
+  <tabstop>btnExcelReport</tabstop>
   <tabstop>btnHelp</tabstop>
   <tabstop>btnQuit</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>maintab</tabstop>
  </tabstops>
  <resources/>
  <connections/>

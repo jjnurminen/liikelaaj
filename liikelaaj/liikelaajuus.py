@@ -52,7 +52,6 @@ import logging
 import psutil
 from pkg_resources import resource_filename
 
-from .fix_taborder import set_taborder
 from .config import Config
 from .widgets import MyLineEdit, DegLineEdit, CheckDegSpinBox
 from .utils import _check_hetu
@@ -69,7 +68,6 @@ class EntryApp(QtWidgets.QMainWindow):
         # load user interface made with Qt Designer
         uifile = resource_filename('liikelaaj', 'tabbed_design.ui')
         uic.loadUi(uifile, self)
-        set_taborder(self)
         self.init_widgets()
         self.data = {}
         # save empty form (default states for widgets)

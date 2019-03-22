@@ -7,7 +7,7 @@ Qt Designer plugin for checkspinbox
 @author: jussi
 """
 
-from .liikelaajuus import CheckDegSpinBox
+from liikelaaj.liikelaajuus import CheckDegSpinBox
 from PyQt5 import QtGui, QtCore, QtDesigner
 
 
