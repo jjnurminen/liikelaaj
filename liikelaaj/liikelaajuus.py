@@ -546,7 +546,7 @@ def main():
             try:
                 cmdline = proc.cmdline()
                 if cmdline:
-                    if 'python' in cmdline[0]:
+                    if 'python' in cmdline[0] and len(cmdline) > 1:
                         if any([scr in cmdline[1] for scr in SCRIPT_NAMES]):
                             nprocs += 1
                             if nprocs == 2:
