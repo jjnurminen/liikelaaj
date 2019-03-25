@@ -53,7 +53,7 @@ import psutil
 from pkg_resources import resource_filename
 
 from .config import Config
-from .widgets import MyLineEdit, DegLineEdit, CheckDegSpinBox
+from .widgets import MyLineEdit, DegLineEdit, CheckDegSpinBox, message_dialog, confirm_dialog
 from .utils import _check_hetu
 from . import reporter, ll_msgs
 
@@ -82,7 +82,7 @@ class EntryApp(QtWidgets.QMainWindow):
         self.update_dict = True
         # load tmp file if it exists
         if op.isfile(Config.tmpfile) and check_temp_file:
-            self.message_dialog(ll_msgs.temp_found)
+            message_dialog(ll_msgs.temp_found)
             self.load_temp()
         self.text_template = resource_filename('liikelaaj', Config.text_template)
         self.xls_template = resource_filename('liikelaaj', Config.xls_template)
@@ -287,33 +287,12 @@ class EntryApp(QtWidgets.QMainWindow):
         return [key for key in self.data if
                 self.data[key] == self.data_empty[key]]
 
-    def confirm_dialog(self, msg):
-        """ Show yes/no dialog. """
-        dlg = QtWidgets.QMessageBox()
-        dlg.setText(msg)
-        dlg.setWindowTitle(ll_msgs.message_title)
-        dlg.addButton(QtWidgets.QPushButton(ll_msgs.yes_button),
-                      QtWidgets.QMessageBox.YesRole)
-        dlg.addButton(QtWidgets.QPushButton(ll_msgs.no_button),
-                      QtWidgets.QMessageBox.NoRole)
-        dlg.exec_()
-        return dlg.buttonRole(dlg.clickedButton())
-
-    def message_dialog(self, msg):
-        """ Show message with an 'OK' button. """
-        dlg = QtWidgets.QMessageBox()
-        dlg.setWindowTitle(ll_msgs.message_title)
-        dlg.setText(msg)
-        dlg.addButton(QtWidgets.QPushButton(ll_msgs.ok_button),
-                      QtWidgets.QMessageBox.YesRole)
-        dlg.exec_()
-
     def closeEvent(self, event):
         """ Confirm and close application. """
         if not self.saved_to_file:
-            reply = self.confirm_dialog(ll_msgs.quit_not_saved)
+            reply = confirm_dialog(ll_msgs.quit_not_saved)
         else:
-            reply = self.confirm_dialog(ll_msgs.quit_)
+            reply = confirm_dialog(ll_msgs.quit_)
         if reply == QtWidgets.QMessageBox.YesRole:
             self.rm_temp()
             event.accept()
@@ -398,7 +377,7 @@ class EntryApp(QtWidgets.QMainWindow):
                       keys=', '.join(not_in_new)))
         # only show the dialog if data was lost (not for missing values)
         if extra_in_new:
-            self.message_dialog(''.join(li))
+            message_dialog(''.join(li))
 
     def save_file(self, fname):
         """ Save data into given file in utf-8 encoding. """
@@ -407,7 +386,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
-        if self.saved_to_file or self.confirm_dialog(ll_msgs.load_not_saved):
+        if self.saved_to_file or confirm_dialog(ll_msgs.load_not_saved):
             fout = QtWidgets.QFileDialog.getOpenFileName(self,
                                                          ll_msgs.open_title,
                                                          Config.data_root_fldr,
@@ -420,14 +399,14 @@ class EntryApp(QtWidgets.QMainWindow):
                     self.last_saved_filename = fname
                     self.saved_to_file = True
                 except Config.json_io_exceptions:
-                    self.message_dialog(ll_msgs.cannot_open+fname)
+                    message_dialog(ll_msgs.cannot_open+fname)
 
     def save_dialog(self):
         """ Bring up save dialog and save data. """
         # special ops for certain widgets
         hetu = self.lnTiedotHetu.getVal()
         if hetu and not _check_hetu(hetu):
-            self.message_dialog(ll_msgs.invalid_hetu)
+            message_dialog(ll_msgs.invalid_hetu)
 
         fout = QtWidgets.QFileDialog.getSaveFileName(self,
                                                      ll_msgs.save_report_title,
@@ -442,7 +421,7 @@ class EntryApp(QtWidgets.QMainWindow):
                 self.last_saved_filename = fname
                 self.statusbar.showMessage(ll_msgs.status_saved+fname)
             except Config.json_io_exceptions:
-                self.message_dialog(ll_msgs.cannot_save+fname)
+                message_dialog(ll_msgs.cannot_save+fname)
 
     def save_report_dialog(self):
         """ Bring up save dialog and save report. """
@@ -465,7 +444,7 @@ class EntryApp(QtWidgets.QMainWindow):
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
-                self.message_dialog(ll_msgs.cannot_save+fname)
+                message_dialog(ll_msgs.cannot_save+fname)
 
     def save_excel_report_dialog(self):
         """ Bring up save dialog and save Excel report. """
@@ -485,7 +464,7 @@ class EntryApp(QtWidgets.QMainWindow):
                 self.report.make_excel(fname, self.xls_template)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
-                self.message_dialog(ll_msgs.cannot_save+fname)
+                message_dialog(ll_msgs.cannot_save+fname)
 
     def n_modified(self):
         """ Count modified values. """
@@ -516,7 +495,7 @@ class EntryApp(QtWidgets.QMainWindow):
         try:
             self.load_file(Config.tmpfile)
         except Config.json_io_exceptions:
-            self.message_dialog(ll_msgs.cannot_open_tmp)
+            message_dialog(ll_msgs.cannot_open_tmp)
 
     @staticmethod
     def rm_temp():
@@ -528,9 +507,9 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Ask whether to clear forms. If yes, set widget inputs to default
         values. """
         if self.saved_to_file:
-            reply = self.confirm_dialog(ll_msgs.clear)
+            reply = confirm_dialog(ll_msgs.clear)
         else:
-            reply = self.confirm_dialog(ll_msgs.clear_not_saved)
+            reply = confirm_dialog(ll_msgs.clear_not_saved)
         if reply == QtWidgets.QMessageBox.YesRole:
             self.data = self.data_empty.copy()
             self.restore_forms()
@@ -584,18 +563,18 @@ def main():
         blackhole = open(os.devnull, 'w')
         sys.stdout = sys.stderr = blackhole
 
+    if not Config.allow_multiple_instances and _already_running():
+        message_dialog(ll_msgs.already_running)
+        return
+
     app = QtWidgets.QApplication(sys.argv)
     eapp = EntryApp()
-
-    if not Config.allow_multiple_instances and _already_running():
-        eapp.message_dialog(ll_msgs.already_running)
-        return
 
     def my_excepthook(type, value, tback):
         """ Custom exception handler for fatal (unhandled) exceptions:
         report to user via GUI and terminate program. """
         tb_full = u''.join(traceback.format_exception(type, value, tback))
-        eapp.message_dialog(ll_msgs.unhandled_exception+tb_full)
+        message_dialog(ll_msgs.unhandled_exception+tb_full)
         # dump traceback to file
         try:
             with io.open(Config.traceback_file, 'w', encoding='utf-8') as f:

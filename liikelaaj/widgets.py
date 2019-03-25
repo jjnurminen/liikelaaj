@@ -5,7 +5,30 @@ Custom widgets for liikelaajuus
 
 from PyQt5 import QtWidgets, QtCore
 from .config import Config
+from . import ll_msgs
 
+
+def confirm_dialog(msg):
+    """ Show yes/no dialog. """
+    dlg = QtWidgets.QMessageBox()
+    dlg.setText(msg)
+    dlg.setWindowTitle(ll_msgs.message_title)
+    dlg.addButton(QtWidgets.QPushButton(ll_msgs.yes_button),
+                  QtWidgets.QMessageBox.YesRole)
+    dlg.addButton(QtWidgets.QPushButton(ll_msgs.no_button),
+                  QtWidgets.QMessageBox.NoRole)
+    dlg.exec_()
+    return dlg.buttonRole(dlg.clickedButton())
+
+
+def message_dialog(msg):
+    """ Show message with an 'OK' button. """
+    dlg = QtWidgets.QMessageBox()
+    dlg.setWindowTitle(ll_msgs.message_title)
+    dlg.setText(msg)
+    dlg.addButton(QtWidgets.QPushButton(ll_msgs.ok_button),
+                  QtWidgets.QMessageBox.YesRole)
+    dlg.exec_()
 
 
 class MyLineEdit(QtWidgets.QLineEdit):
@@ -174,13 +197,13 @@ class CheckDegSpinBox(QtWidgets.QWidget):
     def setSpinBox(self, state):
         """ Enables or disables spinbox input. Also emit valueChanged. """
         if state and not self.isEnabled():
-                self.degSpinBox.setEnabled(True)
-                self.degSpinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
-                self.valueChanged.emit()
+            self.degSpinBox.setEnabled(True)
+            self.degSpinBox.setFocusPolicy(QtCore.Qt.StrongFocus)
+            self.valueChanged.emit()
         elif not state and self.isEnabled():
-                self.degSpinBox.setEnabled(False)
-                self.degSpinBox.setFocusPolicy(QtCore.Qt.NoFocus)
-                self.valueChanged.emit()
+            self.degSpinBox.setEnabled(False)
+            self.degSpinBox.setFocusPolicy(QtCore.Qt.NoFocus)
+            self.valueChanged.emit()
 
     def toggleCheckBox(self):
         if self.normalCheckBox.checkState() == 2:
