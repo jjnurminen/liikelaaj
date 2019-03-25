@@ -119,7 +119,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
         def checkbox_getval(w):
             """ Return yestext or notext for checkbox enabled/disabled,
-            respetively. """
+            respectively. """
             val = int(w.checkState())
             if val == 0:
                 return w.no_text
@@ -245,6 +245,7 @@ class EntryApp(QtWidgets.QMainWindow):
         self.firstwidget = {}
         # TODO: check/fix
         self.firstwidget[self.tabTiedot] = self.lnTiedotNimi
+        self.firstwidget[self.tabKysely] = self.lnKyselyPaivittainenMatka
         self.firstwidget[self.tabAntrop] = self.spAntropAlaraajaOik
         self.firstwidget[self.tabLonkka] = self.csbLonkkaFleksioOik
         self.firstwidget[self.tabNilkka] = self.csbNilkkaSoleusCatchOik

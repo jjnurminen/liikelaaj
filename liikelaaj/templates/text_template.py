@@ -31,6 +31,7 @@ Polvet: {AntropPolviOik} / {AntropPolviVas}
 Paino: {AntropPaino}
 Pituus: {AntropPituus}
 SIAS: {AntropSIAS}
+Kengännumero: {AntropKenganNumeroOik} / {AntropKenganNumeroVas}
 """
 report += u'Kommentit: {cmtAntrop}\n'
 
