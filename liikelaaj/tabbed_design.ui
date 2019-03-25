@@ -326,7 +326,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>968</width>
+             <width>1363</width>
              <height>823</height>
             </rect>
            </property>
@@ -1000,8 +1000,8 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <layout class="QGridLayout" name="gridLayout_15">
-          <item row="6" column="2">
-           <widget class="QSpinBox" name="spAntropNilkkaOik">
+          <item row="7" column="4">
+           <widget class="QSpinBox" name="spAntropNilkkaVas">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1031,10 +1031,60 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
             </property>
            </widget>
           </item>
-          <item row="9" column="1">
-           <widget class="QLabel" name="label_264">
+          <item row="2" column="0">
+           <spacer name="horizontalSpacer_61">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="9" column="2">
+           <widget class="QSpinBox" name="spAntropSIAS">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>50</number>
+            </property>
+            <property name="maximum">
+             <number>500</number>
+            </property>
+            <property name="value">
+             <number>50</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QLabel" name="label_263">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
-             <string>Paino</string>
+             <string>Vasen</string>
             </property>
            </widget>
           </item>
@@ -1064,51 +1114,7 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
             </property>
            </spacer>
           </item>
-          <item row="8" column="2">
-           <widget class="QSpinBox" name="spAntropPituus">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> mm</string>
-            </property>
-            <property name="minimum">
-             <number>500</number>
-            </property>
-            <property name="maximum">
-             <number>3000</number>
-            </property>
-            <property name="value">
-             <number>500</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="4">
-           <widget class="QLabel" name="label_263">
-            <property name="font">
-             <font>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Vasen</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="2">
+          <item row="11" column="2">
            <widget class="QDoubleSpinBox" name="spAntropPaino">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -1145,8 +1151,15 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="4">
-           <widget class="QSpinBox" name="spAntropNilkkaVas">
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_268">
+            <property name="text">
+             <string>Alaraajan pituus</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QSpinBox" name="spAntropNilkkaOik">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1176,10 +1189,216 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_268">
+          <item row="11" column="1">
+           <widget class="QLabel" name="label_264">
             <property name="text">
-             <string>Alaraajojen pituudet</string>
+             <string>Paino</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="2">
+           <widget class="QSpinBox" name="spAntropPituus">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>500</number>
+            </property>
+            <property name="maximum">
+             <number>3000</number>
+            </property>
+            <property name="value">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="1">
+           <widget class="QLabel" name="label_326">
+            <property name="text">
+             <string>Jalkaterän pituus</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QSpinBox" name="spAntropAlaraajaOik">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>300</number>
+            </property>
+            <property name="maximum">
+             <number>1500</number>
+            </property>
+            <property name="value">
+             <number>300</number>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="1">
+           <widget class="QLabel" name="label_85">
+            <property name="text">
+             <string>Pituus</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="4">
+           <widget class="QSpinBox" name="spAntropJalkateraVas">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>100</number>
+            </property>
+            <property name="maximum">
+             <number>400</number>
+            </property>
+            <property name="value">
+             <number>100</number>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLabel" name="label_262">
+            <property name="text">
+             <string>Nilkan leveys</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <spacer name="horizontalSpacer_13">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="5" column="4">
+           <widget class="QSpinBox" name="spAntropPolviVas">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>10</number>
+            </property>
+            <property name="maximum">
+             <number>300</number>
+            </property>
+            <property name="value">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLabel" name="label_267">
+            <property name="text">
+             <string>Polven leveys</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QSpinBox" name="spAntropPolviOik">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>10</number>
+            </property>
+            <property name="maximum">
+             <number>300</number>
+            </property>
+            <property name="value">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="1">
+           <widget class="QLabel" name="label_327">
+            <property name="text">
+             <string>Kengännumero</string>
             </property>
            </widget>
           </item>
@@ -1214,111 +1433,15 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
             </property>
            </widget>
           </item>
-          <item row="7" column="2">
-           <widget class="QSpinBox" name="spAntropSIAS">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> mm</string>
-            </property>
-            <property name="minimum">
-             <number>50</number>
-            </property>
-            <property name="maximum">
-             <number>500</number>
-            </property>
-            <property name="value">
-             <number>50</number>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="4">
-           <widget class="QSpinBox" name="spAntropPolviVas">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> mm</string>
-            </property>
-            <property name="minimum">
-             <number>10</number>
-            </property>
-            <property name="maximum">
-             <number>300</number>
-            </property>
-            <property name="value">
-             <number>10</number>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QLabel" name="label_262">
-            <property name="text">
-             <string>Nilkan leveys</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <spacer name="horizontalSpacer_61">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="7" column="1">
+          <item row="9" column="1">
            <widget class="QLabel" name="label_265">
             <property name="text">
              <string>SIAS</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="label_267">
-            <property name="text">
-             <string>Polven leveys</string>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="1">
-           <widget class="QLabel" name="label_85">
-            <property name="text">
-             <string>Pituus</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="2">
-           <widget class="QSpinBox" name="spAntropPolviOik">
+          <item row="8" column="2">
+           <widget class="QSpinBox" name="spAntropJalkateraOik">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1338,34 +1461,18 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
              <string> mm</string>
             </property>
             <property name="minimum">
-             <number>10</number>
+             <number>100</number>
             </property>
             <property name="maximum">
-             <number>300</number>
+             <number>400</number>
             </property>
             <property name="value">
-             <number>10</number>
+             <number>100</number>
             </property>
            </widget>
           </item>
-          <item row="3" column="3">
-           <spacer name="horizontalSpacer_13">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="3" column="2">
-           <widget class="QSpinBox" name="spAntropAlaraajaOik">
+          <item row="12" column="2">
+           <widget class="QDoubleSpinBox" name="spAntropKengannumeroOik">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -1382,16 +1489,22 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> mm</string>
+             <string/>
+            </property>
+            <property name="decimals">
+             <number>1</number>
             </property>
             <property name="minimum">
-             <number>300</number>
+             <double>10.000000000000000</double>
             </property>
             <property name="maximum">
-             <number>1500</number>
+             <double>50.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.500000000000000</double>
             </property>
             <property name="value">
-             <number>300</number>
+             <double>10.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -1410,6 +1523,112 @@ huoneesta toiseen vaatisi. Tavallisesti tarvitsen toisen ihmisen apua.</string>
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="12" column="4">
+           <widget class="QDoubleSpinBox" name="spAntropKengannumeroVas">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string/>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="minimum">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>50.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.500000000000000</double>
+            </property>
+            <property name="value">
+             <double>10.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="1">
+           <widget class="QLabel" name="label_328">
+            <property name="text">
+             <string>Kengän pituus</string>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="2">
+           <widget class="QSpinBox" name="spAntropKenganPituusOik">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>100</number>
+            </property>
+            <property name="maximum">
+             <number>400</number>
+            </property>
+            <property name="value">
+             <number>100</number>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="4">
+           <widget class="QSpinBox" name="spAntropKenganPituusVas">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> mm</string>
+            </property>
+            <property name="minimum">
+             <number>100</number>
+            </property>
+            <property name="maximum">
+             <number>400</number>
+            </property>
+            <property name="value">
+             <number>100</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -13675,9 +13894,15 @@ lonkka fleksiossa</string>
   <tabstop>spAntropPolviVas</tabstop>
   <tabstop>spAntropNilkkaOik</tabstop>
   <tabstop>spAntropNilkkaVas</tabstop>
+  <tabstop>spAntropJalkateraOik</tabstop>
+  <tabstop>spAntropJalkateraVas</tabstop>
   <tabstop>spAntropSIAS</tabstop>
   <tabstop>spAntropPituus</tabstop>
   <tabstop>spAntropPaino</tabstop>
+  <tabstop>spAntropKengannumeroOik</tabstop>
+  <tabstop>spAntropKengannumeroVas</tabstop>
+  <tabstop>spAntropKenganPituusOik</tabstop>
+  <tabstop>spAntropKenganPituusVas</tabstop>
   <tabstop>cmtAntrop</tabstop>
   <tabstop>csbLonkkaFleksioOik</tabstop>
   <tabstop>csbLonkkaFleksioVas</tabstop>
