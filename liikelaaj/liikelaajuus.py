@@ -17,6 +17,11 @@ Design:
  next word indicate variable category or page where widget resides
  the rest indicates the variable. E.g. 'lnTiedotNimi'
 
+-mechanism for weight normalized data is as follows: widgets can have
+'UnNorm' in their name which creates a weight unnormalized value. A
+corresponding widget name with UnNorm replaced by Norm is then 
+automatically updated, if the patient weight is available.
+
 -widget inputs are updated into an internal dict whenever any value changes
 
 -dict keys are taken automatically from widget names by removing first 2-3
@@ -185,10 +190,19 @@ class EntryApp(QtWidgets.QMainWindow):
         for w in self.findChildren(CheckDegSpinBox):
             w.degSpinBox.setLineEdit(DegLineEdit())
 
-        """Special unnormalized inputs. These have corresponding normalized inputs
-        that are automatically updated according to weight"""
-        self.unnorm_inputs = [w for w in self.findChildren(QtWidgets.QWidget) if
-                              'UnNorm' in w.objectName()]
+        """Special unnormalized inputs have corresponding normalized inputs
+        that are automatically updated according to weight. Create a mapping
+        of unnormalized -> normalized inputs"""
+        allwidgets = self.findChildren(QtWidgets.QWidget)
+        self.unnorm_inputs = dict()
+        for w in allwidgets:
+            wname = w.objectName()
+            if 'UnNorm' in wname:
+                wname_norm = wname.replace('UnNorm', 'Norm')
+                w_norm = self.__dict__[wname_norm]
+                self.unnorm_inputs[w] = w_norm
+                # user won't be able to change normalized inputs directly
+                w_norm.setEnabled(False)
 
         """ Register widget specific 'value changed' callbacks. These will be called
         with widget as the only argument """
@@ -198,7 +212,7 @@ class EntryApp(QtWidgets.QMainWindow):
         self.changed_callbacks[self.spAntropPaino] = self._weight_changed
 
         """ Set various widget convenience methods/properties """
-        for w in self.findChildren(QtWidgets.QWidget):
+        for w in allwidgets:
             wname = w.objectName()
             wsave = True
             w.unit = lambda: ''  # if a widget input has units, set it below
@@ -297,12 +311,11 @@ class EntryApp(QtWidgets.QMainWindow):
     def _update_norm_value(self, w):
         """For unnormalized widget w, update the corresponding weight
         normalized widget"""
-        wname = w.objectName()
-        wname_norm = wname.replace('UnNorm', 'Norm')
+        w_norm = self.unnorm_inputs[w]
         try:
             weight = self.spAntropPaino.getVal()
             val = w.getVal() / weight
-            self.__dict__[wname_norm].setVal(val)
+            w_norm.setVal(val)
         except TypeError:
             pass
 
@@ -365,7 +378,8 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Callback to call whenever inputs change """
         # call the widget specific callback if registered
         if w in self.changed_callbacks:
-            logger.debug('callback for %s' % w.objectName())
+            # XXX: these callbacks will be triggered also when loading values
+            # from disk
             self.changed_callbacks[w](w)
         if self.update_dict:  # update internal data dict
             # DEBUG
