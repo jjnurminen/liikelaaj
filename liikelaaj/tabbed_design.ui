@@ -12686,6 +12686,74 @@ lonkka fleksiossa</string>
         </item>
         <item>
          <layout class="QGridLayout" name="gridLayout_17">
+          <item row="10" column="4">
+           <widget class="QSpinBox" name="spIsokinPolviLiikenopeusFleksioVas">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string>°/s</string>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>180</number>
+            </property>
+            <property name="singleStep">
+             <number>10</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="2">
+           <widget class="QSpinBox" name="spIsokinPolviLiikenopeusFleksioOik">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string>°/s</string>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>180</number>
+            </property>
+            <property name="singleStep">
+             <number>10</number>
+            </property>
+            <property name="value">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
           <item row="10" column="1">
            <widget class="QLabel" name="label_340">
             <property name="text">
@@ -12694,7 +12762,7 @@ lonkka fleksiossa</string>
            </widget>
           </item>
           <item row="5" column="4">
-           <widget class="QSpinBox" name="spIsokinPolviEkstensioMomenttiVas">
+           <widget class="QSpinBox" name="spIsokinPolviEkstensioMomenttiVasUnNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13059,7 +13127,7 @@ lonkka fleksiossa</string>
            </widget>
           </item>
           <item row="5" column="2">
-           <widget class="QSpinBox" name="spIsokinPolviEkstensioMomenttiOik">
+           <widget class="QSpinBox" name="spIsokinPolviEkstensioMomenttiOikUnNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13129,8 +13197,8 @@ lonkka fleksiossa</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="2">
-           <widget class="QDoubleSpinBox" name="spIsokinPolviEkstensioMomenttiNormOik">
+          <item row="9" column="2">
+           <widget class="QDoubleSpinBox" name="spIsokinPolviFleksioMomenttiOikNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13153,7 +13221,7 @@ lonkka fleksiossa</string>
              <string> Nm/kg</string>
             </property>
             <property name="maximum">
-             <double>5.000000000000000</double>
+             <double>20.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.010000000000000</double>
@@ -13161,7 +13229,7 @@ lonkka fleksiossa</string>
            </widget>
           </item>
           <item row="6" column="4">
-           <widget class="QDoubleSpinBox" name="spIsokinPolviEkstensioMomenttiNormVas">
+           <widget class="QDoubleSpinBox" name="spIsokinPolviEkstensioMomenttiVasNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13184,7 +13252,7 @@ lonkka fleksiossa</string>
              <string> Nm/kg</string>
             </property>
             <property name="maximum">
-             <double>5.000000000000000</double>
+             <double>20.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.010000000000000</double>
@@ -13192,7 +13260,7 @@ lonkka fleksiossa</string>
            </widget>
           </item>
           <item row="8" column="2">
-           <widget class="QSpinBox" name="spIsokinPolviFleksioMomenttiOik">
+           <widget class="QSpinBox" name="spIsokinPolviFleksioMomenttiOikUnNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13219,73 +13287,11 @@ lonkka fleksiossa</string>
             </property>
             <property name="value">
              <number>0</number>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="4">
-           <widget class="QSpinBox" name="spIsokinPolviFleksioMomenttiVas">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> Nm</string>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <number>400</number>
-            </property>
-            <property name="value">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="2">
-           <widget class="QDoubleSpinBox" name="spIsokinPolviFleksioMomenttiNormOik">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="suffix">
-             <string> Nm/kg</string>
-            </property>
-            <property name="maximum">
-             <double>5.000000000000000</double>
-            </property>
-            <property name="singleStep">
-             <double>0.010000000000000</double>
             </property>
            </widget>
           </item>
           <item row="9" column="4">
-           <widget class="QDoubleSpinBox" name="spIsokinPolviFleksioMomenttiNormVas">
+           <widget class="QDoubleSpinBox" name="spIsokinPolviFleksioMomenttiVasNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13308,15 +13314,15 @@ lonkka fleksiossa</string>
              <string> Nm/kg</string>
             </property>
             <property name="maximum">
-             <double>5.000000000000000</double>
+             <double>20.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.010000000000000</double>
             </property>
            </widget>
           </item>
-          <item row="10" column="2">
-           <widget class="QSpinBox" name="spIsokinPolviLiikenopeusFleksioOik">
+          <item row="8" column="4">
+           <widget class="QSpinBox" name="spIsokinPolviFleksioMomenttiVasUnNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13333,24 +13339,21 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> Nm</string>
             </property>
             <property name="minimum">
              <number>0</number>
             </property>
             <property name="maximum">
-             <number>180</number>
-            </property>
-            <property name="singleStep">
-             <number>10</number>
+             <number>400</number>
             </property>
             <property name="value">
              <number>0</number>
             </property>
            </widget>
           </item>
-          <item row="10" column="4">
-           <widget class="QSpinBox" name="spIsokinPolviLiikenopeusFleksioVas">
+          <item row="6" column="2">
+           <widget class="QDoubleSpinBox" name="spIsokinPolviEkstensioMomenttiOikNorm">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -13366,20 +13369,17 @@ lonkka fleksiossa</string>
             <property name="specialValueText">
              <string>Ei mitattu</string>
             </property>
-            <property name="suffix">
-             <string>°/s</string>
+            <property name="prefix">
+             <string/>
             </property>
-            <property name="minimum">
-             <number>0</number>
+            <property name="suffix">
+             <string> Nm/kg</string>
             </property>
             <property name="maximum">
-             <number>180</number>
+             <double>20.000000000000000</double>
             </property>
             <property name="singleStep">
-             <number>10</number>
-            </property>
-            <property name="value">
-             <number>0</number>
+             <double>0.010000000000000</double>
             </property>
            </widget>
           </item>

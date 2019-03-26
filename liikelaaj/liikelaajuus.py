@@ -185,6 +185,18 @@ class EntryApp(QtWidgets.QMainWindow):
         for w in self.findChildren(CheckDegSpinBox):
             w.degSpinBox.setLineEdit(DegLineEdit())
 
+        """Special unnormalized inputs. These have corresponding normalized inputs
+        that are automatically updated according to weight"""
+        self.unnorm_inputs = [w for w in self.findChildren(QtWidgets.QWidget) if
+                              'UnNorm' in w.objectName()]
+
+        """ Register widget specific 'value changed' callbacks. These will be called
+        with widget as the only argument """
+        self.changed_callbacks = dict()
+        for w in self.unnorm_inputs:
+            self.changed_callbacks[w] = self._update_norm_value
+        self.changed_callbacks[self.spAntropPaino] = self._weight_changed
+
         """ Set various widget convenience methods/properties """
         for w in self.findChildren(QtWidgets.QWidget):
             wname = str(w.objectName())
@@ -229,7 +241,7 @@ class EntryApp(QtWidgets.QMainWindow):
                 self.input_widgets[wname] = w
                 # TODO: specify whether input value is 'mandatory' or not
                 w.important = False
-        # link buttons
+
         self.btnSave.clicked.connect(self.save_dialog)
         self.btnLoad.clicked.connect(self.load_dialog)
         self.btnClear.clicked.connect(self.clear_forms_dialog)
@@ -237,12 +249,14 @@ class EntryApp(QtWidgets.QMainWindow):
         self.btnExcelReport.clicked.connect(self.save_excel_report_dialog)
         self.btnHelp.clicked.connect(self.open_help)
         self.btnQuit.clicked.connect(self.close)
-        # method call on tab change
+
+        # slot called on tab change
         self.maintab.currentChanged.connect(self.page_change)
+
         """ First widget of each page. This is used to do focus/selectall on
         the 1st widget on page change so that data can be entered immediately.
         Only needed for spinbox / lineedit widgets. """
-        self.firstwidget = {}
+        self.firstwidget = dict()
         # TODO: check/fix
         self.firstwidget[self.tabTiedot] = self.lnTiedotNimi
         self.firstwidget[self.tabKysely] = self.lnKyselyPaivittainenMatka
@@ -253,13 +267,14 @@ class EntryApp(QtWidgets.QMainWindow):
         self.firstwidget[self.tabVirheas] = self.spVirheasAnteversioOik
         self.firstwidget[self.tabTasap] = self.spTasapOik
         self.total_widgets = len(self.input_widgets)
+
         self.statusbar.showMessage(ll_msgs.ready.format(n=self.total_widgets))
-        # TODO: set 'important' widgets (mandatory values) .important = True
+
         """ Set up widget -> varname translation dict. Currently variable names
         are derived by removing 2 first characters from widget names (except
         for comment box variables cmt* which are identical with widget names).
         """
-        self.widget_to_var = {}
+        self.widget_to_var = dict()
         for wname in self.input_widgets:
             if wname[:3] == 'cmt':
                 varname = wname
@@ -268,11 +283,28 @@ class EntryApp(QtWidgets.QMainWindow):
             else:
                 varname = wname[2:]
             self.widget_to_var[wname] = varname
+
         # try to increase font size
-        # self.maintab.setStyleSheet('QTabBar { font-size: 14pt;}')
-        # self.maintab.setStyleSheet('QWidget { font-size: 14pt;}')
         self.setStyleSheet('QWidget { font-size: %dpt;}'
                            % Config.global_fontsize)
+
+    def _weight_changed(self, _):
+        """Update all normalized values. Input arg is needed due to callback call
+        signature and is ignored"""
+        for w in self.unnorm_inputs:
+            self._update_norm_value(w)
+
+    def _update_norm_value(self, w):
+        """For unnormalized widget w, update the corresponding weight
+        normalized widget"""
+        wname = str(w.objectName())
+        wname_norm = wname.replace('UnNorm', 'Norm')
+        try:
+            weight = self.spAntropPaino.getVal()
+            val = w.getVal() / weight
+            self.__dict__[wname_norm].setVal(val)
+        except TypeError:
+            pass
 
     @property
     def units(self):
@@ -331,6 +363,10 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def values_changed(self, w):
         """ Callback to call whenever inputs change """
+        # call the widget specific callback if registered
+        if w in self.changed_callbacks:
+            logger.debug('callback for %s' % w.objectName())
+            self.changed_callbacks[w](w)
         if self.update_dict:  # update internal data dict
             # DEBUG
             # print('updating dict:', w.objectName(),'new value:',w.getVal())
@@ -556,6 +592,8 @@ def main():
             except (psutil.AccessDenied, psutil.NoSuchProcess):
                 pass
         return False
+
+    logging.basicConfig(level=logging.DEBUG)
 
     """ Work around stdout and stderr not being available, if app is run
     using pythonw.exe on Windows. Without this, exception will be raised
