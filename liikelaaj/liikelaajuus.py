@@ -610,7 +610,8 @@ def main():
                 pass
         return False
 
-    logging.basicConfig(level=logging.DEBUG)
+    # debug: log to console
+    #logging.basicConfig(level=logging.DEBUG)
 
     """ Work around stdout and stderr not being available, if app is run
     using pythonw.exe on Windows. Without this, exception will be raised
