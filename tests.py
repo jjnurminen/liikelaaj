@@ -148,8 +148,9 @@ def test_text_template():
          ldict, ldict)
     for li in report.text.split('\n'):
         fields.update(set(Report._get_field(li)))
-    # the report does not reference EMG channels or kyselysivu
-    all_fields = {fld for fld in data_emptyvals if fld[:3] != u'EMG' and 'Kysely' not in fld and 'FMS' not in fld}
+    # the report does not currently reference flds with following patterns
+    exclude_ = ['EMG', 'Kysely', 'FMS', 'Isokin', 'KenganPituus', 'AntropJalkatera']
+    all_fields = {fld for fld in data_emptyvals if not any([p in fld for p in exclude_])}
     assert fields == all_fields
 
 
