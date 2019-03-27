@@ -8,19 +8,14 @@ Py2/3 compatible via futurize.
 
 Design:
 
--uses a separate ui file made with Qt Designer and loaded using uic
+-uses an ui file made with Qt Designer
 
 -custom widget (CheckDegSpinBox): plugin file should be made available to Qt
  designer (checkspinbox_plugin.py). export PYQTDESIGNERPATH=path
 
--widget naming convention: first 2-3 chars indicate widget type (mandatory),
- next word indicate variable category or page where widget resides
- the rest indicates the variable. E.g. 'lnTiedotNimi'
-
--mechanism for weight normalized data is as follows: widgets can have
-'UnNorm' in their name which creates a weight unnormalized value. A
-corresponding widget name with UnNorm replaced by Norm is then 
-automatically updated, if the patient weight is available.
+-input widget naming convention: first 2-3 chars indicate widget type
+ (mandatory), next word indicate variable category or page where widget
+ resides the rest indicates the variable. E.g. 'lnTiedotNimi'
 
 -widget inputs are updated into an internal dict whenever any value changes
 
@@ -30,6 +25,12 @@ automatically updated, if the patient weight is available.
 -for saving, dict data is turned into json unicode and written out in utf-8
 
 -data is saved into temp directory whenever any values are changed by user
+
+-magic mechanism for weight normalized data: widgets can have names ending
+with 'NormUn' which creates a weight unnormalized value. The
+corresponding widget name with UnNorm replaced by Norm (which must exist)
+is then automatically updated whenever either weight or the unnormalized value
+changes
 
 -files do not include any version info (maybe a stupid decision), instead
  mismatches between the input widgets and loaded json are detected and reported
@@ -43,8 +44,6 @@ automatically updated, if the patient weight is available.
 
 from __future__ import print_function
 
-from builtins import str
-from builtins import object
 from PyQt5 import uic, QtCore, QtWidgets
 import sys
 import traceback
@@ -58,7 +57,8 @@ import psutil
 from pkg_resources import resource_filename
 
 from .config import Config
-from .widgets import MyLineEdit, DegLineEdit, CheckDegSpinBox, message_dialog, confirm_dialog
+from .widgets import (MyLineEdit, DegLineEdit, CheckDegSpinBox, message_dialog,
+                      confirm_dialog)
 from .utils import _check_hetu
 from . import reporter, ll_msgs
 
@@ -89,7 +89,8 @@ class EntryApp(QtWidgets.QMainWindow):
         if op.isfile(Config.tmpfile) and check_temp_file:
             message_dialog(ll_msgs.temp_found)
             self.load_temp()
-        self.text_template = resource_filename('liikelaaj', Config.text_template)
+        self.text_template = resource_filename('liikelaaj',
+                                               Config.text_template)
         self.xls_template = resource_filename('liikelaaj', Config.xls_template)
         # TODO: set locale and options if needed
         # loc = QtCore.QLocale()
@@ -201,6 +202,8 @@ class EntryApp(QtWidgets.QMainWindow):
                 pass
 
         # autowidgets are special widgets with automatically computed values
+        # they must have ._autocalculate() method which updates the widget
+        # and ._autoinputs list which lists needed input widgets
         self.autowidgets = list()
         weight_widget = self.spAntropPaino
         for w in allwidgets:
@@ -223,7 +226,7 @@ class EntryApp(QtWidgets.QMainWindow):
             wname = w.objectName()
             wsave = True
             w.unit = lambda: ''  # if a widget input has units, set it below
-            if wname[:2] == 'sp':
+            if wname[:2] == 'sp':  # spinbox or doublespinbox
                 # -lambdas need default arguments because of late binding
                 # -lambda expression needs to consume unused 'new value' arg,
                 # therefore two parameters (except for QTextEdit...)
@@ -232,26 +235,26 @@ class EntryApp(QtWidgets.QMainWindow):
                 w.setVal = lambda val, w=w: spinbox_setval(w, val)
                 w.getVal = lambda w=w: spinbox_getval(w)
                 w.unit = lambda w=w: w.suffix() if isint(w.getVal()) else ''
-            elif wname[:2] == 'ln':
+            elif wname[:2] == 'ln':  # lineedit
                 w.textChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.setVal = w.setText
                 w.getVal = lambda w=w: w.text().strip()
-            elif wname[:2] == 'cb':
+            elif wname[:2] == 'cb':  # combobox
                 w.currentIndexChanged.connect(lambda x,
                                               w=w: self.values_changed(w))
                 w.setVal = lambda val, w=w: combobox_setval(w, val)
                 w.getVal = lambda w=w: combobox_getval(w)
-            elif wname[:3] == 'cmt':
+            elif wname[:3] == 'cmt':  # comment text field
                 w.textChanged.connect(lambda w=w: self.values_changed(w))
                 w.setVal = w.setPlainText
                 w.getVal = lambda w=w: w.toPlainText().strip()
-            elif wname[:2] == 'xb':
+            elif wname[:2] == 'xb':  # checkbox
                 w.stateChanged.connect(lambda x, w=w: self.values_changed(w))
                 w.yes_text = Config.checkbox_yestext
                 w.no_text = Config.checkbox_notext
                 w.setVal = lambda val, w=w: checkbox_setval(w, val)
                 w.getVal = lambda w=w: checkbox_getval(w)
-            elif wname[:3] == 'csb':
+            elif wname[:3] == 'csb':  # checkdegspinbox
                 w.valueChanged.connect(lambda w=w: self.values_changed(w))
                 w.getVal = w.value
                 w.setVal = w.setValue
@@ -369,7 +372,8 @@ class EntryApp(QtWidgets.QMainWindow):
     def values_changed(self, w):
         """Called whenever widget w value changes"""
         # find autowidgets that depend on w and update them
-        autowidgets_this = [widget for widget in self.autowidgets if w in widget._autoinputs]
+        autowidgets_this = [widget for widget in self.autowidgets if w
+                            in widget._autoinputs]
         for widget in autowidgets_this:
             widget._autocalculate()
         if self.update_dict:  # update internal data dict
