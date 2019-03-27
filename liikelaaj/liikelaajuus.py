@@ -309,6 +309,8 @@ class EntryApp(QtWidgets.QMainWindow):
         self.setStyleSheet('QWidget { font-size: %dpt;}'
                            % Config.global_fontsize)
 
+        # FIXME: make sure we always start on 1st tab
+
     @property
     def units(self):
         """ Return dict indicating the units for each variable. This may change
