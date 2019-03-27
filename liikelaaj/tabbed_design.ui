@@ -13335,37 +13335,6 @@ lonkka fleksiossa</string>
             </property>
            </widget>
           </item>
-          <item row="18" column="2">
-           <widget class="QSpinBox" name="spIsokinNilkkaDorsifleksioMomenttiOikNorm">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> Nm</string>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <number>400</number>
-            </property>
-            <property name="value">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
           <item row="14" column="1">
            <widget class="QLabel" name="label_347">
             <property name="text">
@@ -13411,7 +13380,7 @@ lonkka fleksiossa</string>
              <number>0</number>
             </property>
             <property name="maximum">
-             <number>400</number>
+             <number>250</number>
             </property>
             <property name="value">
              <number>0</number>
@@ -13446,13 +13415,13 @@ lonkka fleksiossa</string>
              <string> °</string>
             </property>
             <property name="minimum">
-             <number>-40</number>
+             <number>-20</number>
             </property>
             <property name="maximum">
-             <number>0</number>
+             <number>90</number>
             </property>
             <property name="value">
-             <number>-40</number>
+             <number>-20</number>
             </property>
            </widget>
           </item>
@@ -13480,7 +13449,7 @@ lonkka fleksiossa</string>
              <number>0</number>
             </property>
             <property name="maximum">
-             <number>400</number>
+             <number>250</number>
             </property>
             <property name="value">
              <number>0</number>
@@ -13491,37 +13460,6 @@ lonkka fleksiossa</string>
            <widget class="QLabel" name="label_350">
             <property name="text">
              <string>Nilkan dorsifleksio, ROM</string>
-            </property>
-           </widget>
-          </item>
-          <item row="18" column="4">
-           <widget class="QSpinBox" name="spIsokinNilkkaDorsifleksioMomenttiVasNorm">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> Nm</string>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <number>400</number>
-            </property>
-            <property name="value">
-             <number>0</number>
             </property>
            </widget>
           </item>
@@ -13553,37 +13491,6 @@ lonkka fleksiossa</string>
             </property>
             <property name="singleStep">
              <number>10</number>
-            </property>
-            <property name="value">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-          <item row="15" column="2">
-           <widget class="QSpinBox" name="spIsokinNilkkaPlantaarifleksioMomenttiOikNorm">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> Nm</string>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <number>400</number>
             </property>
             <property name="value">
              <number>0</number>
@@ -13648,7 +13555,7 @@ lonkka fleksiossa</string>
              <number>0</number>
             </property>
             <property name="maximum">
-             <number>400</number>
+             <number>250</number>
             </property>
             <property name="value">
              <number>0</number>
@@ -13717,13 +13624,13 @@ lonkka fleksiossa</string>
              <string> °</string>
             </property>
             <property name="minimum">
-             <number>-110</number>
+             <number>-60</number>
             </property>
             <property name="maximum">
-             <number>-40</number>
+             <number>30</number>
             </property>
             <property name="value">
-             <number>-110</number>
+             <number>-45</number>
             </property>
            </widget>
           </item>
@@ -13792,7 +13699,7 @@ lonkka fleksiossa</string>
              <number>0</number>
             </property>
             <property name="maximum">
-             <number>400</number>
+             <number>250</number>
             </property>
             <property name="value">
              <number>0</number>
@@ -13803,37 +13710,6 @@ lonkka fleksiossa</string>
            <widget class="QLabel" name="label_344">
             <property name="text">
              <string>Nilkan dorsifleksiomomentti (norm.)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="15" column="4">
-           <widget class="QSpinBox" name="spIsokinNilkkaPlantaarifleksioMomenttiVasNorm">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="specialValueText">
-             <string>Ei mitattu</string>
-            </property>
-            <property name="suffix">
-             <string> Nm</string>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-            <property name="maximum">
-             <number>400</number>
-            </property>
-            <property name="value">
-             <number>0</number>
             </property>
            </widget>
           </item>
@@ -13858,13 +13734,13 @@ lonkka fleksiossa</string>
              <string> °</string>
             </property>
             <property name="minimum">
-             <number>-110</number>
+             <number>-60</number>
             </property>
             <property name="maximum">
-             <number>-40</number>
+             <number>30</number>
             </property>
             <property name="value">
-             <number>-110</number>
+             <number>-45</number>
             </property>
            </widget>
           </item>
@@ -13889,13 +13765,113 @@ lonkka fleksiossa</string>
              <string> °</string>
             </property>
             <property name="minimum">
-             <number>-40</number>
+             <number>-20</number>
             </property>
             <property name="maximum">
-             <number>0</number>
+             <number>90</number>
             </property>
             <property name="value">
-             <number>-40</number>
+             <number>-20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="4">
+           <widget class="QDoubleSpinBox" name="spIsokinNilkkaPlantaarifleksioMomenttiVasNorm">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="maximum">
+             <double>5.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="4">
+           <widget class="QDoubleSpinBox" name="spIsokinNilkkaDorsifleksioMomenttiVasNorm">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="maximum">
+             <double>5.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="2">
+           <widget class="QDoubleSpinBox" name="spIsokinNilkkaPlantaarifleksioMomenttiOikNorm">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="maximum">
+             <double>5.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="18" column="2">
+           <widget class="QDoubleSpinBox" name="spIsokinNilkkaDorsifleksioMomenttiOikNorm">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="specialValueText">
+             <string>Ei mitattu</string>
+            </property>
+            <property name="maximum">
+             <double>5.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
             </property>
            </widget>
           </item>
