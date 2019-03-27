@@ -28,16 +28,15 @@ rootdir = os.getcwd()
 
 uifile = op.join(rootdir, "liikelaaj/tabbed_design.ui")
 
-""" reference json data. must be updated if variables are changed. """
+# reference json data. must be updated if variables are changed.
 fn_emptyvals = op.join(rootdir, "testdata/empty.json")
 fn_ref = op.join(rootdir, "testdata/anonyymi.json")
 
-""" reference reports. must be updated if some aspect of reporting
-changes. use regen_ref_data() below. """
+# reference reports
 fn_txt_ref = "testdata/anonyymi.txt"
 fn_xls_ref = "testdata/anonyymi.xls"
 
-""" temporary files written out by tests below """
+# temporary files written out by tests below
 fn_xls_out = "testdata/tests_xls_report_out.xls"
 fn_out = "testdata/tests_data_out.json"
 
@@ -51,9 +50,7 @@ entered) but can be used to test various methods. NOTE: any existing temp file
 may be deleted by the unit tests """
 eapp = liikelaajuus.EntryApp(check_temp_file=False)
 
-
-""" aux functions """
-
+# helper functions
 
 def file_md5(fn):
     """ Get MD5 sum of file in a dumb way. Works for small files. """
@@ -77,7 +74,7 @@ def regen_ref_data():
 """ BEGIN TESTS """
 
 
-def test_save():  # no longer works, variable order is not the same
+def test_save():
     """Test load/save cycle"""
     eapp.load_file(fn_ref)
     eapp.save_file(fn_out)

@@ -12705,7 +12705,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -12739,7 +12739,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -12773,7 +12773,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -12827,7 +12827,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-110</number>
@@ -12897,7 +12897,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -12962,7 +12962,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-40</number>
@@ -13270,7 +13270,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-40</number>
@@ -13315,7 +13315,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-110</number>
@@ -13412,7 +13412,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-20</number>
@@ -13481,7 +13481,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -13515,7 +13515,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -13580,7 +13580,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -13621,7 +13621,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-60</number>
@@ -13630,7 +13630,7 @@ lonkka fleksiossa</string>
              <number>30</number>
             </property>
             <property name="value">
-             <number>-45</number>
+             <number>-60</number>
             </property>
            </widget>
           </item>
@@ -13659,7 +13659,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string>°/s</string>
+             <string> °/s</string>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -13731,7 +13731,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-60</number>
@@ -13740,7 +13740,7 @@ lonkka fleksiossa</string>
              <number>30</number>
             </property>
             <property name="value">
-             <number>-45</number>
+             <number>-60</number>
             </property>
            </widget>
           </item>
@@ -13762,7 +13762,7 @@ lonkka fleksiossa</string>
              <string>Ei mitattu</string>
             </property>
             <property name="suffix">
-             <string> °</string>
+             <string>°</string>
             </property>
             <property name="minimum">
              <number>-20</number>
@@ -13926,7 +13926,7 @@ lonkka fleksiossa</string>
            </spacer>
           </item>
           <item>
-           <widget class="QTextEdit" name="cmtVoima2_2">
+           <widget class="QTextEdit" name="cmtIsokin">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
