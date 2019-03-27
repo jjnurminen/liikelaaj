@@ -266,13 +266,13 @@ class EntryApp(QtWidgets.QMainWindow):
                 # TODO: specify whether input value is 'mandatory' or not
                 w.important = False
 
-        self.btnSave.clicked.connect(self.save_dialog)
-        self.btnLoad.clicked.connect(self.load_dialog)
-        self.btnClear.clicked.connect(self.clear_forms_dialog)
-        self.btnReport.clicked.connect(self.save_report_dialog)
-        self.btnExcelReport.clicked.connect(self.save_excel_report_dialog)
-        self.btnHelp.clicked.connect(self.open_help)
-        self.btnQuit.clicked.connect(self.close)
+        self.actionTallenna.triggered.connect(self.save_dialog)
+        self.actionAvaa.triggered.connect(self.load_dialog)
+        self.actionTyhjenna.triggered.connect(self.clear_forms_dialog)
+        self.actionTekstiraportti.triggered.connect(self.save_report_dialog)
+        self.actionExcel_raportti.triggered.connect(self.save_excel_report_dialog)
+        self.actionWeb_sivu.triggered.connect(self.open_help)
+        self.actionLopeta.triggered.connect(self.close)
 
         # slot called on tab change
         self.maintab.currentChanged.connect(self.page_change)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1422</width>
-    <height>778</height>
+    <height>751</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,6 +22,9 @@
         <width>400</width>
         <height>400</height>
        </size>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -325,7 +328,7 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-185</y>
+             <y>-154</y>
              <width>1363</width>
              <height>823</height>
             </rect>
@@ -15055,85 +15058,6 @@ lonkka fleksiossa</string>
       </property>
      </spacer>
     </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnSave">
-        <property name="text">
-         <string>Tallenna...</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnLoad">
-        <property name="text">
-         <string>Lataa...</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnClear">
-        <property name="text">
-         <string>Tyhjennä</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnReport">
-        <property name="text">
-         <string>Tee raportti...</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnExcelReport">
-        <property name="text">
-         <string>Tee Excel-raportti...</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnHelp">
-        <property name="text">
-         <string>Ohje</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btnQuit">
-        <property name="text">
-         <string>Sulje</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -15145,8 +15069,68 @@ lonkka fleksiossa</string>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuTiedosto">
+    <property name="title">
+     <string>Tiedosto</string>
+    </property>
+    <addaction name="actionAvaa"/>
+    <addaction name="actionTallenna"/>
+    <addaction name="actionTyhjenna"/>
+    <addaction name="actionLopeta"/>
+   </widget>
+   <widget class="QMenu" name="menuRaportti">
+    <property name="title">
+     <string>Raportti</string>
+    </property>
+    <addaction name="actionTekstiraportti"/>
+    <addaction name="actionExcel_raportti"/>
+   </widget>
+   <widget class="QMenu" name="menuOhje">
+    <property name="title">
+     <string>Ohje</string>
+    </property>
+    <addaction name="actionWeb_sivu"/>
+   </widget>
+   <addaction name="menuTiedosto"/>
+   <addaction name="menuRaportti"/>
+   <addaction name="menuOhje"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionTallenna">
+   <property name="text">
+    <string>Tallenna...</string>
+   </property>
+  </action>
+  <action name="actionAvaa">
+   <property name="text">
+    <string>Avaa...</string>
+   </property>
+  </action>
+  <action name="actionTekstiraportti">
+   <property name="text">
+    <string>Tekstiraportti...</string>
+   </property>
+  </action>
+  <action name="actionExcel_raportti">
+   <property name="text">
+    <string>Excel-raportti...</string>
+   </property>
+  </action>
+  <action name="actionWeb_sivu">
+   <property name="text">
+    <string>Web-ohje</string>
+   </property>
+  </action>
+  <action name="actionTyhjenna">
+   <property name="text">
+    <string>Tyhjennä kentät</string>
+   </property>
+  </action>
+  <action name="actionLopeta">
+   <property name="text">
+    <string>Lopeta</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -15450,13 +15434,6 @@ lonkka fleksiossa</string>
   <tabstop>xbEMGVas</tabstop>
   <tabstop>xbEMGHam</tabstop>
   <tabstop>xbEMGGlut</tabstop>
-  <tabstop>btnSave</tabstop>
-  <tabstop>btnLoad</tabstop>
-  <tabstop>btnClear</tabstop>
-  <tabstop>btnReport</tabstop>
-  <tabstop>btnExcelReport</tabstop>
-  <tabstop>btnHelp</tabstop>
-  <tabstop>btnQuit</tabstop>
   <tabstop>scrollArea</tabstop>
   <tabstop>maintab</tabstop>
  </tabstops>
