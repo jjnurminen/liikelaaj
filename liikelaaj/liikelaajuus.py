@@ -190,26 +190,33 @@ class EntryApp(QtWidgets.QMainWindow):
         for w in self.findChildren(CheckDegSpinBox):
             w.degSpinBox.setLineEdit(DegLineEdit())
 
-        """Special unnormalized inputs have corresponding normalized inputs
-        that are automatically updated according to weight. Create a mapping
-        of unnormalized -> normalized inputs"""
         allwidgets = self.findChildren(QtWidgets.QWidget)
-        self.unnorm_inputs = dict()
+
+        def _weight_normalize(w):
+            """Auto calculate callback for weight normalized widgets"""
+            val, weight = (w.getVal() for w in w._autoinputs)
+            try:
+                w.setVal(val/weight)
+            except TypeError:
+                pass
+
+        # autowidgets are special widgets with automatically computed values
+        self.autowidgets = list()
+        weight_widget = self.spAntropPaino
         for w in allwidgets:
             wname = w.objectName()
-            if 'UnNorm' in wname:
-                wname_norm = wname.replace('UnNorm', 'Norm')
-                w_norm = self.__dict__[wname_norm]
-                self.unnorm_inputs[w] = w_norm
-                # user won't be able to change normalized inputs directly
-                w_norm.setEnabled(False)
+            # handle the 'magic' autowidgets with weight normalized data
+            if wname[-4:] == 'Norm':
+                self.autowidgets.append(w)
+                # corresponding unnormalized widget
+                wname_unnorm = wname.replace('Norm', 'NormUn')
+                w_unnorm = self.__dict__[wname_unnorm]
+                w._autoinputs = [w_unnorm, weight_widget]
+                w._autocalculate = lambda w=w: _weight_normalize(w)
 
-        """ Register widget specific 'value changed' callbacks. These will be called
-        with widget as the only argument """
-        self.changed_callbacks = dict()
-        for w in self.unnorm_inputs:
-            self.changed_callbacks[w] = self._update_norm_value
-        self.changed_callbacks[self.spAntropPaino] = self._weight_changed
+        # autowidget values cannot be directly modified
+        for w in self.autowidgets:
+            w.setEnabled(False)
 
         """ Set various widget convenience methods/properties """
         for w in allwidgets:
@@ -302,23 +309,6 @@ class EntryApp(QtWidgets.QMainWindow):
         self.setStyleSheet('QWidget { font-size: %dpt;}'
                            % Config.global_fontsize)
 
-    def _weight_changed(self, _):
-        """Update all normalized values. Input arg is needed due to callback call
-        signature and is ignored"""
-        for w in self.unnorm_inputs:
-            self._update_norm_value(w)
-
-    def _update_norm_value(self, w):
-        """For unnormalized widget w, update the corresponding weight
-        normalized widget"""
-        w_norm = self.unnorm_inputs[w]
-        try:
-            weight = self.spAntropPaino.getVal()
-            val = w.getVal() / weight
-            w_norm.setVal(val)
-        except TypeError:
-            pass
-
     @property
     def units(self):
         """ Return dict indicating the units for each variable. This may change
@@ -375,12 +365,11 @@ class EntryApp(QtWidgets.QMainWindow):
                                self.xls_template)
 
     def values_changed(self, w):
-        """ Callback to call whenever inputs change """
-        # call the widget specific callback if registered
-        if w in self.changed_callbacks:
-            # XXX: these callbacks will be triggered also when loading values
-            # from disk
-            self.changed_callbacks[w](w)
+        """Called whenever widget w value changes"""
+        # find autowidgets that depend on w and update them
+        autowidgets_this = [widget for widget in self.autowidgets if w in widget._autoinputs]
+        for widget in autowidgets_this:
+            widget._autocalculate()
         if self.update_dict:  # update internal data dict
             # DEBUG
             # print('updating dict:', w.objectName(),'new value:',w.getVal())
