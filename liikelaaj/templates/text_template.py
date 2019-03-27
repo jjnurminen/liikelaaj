@@ -285,6 +285,8 @@ Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista:
     report += emgs_str
     report += '\n'
 
+report += u'Kommentit (EMG): {cmtEMG}\n'
+
 report += u"""
 SUUNNITELMA/POHDINTA:
 """
