@@ -117,21 +117,13 @@ class EntryApp(QtWidgets.QMainWindow):
         self.input_widgets = {}
 
         def spinbox_getval(w):
-            """ Return spinbox value. If it is at minimum, the special
-            value mintext will be returned. """
-            val = w.value()
-            if val == w.minimum():
-                return w.no_value_text
-            else:
-                return val
+            """Return spinbox value"""
+            return w.no_value_text if w.value() == w.minimum() else w.value()
 
         def spinbox_setval(w, val):
-            """ Set spinbox value. val == mintext causes value to
-            be set to minimum. """
-            if val == w.no_value_text:
-                w.setValue(w.minimum())
-            else:
-                w.setValue(val)
+            """Set spinbox value"""
+            val = w.minimum() if val == w.no_value_text else val
+            w.setValue(val)
 
         def checkbox_getval(w):
             """ Return yestext or notext for checkbox enabled/disabled,
@@ -625,11 +617,11 @@ def main():
         blackhole = open(os.devnull, 'w')
         sys.stdout = sys.stderr = blackhole
 
+    app = QtWidgets.QApplication(sys.argv)
     if not Config.allow_multiple_instances and _already_running():
         message_dialog(ll_msgs.already_running)
         return
 
-    app = QtWidgets.QApplication(sys.argv)
     eapp = EntryApp()
 
     def my_excepthook(type, value, tback):
