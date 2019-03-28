@@ -264,7 +264,10 @@ class EntryApp(QtWidgets.QMainWindow):
                 # TODO: specify whether input value is 'mandatory' or not
                 w.important = False
 
-        self.actionTallenna.triggered.connect(self.save_dialog)
+
+        self.menuTiedosto.aboutToShow.connect(self._update_menu)
+        self.actionTallennaNimella.triggered.connect(self.save_dialog)
+        self.actionTallenna.triggered.connect(self.save_current_file)
         self.actionAvaa.triggered.connect(self.load_dialog)
         self.actionTyhjenna.triggered.connect(self.clear_forms_dialog)
         self.actionTekstiraportti.triggered.connect(self.save_report_dialog)
@@ -314,6 +317,11 @@ class EntryApp(QtWidgets.QMainWindow):
                            % Config.global_fontsize)
 
         # FIXME: make sure we always start on 1st tab
+
+    def _update_menu(self):
+        """Update status of menu items"""
+        self.actionTallenna.setEnabled(bool(self.last_saved_filename) and
+                                            not self.saved_to_file)
 
     @property
     def units(self):
@@ -400,6 +408,13 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Save data into given file in utf-8 encoding. """
         with io.open(fname, 'w', encoding='utf-8') as f:
             f.write(json.dumps(self.data, ensure_ascii=False))
+
+    def save_current_file(self):
+        fname = self.last_saved_filename
+        if fname:
+            self.save_file(fname)
+            self.saved_to_file = True
+            self.statusbar.showMessage(ll_msgs.status_saved+fname)
 
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
