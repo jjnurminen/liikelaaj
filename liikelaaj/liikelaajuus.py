@@ -162,6 +162,7 @@ class EntryApp(QtWidgets.QMainWindow):
             if event.key() == QtCore.Qt.Key_Escape:
                 obj.setValue(obj.minimum())
             else:
+                # delegate the event to the overridden superclass handler
                 super(obj.__class__, obj).keyPressEvent(event)
 
         def isint(x):
@@ -354,15 +355,8 @@ class EntryApp(QtWidgets.QMainWindow):
         for widget in autowidgets_this:
             widget._autocalculate()
         if self.update_dict:  # update internal data dict
-            # DEBUG
-            # print('updating dict:', w.objectName(),'new value:',w.getVal())
             wname = w.objectName()
             self.data[self.widget_to_var[wname]] = w.getVal()
-            # DEBUG: make text report on every widget update
-            # reload(reporter)  # can edit reporter / template while running
-            # self.debug_make_report()
-            # DEBUG: make xls report at every update
-            # self.debug_make_excel_report()
         self.saved_to_file = False
         if self.save_to_tmp:
             self.save_temp()
@@ -458,7 +452,7 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def make_excel_report(self, xls_template):
         """Create Excel report from current data"""        
-        rep = reporter.Report(data, self.vars_default)
+        rep = reporter.Report(self.data, self.vars_default)
         return rep.make_excel(xls_template)
 
     def save_report_dialog(self):
@@ -479,10 +473,9 @@ class EntryApp(QtWidgets.QMainWindow):
     def _save_text_report_dialog(self, report_txt):
         """Bring up save dialog and save text report"""
         if self.last_saved_filename:
-            fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
-            filename_def = (Config.text_report_fldr + '/' +
-                            Config.text_report_prefix +
-                            fn_base + '.txt')
+            fn_base_ = op.splitext(op.basename(self.last_saved_filename))[0]
+            fn_base = '%s%s.txt' % (Config.text_report_prefix, fn_base_)
+            filename_def = op.join(Config.text_report_fldr, fn_base)
         else:
             filename_def = Config.data_root_fldr
         fout = QtWidgets.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
@@ -500,9 +493,9 @@ class EntryApp(QtWidgets.QMainWindow):
     def _save_excel_report_dialog(self, workbook):
         """Bring up file dialog and save Excel workbook"""
         if self.last_saved_filename:
-            fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
-            filename_def = (Config.excel_report_fldr + '/' +
-                            Config.excel_report_prefix + fn_base + '.xls')
+            fn_base_ = op.splitext(op.basename(self.last_saved_filename))[0]
+            fn_base = '%s%s.xls' % (Config.excel_report_prefix, fn_base_)
+            filename_def = op.join(Config.excel_report_fldr, fn_base)
         else:
             filename_def = Config.data_root_fldr
         fout = QtWidgets.QFileDialog.getSaveFileName(self, ll_msgs.save_title,

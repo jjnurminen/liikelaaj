@@ -15207,7 +15207,7 @@ lonkka fleksiossa</string>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionTallenna">
    <property name="text">
-    <string>Tallenna...</string>
+    <string>Tallenna nimellä...</string>
    </property>
   </action>
   <action name="actionAvaa">
