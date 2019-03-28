@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Template for text report (isokinetic data)
-
-This is called by exec() and works by modifying an existing variable
-called 'report' (instance of Report class)
-
-The idea is to avoid putting the template code inside a function
-call, which would lead to messy indentation.
+see text_template.py
+NB: here the units are not included along with data, and have to be
+written out explicitly
 
 @author: Jussi (jnu@iki.fi)
 """
@@ -15,11 +12,12 @@ report += """
 
 LIIKELAAJUUDET JA VOIMAT
 
-Patient code: {TiedotID}
-Patient name: {TiedotNimi}
-Social security number: {TiedotHetu}
-Diagnosis: {TiedotDiag}
-Date of gait analysis: {TiedotPvm}
+Potilaskoodi: {TiedotID}
+Potilaan nimi: {TiedotNimi}
+Henkilötunnus: {TiedotHetu}
+Diagnoosi: {TiedotDiag}
+Mittauksen päivämäärä: {TiedotPvm}
+Paino: {AntropPaino} kg
 """
 report += 'Kommentit: {cmtTiedot}\n'
 
