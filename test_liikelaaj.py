@@ -104,7 +104,8 @@ def test_xls_report():
     with ref report """
     eapp.load_file(fn_ref)
     report = Report(eapp.data_with_units, eapp.vars_default)
-    report.make_excel(fn_xls_out, xls_template)
+    wb = report.make_excel(xls_template)
+    wb.save(fn_xls_out)
     assert file_md5(fn_xls_out) == file_md5(fn_xls_ref)
 
 
