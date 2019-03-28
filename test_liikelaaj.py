@@ -6,7 +6,7 @@ unit tests for liikelaajuus
 @author: Jussi (jnu@iki.fi)
 """
 
-import hashlib  # spark another owl...
+import hashlib
 import io
 import json
 import os
@@ -69,6 +69,9 @@ def regen_ref_data():
     report_txt = report.make_report(text_template)
     with io.open(fn_txt_ref, 'w', encoding='utf-8') as f:
         f.write(report_txt)
+
+
+
 
 
 """ BEGIN TESTS """

@@ -32,9 +32,9 @@ corresponding widget name with UnNorm replaced by Norm (which must exist)
 is then automatically updated whenever either weight or the unnormalized value
 changes
 
--files do not include any version info (maybe a stupid decision), instead
+-files do not include version info (maybe a stupid decision), instead
  mismatches between the input widgets and loaded json are detected and reported
- to the user. Missing data in JSON is quietly assumed to be ok (perhaps from
+ to the user. Missing data in JSON is quietly ignored (file perhaps from
  an older version). Extra data in JSON (no corresponding widget) is reported
  (but not fatal).
 
@@ -103,15 +103,13 @@ class EntryApp(QtWidgets.QMainWindow):
             self.load_temp()
         self.text_template = resource_filename('liikelaaj',
                                                Config.text_template)
+        self.isokin_text_template = resource_filename('liikelaaj',
+                                                      Config.isokin_text_template)
         self.xls_template = resource_filename('liikelaaj', Config.xls_template)
         # TODO: set locale and options if needed
         # loc = QtCore.QLocale()
         # loc.setNumberOptions(loc.OmitGroupSeparator |
         #            loc.RejectGroupSeparator)
-        # DEBUG: print all vars
-        # for key in sorted(self.data.keys()):
-        #    print('{%s}'%key)
-        # print(self.units)
 
     def init_widgets(self):
         """ Make a dict of our input widgets and install some callbacks and
@@ -282,6 +280,7 @@ class EntryApp(QtWidgets.QMainWindow):
         self.actionAvaa.triggered.connect(self.load_dialog)
         self.actionTyhjenna.triggered.connect(self.clear_forms_dialog)
         self.actionTekstiraportti.triggered.connect(self.save_report_dialog)
+        self.actionTekstiraportti_isokineettinen.triggered.connect(self.save_isokin_report_dialog)        
         self.actionExcel_raportti.triggered.connect(self.save_excel_report_dialog)
         self.actionWeb_sivu.triggered.connect(self.open_help)
         self.actionLopeta.triggered.connect(self.close)
@@ -306,9 +305,10 @@ class EntryApp(QtWidgets.QMainWindow):
 
         self.statusbar.showMessage(ll_msgs.ready.format(n=self.total_widgets))
 
-        """ Set up widget -> varname translation dict. Currently variable names
-        are derived by removing 2 first characters from widget names (except
-        for comment box variables cmt* which are identical with widget names).
+        """ Set up widget -> varname translation dict. Variable names
+        are derived by removing 2-3 leading characters (indicating widget type)
+        from widget names (except for comment box variables cmt* which are
+        identical with widget names).
         """
         self.widget_to_var = dict()
         for wname in self.input_widgets:
@@ -364,22 +364,10 @@ class EntryApp(QtWidgets.QMainWindow):
                 self.data}
 
     @property
-    def report(self):
+    def report(self, include_units=True):
         """Return Report instance with current data"""
-        return reporter.Report(self.data_with_units, self.vars_default)
-
-    def debug_make_report(self):
-        """ DEBUG: make and save text report using the input data. """
-        report_txt = self.report.make_report(self.text_template)
-        fname = 'report_koe.txt'
-        with io.open(fname, 'w', encoding='utf-8') as f:
-            f.write(report_txt)
-        self.statusbar.showMessage(ll_msgs.wrote_report.format(filename=fname))
-
-    def debug_make_excel_report(self):
-        """ DEBUG: save into temporary .xls """
-        self.report.make_excel('test_excel_report.xls',
-                               self.xls_template)
+        data = self.data_with_units if include_units else self.data
+        return reporter.Report(data, self.vars_default)
 
     def values_changed(self, w):
         """Called whenever widget w value changes"""
@@ -480,6 +468,12 @@ class EntryApp(QtWidgets.QMainWindow):
                 message_dialog(ll_msgs.cannot_save+fname)
 
     def save_report_dialog(self):
+        self._save_report_dialog(self.text_template)
+
+    def save_isokin_report_dialog(self):
+        self._save_report_dialog(self.isokin_text_template, include_units=False)
+
+    def _save_report_dialog(self, template, include_units=True):
         """ Bring up save dialog and save report. """
         if self.last_saved_filename:
             fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
@@ -494,7 +488,8 @@ class EntryApp(QtWidgets.QMainWindow):
         fname = fout[0]
         if fname:
             try:
-                report_txt = self.report.make_report(self.text_template)
+                rep = self.report(include_units=include_units)
+                report_txt = rep.make_report(template)
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
@@ -610,7 +605,7 @@ def main():
                 pass
         return False
 
-    # debug: log to console
+    # DEBUG: log to console
     #logging.basicConfig(level=logging.DEBUG)
 
     """ Work around stdout and stderr not being available, if app is run

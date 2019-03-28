@@ -48,6 +48,7 @@ class Config(object):
     # template paths
     xls_template = 'templates/rom_excel_template.xls'
     text_template = 'templates/text_template.py'
+    isokin_text_template = 'templates/isokin_text_template.py'
     # allowing multiple instances is problematic since they share the same
     # backup file (tmpfile)
     allow_multiple_instances = False
