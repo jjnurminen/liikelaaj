@@ -329,8 +329,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1354</width>
-             <height>892</height>
+             <width>1363</width>
+             <height>823</height>
             </rect>
            </property>
            <property name="palette">
@@ -13039,6 +13039,9 @@ lonkka fleksiossa</string>
             <property name="suffix">
              <string> Nm/kg</string>
             </property>
+            <property name="decimals">
+             <number>3</number>
+            </property>
             <property name="maximum">
              <double>20.000000000000000</double>
             </property>
@@ -13083,6 +13086,9 @@ lonkka fleksiossa</string>
             <property name="suffix">
              <string> Nm/kg</string>
             </property>
+            <property name="decimals">
+             <number>3</number>
+            </property>
             <property name="maximum">
              <double>20.000000000000000</double>
             </property>
@@ -13113,6 +13119,9 @@ lonkka fleksiossa</string>
             </property>
             <property name="suffix">
              <string> Nm/kg</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
             </property>
             <property name="maximum">
              <double>20.000000000000000</double>
@@ -13246,6 +13255,9 @@ lonkka fleksiossa</string>
             </property>
             <property name="suffix">
              <string> Nm/kg</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
             </property>
             <property name="maximum">
              <double>20.000000000000000</double>
@@ -13795,6 +13807,12 @@ lonkka fleksiossa</string>
             <property name="specialValueText">
              <string>Ei mitattu</string>
             </property>
+            <property name="suffix">
+             <string> Nm/kg</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
+            </property>
             <property name="maximum">
              <double>5.000000000000000</double>
             </property>
@@ -13819,6 +13837,12 @@ lonkka fleksiossa</string>
             </property>
             <property name="specialValueText">
              <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> Nm/kg</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
             </property>
             <property name="maximum">
              <double>5.000000000000000</double>
@@ -13845,6 +13869,12 @@ lonkka fleksiossa</string>
             <property name="specialValueText">
              <string>Ei mitattu</string>
             </property>
+            <property name="suffix">
+             <string> Nm/kg</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
+            </property>
             <property name="maximum">
              <double>5.000000000000000</double>
             </property>
@@ -13869,6 +13899,12 @@ lonkka fleksiossa</string>
             </property>
             <property name="specialValueText">
              <string>Ei mitattu</string>
+            </property>
+            <property name="suffix">
+             <string> Nm/kg</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
             </property>
             <property name="maximum">
              <double>5.000000000000000</double>

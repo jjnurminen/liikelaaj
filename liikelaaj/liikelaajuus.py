@@ -206,10 +206,8 @@ class EntryApp(QtWidgets.QMainWindow):
         def _weight_normalize(w):
             """Auto calculate callback for weight normalized widgets"""
             val, weight = (w.getVal() for w in w._autoinputs)
-            try:
-                w.setVal(val/weight)
-            except TypeError:
-                pass
+            noval = Config.spinbox_novalue_text
+            w.setVal(noval if val == noval or weight == noval else val/weight)
 
         # autowidgets are special widgets with automatically computed values
         # they must have ._autocalculate() method which updates the widget
@@ -534,8 +532,7 @@ class EntryApp(QtWidgets.QMainWindow):
                     self.data[x] != self.data_empty[x]])
 
     def page_change(self):
-        """ Method called whenever page (tab) changes. Currently only does
-        focus / selectall on the first widget of page. """
+        """Callback for tab change"""
         newpage = self.maintab.currentWidget()
         # focus / selectAll on 1st widget of new tab
         if newpage in self.firstwidget:
