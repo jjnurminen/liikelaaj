@@ -121,7 +121,7 @@ class Report(object):
              ldict, ldict)
         return ldict['report'].text
 
-    def make_excel(self, fn_save, fn_template):
+    def make_excel(self, fn_template):
         """ Export report to .xls file fn_save. Variables found in fn_template
         are filled in.
         fn_template should have Python-style format strings in cells that
@@ -152,4 +152,4 @@ class Report(object):
                             if str in newval:
                                 newval = newval.replace(str, newstr)
                     _setOutCell(w_sheet, col, row, newval)
-        wb.save(fn_save)
+        return wb

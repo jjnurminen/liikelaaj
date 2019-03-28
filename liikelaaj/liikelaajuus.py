@@ -357,17 +357,6 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Show help. """
         webbrowser.open(Config.help_url)
 
-    @property
-    def data_with_units(self):
-        """Return data dict, with units appended to values"""
-        return {key: u'%s%s' % (self.data[key], self.units[key]) for key in
-                self.data}
-
-    @property
-    def report(self, include_units=True):
-        """Return Report instance with current data"""
-        data = self.data_with_units if include_units else self.data
-        return reporter.Report(data, self.vars_default)
 
     def values_changed(self, w):
         """Called whenever widget w value changes"""
@@ -467,14 +456,40 @@ class EntryApp(QtWidgets.QMainWindow):
             except Config.json_io_exceptions:
                 message_dialog(ll_msgs.cannot_save+fname)
 
+    @property
+    def data_with_units(self):
+        """Append units to values"""
+        return {key: u'%s%s' % (self.data[key], self.units[key]) for key in
+                self.data}
+
+    def make_txt_report(self, template, include_units=True):
+        """Create text report from current data"""
+        data = self.data_with_units if include_units else self.data
+        rep = reporter.Report(data, self.vars_default)
+        return rep.make_report(template)
+
+    def make_excel_report(self, xls_template):
+        """Create Excel report from current data"""        
+        rep = reporter.Report(data, self.vars_default)
+        return rep.make_excel(xls_template)
+
     def save_report_dialog(self):
-        self._save_report_dialog(self.text_template)
+        """Create text report and open dialog for saving it"""
+        txt = self.make_txt_report(self.text_template)
+        self._save_text_report_dialog(txt)
 
     def save_isokin_report_dialog(self):
-        self._save_report_dialog(self.isokin_text_template, include_units=False)
+        """Create isokinetic text report and open dialog for saving it"""
+        txt = self.make_txt_report(self.isokin_text_template, include_units=False)
+        self._save_text_report_dialog(txt)
 
-    def _save_report_dialog(self, template, include_units=True):
-        """ Bring up save dialog and save report. """
+    def save_excel_report_dialog(self):
+        """Create Excel report and open dialog for saving it"""
+        wb = self.make_excel_report(self.xls_template)
+        self._save_excel_report_dialog(wb)
+
+    def _save_text_report_dialog(self, report_txt):
+        """Bring up save dialog and save text report"""
         if self.last_saved_filename:
             fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
             filename_def = (Config.text_report_fldr + '/' +
@@ -488,16 +503,14 @@ class EntryApp(QtWidgets.QMainWindow):
         fname = fout[0]
         if fname:
             try:
-                rep = self.report(include_units=include_units)
-                report_txt = rep.make_report(template)
                 with io.open(fname, 'w', encoding='utf-8') as f:
                     f.write(report_txt)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 message_dialog(ll_msgs.cannot_save+fname)
 
-    def save_excel_report_dialog(self):
-        """ Bring up save dialog and save Excel report. """
+    def _save_excel_report_dialog(self, workbook):
+        """Bring up file dialog and save Excel workbook"""
         if self.last_saved_filename:
             fn_base = op.splitext(op.basename(self.last_saved_filename))[0]
             filename_def = (Config.excel_report_fldr + '/' +
@@ -510,7 +523,7 @@ class EntryApp(QtWidgets.QMainWindow):
         fname = fout[0]
         if fname:
             try:
-                self.report.make_excel(fname, self.xls_template)
+                workbook.save(fname)
                 self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
             except (IOError):
                 message_dialog(ll_msgs.cannot_save+fname)
