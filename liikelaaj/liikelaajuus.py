@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-
 Program for input and reporting of ROM (range of motion), strength and other
 measurements.
 
-Py2/3 compatible via futurize.
-
-Design:
+Design notes:
 
 -uses an ui file made with Qt Designer
 
