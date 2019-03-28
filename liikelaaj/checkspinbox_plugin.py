@@ -1,32 +1,28 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Feb  3 18:56:52 2016
 
-Qt Designer plugin for checkspinbox
+Qt Designer plugin for CheckDegSpinBox
 
-@author: jussi
+@author: Jussi (jnu@iki.fi)
 """
 
 from liikelaaj.liikelaajuus import CheckDegSpinBox
-from PyQt5 import QtGui, QtCore, QtDesigner
+from PyQt5 import QtDesigner
 
 
 class CheckDegSpinBoxPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
 
     def __init__(self, parent=None):
-
-        QtDesigner.QPyDesignerCustomWidgetPlugin.__init__(self)
+        super().__init__(parent)
         self.initialized = False
 
     def initialize(self, core):
-
         if self.initialized:
             return
 
         self.initialized = True
 
     def isInitialized(self):
-
         return self.initialized
 
     def createWidget(self, parent):
@@ -36,7 +32,7 @@ class CheckDegSpinBoxPlugin(QtDesigner.QPyDesignerCustomWidgetPlugin):
         return "CheckDegSpinBox"
 
     def group(self):
-        return "PyQt Examples"
+        return "Liikelaajuus"
 
     def isContainer(self):
         return False

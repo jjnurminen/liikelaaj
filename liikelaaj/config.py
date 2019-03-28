@@ -13,13 +13,12 @@ class Config(object):
     the value shown next to the spinbox (which is set in Qt Designer).
     For the CheckDegSpinBox class, this is also the value shown next to the
     widget in the user interface. """
-    spinbox_novalue_text = u'Ei mitattu'
+    spinbox_novalue_text = 'Ei mitattu'
     # 'yes' and 'no' values for checkboxes. Written to data files.
-    checkbox_yestext = u'Kyllä'
-    # the (silly) idea here was that by case sensitivity, 'EI' could be
-    # changed in the reports by search&replace operations without affecting
-    # other 'Ei' strings
-    checkbox_notext = u'EI'
+    checkbox_yestext = 'Kyllä'
+    # the (hacky) idea here is that by virtue of case sensitivity, 'EI' can be
+    # changed in the reports by search&replace without affecting other 'Ei'
+    checkbox_notext = 'EI'
     # Set dirs according to platform
     if sys.platform == 'win32':
         tmp_fldr = '/Temp'
@@ -39,9 +38,9 @@ class Config(object):
     # exceptions that might be generated when parsing and loading/saving json
     # these should all be caught
     json_io_exceptions = (UnicodeDecodeError, EOFError, IOError, TypeError)
-    json_filter = u'JSON files (*.json)'
-    text_filter = u'Text files (*.txt)'
-    excel_filter = u'Excel files (*.xls)'
+    json_filter = 'JSON files (*.json)'
+    text_filter = 'Text files (*.txt)'
+    excel_filter = 'Excel files (*.xls)'
     global_fontsize = 11
     traceback_file = 'traceback.txt'
     help_url = 'https://github.com/jjnurminen/liikelaaj/wiki'

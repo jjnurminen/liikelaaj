@@ -6,8 +6,6 @@ Create reports for liikelaajuus
 @author: Jussi (jnu@iki.fi)
 """
 
-from builtins import range
-from builtins import object
 import string
 from xlrd import open_workbook
 from xlutils.copy import copy
@@ -58,9 +56,9 @@ class Report(object):
     def __init__(self, data, fields_default):
         """ Init report with data dict."""
         # value replacements for text report, to make it prettier
-        self.text_replace_dict = {u'Ei mitattu': u'-', u'EI': u'Ei'}
+        self.text_replace_dict = {'Ei mitattu': '-', 'EI': 'Ei'}
         # string replacements in .xls cells (after filling in the fields)
-        self.cell_postprocess_dict = {u'(EI)': '', u'(Kyllä)': u'(kl.)'}
+        self.cell_postprocess_dict = {'(EI)': '', '(Kyllä)': '(kl.)'}
         self.text = ''
         self.data = data
         self.data_text = data

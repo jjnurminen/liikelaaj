@@ -11,7 +11,7 @@ call, which would lead to messy indentation.
 @author: Jussi (jnu@iki.fi)
 """
 
-report += u"""
+report += """
 
 LIIKELAAJUUDET JA VOIMAT
 
@@ -21,9 +21,9 @@ Social security number: {TiedotHetu}
 Diagnosis: {TiedotDiag}
 Date of gait analysis: {TiedotPvm}
 """
-report += u'Kommentit: {cmtTiedot}\n'
+report += 'Kommentit: {cmtTiedot}\n'
 
-report += u"""
+report += """
 ANTROPOMETRISET MITAT:
 Alaraajat: {AntropAlaraajaOik} / {AntropAlaraajaVas}
 Nilkat: {AntropNilkkaOik} / {AntropNilkkaVas}
@@ -33,14 +33,14 @@ Pituus: {AntropPituus}
 SIAS: {AntropSIAS}
 Kengännumero: {AntropKenganNumeroOik} / {AntropKenganNumeroVas}
 """
-report += u'Kommentit: {cmtAntrop}\n'
+report += 'Kommentit: {cmtAntrop}\n'
 
-report += u"""
+report += """
 MITTAAJAT:
 {TiedotMittaajat}
 """
 
-report += u"""
+report += """
 TULOSYY:
 
 
@@ -54,214 +54,214 @@ OHEISMITTAUSTEN TULOKSET:
 
 """
 
-report += u"""
+report += """
 Nivelten passiiviset liikelaajuudet (oikea/vasen), NR = normaalin rajoissa:
 """
-report += u'Lonkka: '
-report += u'Thomasin testi (vapaasti) {LonkkaEkstensioVapOik}/{LonkkaEkstensioVapVas}. '
-report += u'Thomasin testi (avustettuna) {LonkkaEkstensioAvOik}/{LonkkaEkstensioAvVas}. '
-report += u'Thomasin testi (polvi 90°) {LonkkaEkstensioPolvi90Oik}/{LonkkaEkstensioPolvi90Vas}. ' 
-report += u'Koukistus {LonkkaFleksioOik}/{LonkkaFleksioVas}. '
-report += u'Loitonnus (lonkka 0°, polvi 90°) {LonkkaAbduktioLonkka0Polvi90Oik}/{LonkkaAbduktioLonkka0Polvi90Vas}. '
-report += u'Loitonnus (lonkka 0°, polvi 0°) {LonkkaAbduktioLonkka0Oik}/{LonkkaAbduktioLonkka0Vas}. '
-report += u'Loitonnus (lonkka 90°) {LonkkaAbduktioLonkkaFleksOik}/{LonkkaAbduktioLonkkaFleksVas}. '
-report += u'Lähennys {LonkkaAdduktioOik}/{LonkkaAdduktioVas}. '
-report += u'Sisäkierto {LonkkaSisakiertoOik}/{LonkkaSisakiertoVas}. '
-report += u'Ulkokierto {LonkkaUlkokiertoOik}/{LonkkaUlkokiertoVas}. '
+report += 'Lonkka: '
+report += 'Thomasin testi (vapaasti) {LonkkaEkstensioVapOik}/{LonkkaEkstensioVapVas}. '
+report += 'Thomasin testi (avustettuna) {LonkkaEkstensioAvOik}/{LonkkaEkstensioAvVas}. '
+report += 'Thomasin testi (polvi 90°) {LonkkaEkstensioPolvi90Oik}/{LonkkaEkstensioPolvi90Vas}. ' 
+report += 'Koukistus {LonkkaFleksioOik}/{LonkkaFleksioVas}. '
+report += 'Loitonnus (lonkka 0°, polvi 90°) {LonkkaAbduktioLonkka0Polvi90Oik}/{LonkkaAbduktioLonkka0Polvi90Vas}. '
+report += 'Loitonnus (lonkka 0°, polvi 0°) {LonkkaAbduktioLonkka0Oik}/{LonkkaAbduktioLonkka0Vas}. '
+report += 'Loitonnus (lonkka 90°) {LonkkaAbduktioLonkkaFleksOik}/{LonkkaAbduktioLonkkaFleksVas}. '
+report += 'Lähennys {LonkkaAdduktioOik}/{LonkkaAdduktioVas}. '
+report += 'Sisäkierto {LonkkaSisakiertoOik}/{LonkkaSisakiertoVas}. '
+report += 'Ulkokierto {LonkkaUlkokiertoOik}/{LonkkaUlkokiertoVas}. '
 report += '\n'
-report += u'Kommentit: {cmtLonkkaPROM}\n'
+report += 'Kommentit: {cmtLonkkaPROM}\n'
 report += '\n'
-report += u'Polvi: '
-report += u'Ojennus (vapaasti) {PolviEkstensioVapOik}/{PolviEkstensioVapVas}. '
-report += u'Ojennus (avustettuna) {PolviEkstensioAvOik}/{PolviEkstensioAvVas}. '
-report += u'Koukistus (vatsamakuu) {PolviFleksioVatsamakuuOik}/{PolviFleksioVatsamakuuVas}. '
-report += u'Koukistus (selinmakuu) {PolviFleksioSelinmakuuOik}/{PolviFleksioSelinmakuuVas}. '
-report += u'Popliteakulma {PolviPopliteaVastakkLonkka0Oik}/{PolviPopliteaVastakkLonkka0Vas}, popliteakulma (true) {PolviPopliteaVastakkLonkka90Oik}/{PolviPopliteaVastakkLonkka90Vas}.'
+report += 'Polvi: '
+report += 'Ojennus (vapaasti) {PolviEkstensioVapOik}/{PolviEkstensioVapVas}. '
+report += 'Ojennus (avustettuna) {PolviEkstensioAvOik}/{PolviEkstensioAvVas}. '
+report += 'Koukistus (vatsamakuu) {PolviFleksioVatsamakuuOik}/{PolviFleksioVatsamakuuVas}. '
+report += 'Koukistus (selinmakuu) {PolviFleksioSelinmakuuOik}/{PolviFleksioSelinmakuuVas}. '
+report += 'Popliteakulma {PolviPopliteaVastakkLonkka0Oik}/{PolviPopliteaVastakkLonkka0Vas}, popliteakulma (true) {PolviPopliteaVastakkLonkka90Oik}/{PolviPopliteaVastakkLonkka90Vas}.'
 report += '\n'
-report += u'Kommentit: {cmtPolviPROM}\n'
+report += 'Kommentit: {cmtPolviPROM}\n'
 report += '\n'
-report += u'Nilkka: '
-report += u'Koukistus (polvi 90°) {NilkkaDorsifPolvi90PROMOik}/{NilkkaDorsifPolvi90PROMVas}. '
-report += u'Koukistus (polvi 0°) {NilkkaDorsifPolvi0PROMOik}/{NilkkaDorsifPolvi0PROMVas}. '
-report += u'Ojennus {NilkkaPlantaarifleksioPROMOik}/{NilkkaPlantaarifleksioPROMVas}.'
+report += 'Nilkka: '
+report += 'Koukistus (polvi 90°) {NilkkaDorsifPolvi90PROMOik}/{NilkkaDorsifPolvi90PROMVas}. '
+report += 'Koukistus (polvi 0°) {NilkkaDorsifPolvi0PROMOik}/{NilkkaDorsifPolvi0PROMVas}. '
+report += 'Ojennus {NilkkaPlantaarifleksioPROMOik}/{NilkkaPlantaarifleksioPROMVas}.'
 report += '\n'
-report += u'Kommentit: {cmtNilkkaPROM}\n'
+report += 'Kommentit: {cmtNilkkaPROM}\n'
 
 # for 'eversio' extra info and similar things later:
 # we have to add item separators in a 'smart' way since we do not know
 # which items actually get printed
-report += u"""
+report += """
 Nivelten aktiiviset liikelaajuudet: 
 """
-report += u'Nilkka: '
-report += u'Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}/{NilkkaDorsifPolvi90AROMVas}'
-report += u' (pyrkii lisäksi eversioon {NilkkaDorsifPolvi90AROMEversioOik}/{NilkkaDorsifPolvi90AROMEversioVas})'
+report += 'Nilkka: '
+report += 'Koukistus (polvi 90°) {NilkkaDorsifPolvi90AROMOik}/{NilkkaDorsifPolvi90AROMVas}'
+report += ' (pyrkii lisäksi eversioon {NilkkaDorsifPolvi90AROMEversioOik}/{NilkkaDorsifPolvi90AROMEversioVas})'
 report.item_sep()
-report += u'Koukistus (polvi 0°) {NilkkaDorsifPolvi0AROMOik}/{NilkkaDorsifPolvi0AROMVas}'
-report += u' (pyrkii lisäksi eversioon {NilkkaDorsifPolvi0AROMEversioOik}/{NilkkaDorsifPolvi0AROMEversioVas})'
+report += 'Koukistus (polvi 0°) {NilkkaDorsifPolvi0AROMOik}/{NilkkaDorsifPolvi0AROMVas}'
+report += ' (pyrkii lisäksi eversioon {NilkkaDorsifPolvi0AROMEversioOik}/{NilkkaDorsifPolvi0AROMEversioVas})'
 report.item_sep()
-report += u'Ojennus {NilkkaPlantaarifleksioAROMOik}/{NilkkaPlantaarifleksioAROMVas}. '
+report += 'Ojennus {NilkkaPlantaarifleksioAROMOik}/{NilkkaPlantaarifleksioAROMVas}. '
 report += '\n'
-report += u'Kommentit: {cmtNilkkaAROM}\n'
+report += 'Kommentit: {cmtNilkkaAROM}\n'
 
-report += u"""
+report += """
 Alaraajojen spastisuus:
 """
-report += u'Catch: Lonkan adduktorit {LonkkaAdduktoritCatchOik}/{LonkkaAdduktoritCatchVas}. '
-report += u'Hamstringit {PolviHamstringCatchOik}/{PolviHamstringCatchVas}. '
-report += u'Rectus femorikset {PolviRectusCatchOik}/{PolviRectusCatchVas}. '
-report += u'Soleukset {NilkkaSoleusCatchOik}/{NilkkaSoleusCatchVas}'
-report += u' (klonus {NilkkaSoleusKlonusOik}/{NilkkaSoleusKlonusVas})'
+report += 'Catch: Lonkan adduktorit {LonkkaAdduktoritCatchOik}/{LonkkaAdduktoritCatchVas}. '
+report += 'Hamstringit {PolviHamstringCatchOik}/{PolviHamstringCatchVas}. '
+report += 'Rectus femorikset {PolviRectusCatchOik}/{PolviRectusCatchVas}. '
+report += 'Soleukset {NilkkaSoleusCatchOik}/{NilkkaSoleusCatchVas}'
+report += ' (klonus {NilkkaSoleusKlonusOik}/{NilkkaSoleusKlonusVas})'
 report.item_sep()
-report += u'Gastrocnemiukset {NilkkaGastroCatchOik}/{NilkkaGastroCatchVas}'
-report += u' (klonus {NilkkaGastroKlonusOik}/{NilkkaGastroKlonusVas})'
+report += 'Gastrocnemiukset {NilkkaGastroCatchOik}/{NilkkaGastroCatchVas}'
+report += ' (klonus {NilkkaGastroKlonusOik}/{NilkkaGastroKlonusVas})'
 report.item_sep()
 report += '\n'
-report += u'Kommentit (lonkka): {cmtLonkkaSpast}\n'
-report += u'Kommentit (nilkka): {cmtNilkkaSpast}\n'
-report += u'Kommentit (polvi): {cmtPolviSpast}\n'
+report += 'Kommentit (lonkka): {cmtLonkkaSpast}\n'
+report += 'Kommentit (nilkka): {cmtNilkkaSpast}\n'
+report += 'Kommentit (polvi): {cmtPolviSpast}\n'
 
-report += u"""
+report += """
 Luiset virheasennot: 
 """
-report += u'Lonkan anteversio {VirheasAnteversioOik}/{VirheasAnteversioVas}. '
-report += u'Jalkaterä-reisi -kulma {VirheasJalkaReisiOik}/{VirheasJalkaReisiVas}. '
-report += u'Jalkaterän etu- takaosan kulma {VirheasJalkateraEtuTakaOik}/{VirheasJalkateraEtuTakaVas}. '
-report += u'Bimalleoli -akseli {VirheasBimalleoliOik}/{VirheasBimalleoliVas}. '
-report += u'2nd toe test {Virheas2ndtoeOik}/{Virheas2ndtoeVas}. '
-report += u'Patella alta {VirheasPatellaAltaOik}/{VirheasPatellaAltaVas}. '
-report += u'Polven valgus {PolvenValgusOik}/{PolvenValgusVas}. '
-report += u'Q-kulma {QkulmaOik}/{QkulmaVas}.'
+report += 'Lonkan anteversio {VirheasAnteversioOik}/{VirheasAnteversioVas}. '
+report += 'Jalkaterä-reisi -kulma {VirheasJalkaReisiOik}/{VirheasJalkaReisiVas}. '
+report += 'Jalkaterän etu- takaosan kulma {VirheasJalkateraEtuTakaOik}/{VirheasJalkateraEtuTakaVas}. '
+report += 'Bimalleoli -akseli {VirheasBimalleoliOik}/{VirheasBimalleoliVas}. '
+report += '2nd toe test {Virheas2ndtoeOik}/{Virheas2ndtoeVas}. '
+report += 'Patella alta {VirheasPatellaAltaOik}/{VirheasPatellaAltaVas}. '
+report += 'Polven valgus {PolvenValgusOik}/{PolvenValgusVas}. '
+report += 'Q-kulma {QkulmaOik}/{QkulmaVas}.'
 report += '\n'
-report += u'Kommentit: {cmtVirheas}\n'
+report += 'Kommentit: {cmtVirheas}\n'
 
-report += u"""
+report += """
 Muita mittauksia:
 """
-report += u'Alaraajat: {AntropAlaraajaOik} / {AntropAlaraajaVas}. '
-report += u'Extensor lag {LonkkaExtLagOik}/{LonkkaExtLagVas}. '
-report += u'Confusion test: {NilkkaConfusionOik}/{NilkkaConfusionVas}. '
-report += u'Ober test {LonkkaOberOik}/{LonkkaOberVas}. '
-report += u'Tasapaino: yhdellä jalalla seisominen {TasapOik}/{TasapVas}. '
+report += 'Alaraajat: {AntropAlaraajaOik} / {AntropAlaraajaVas}. '
+report += 'Extensor lag {LonkkaExtLagOik}/{LonkkaExtLagVas}. '
+report += 'Confusion test: {NilkkaConfusionOik}/{NilkkaConfusionVas}. '
+report += 'Ober test {LonkkaOberOik}/{LonkkaOberVas}. '
+report += 'Tasapaino: yhdellä jalalla seisominen {TasapOik}/{TasapVas}. '
 report += '\n'
-report += u'Kommentit (lonkka): {cmtLonkkaMuut}\n'
-report += u'Kommentit (tasapaino): {cmtTasap}\n'
+report += 'Kommentit (lonkka): {cmtLonkkaMuut}\n'
+report += 'Kommentit (tasapaino): {cmtTasap}\n'
 
-report += u"""
+report += """
 Jalkaterä kuormittamattomana (+ = lievä, ++ = kohtalainen, +++ = voimakas)
 Lyhenteet: NEU=neutraali, TYYP=tyypillinen, RAJ=rajoittunut, VAR=varus, VALG=valgus:
 """
-report += u'Subtalar neutraali-asento: {JalkatSubtalarOik}/{JalkatSubtalarVas}. '
-report += u'Takaosan asento {JalkatTakaosanAsentoOik}/{JalkatTakaosanAsentoVas}. '
-report += u'Takaosan liike eversioon {JalkatTakaosanLiikeEversioOik}/{JalkatTakaosanLiikeEversioVas}. '
-report += u'Takaosan liike inversioon {JalkatTakaosanLiikeInversioOik}/{JalkatTakaosanLiikeInversioVas}. '
-report += u'Med. holvikaari {JalkatHolvikaariOik}/{JalkatHolvikaariVas}. '
-report += u'Keskiosan liike {JalkatKeskiosanliikeOik}/{JalkatKeskiosanliikeVas}. '
-report += u'Etuosan asento 1: {JalkatEtuosanAsento1Oik}/{JalkatEtuosanAsento1Vas}. '
-report += u'Etuosan asento 2: {JalkatEtuosanAsento2Oik}/{JalkatEtuosanAsento2Vas}. '
-report += u'1. säde: {Jalkat1sadeOik}/{Jalkat1sadeVas}. '
-report += u'1 MTP dorsifleksio {Jalkat1MTPojennusOik}/{Jalkat1MTPojennusVas}. '
-report += u'Vaivaisenluu {JalkatVaivaisenluuOik}/{JalkatVaivaisenluuVas}. '
-report += u'Kovettumat: {JalkatKovettumatOik}/{JalkatKovettumatVas}.'
+report += 'Subtalar neutraali-asento: {JalkatSubtalarOik}/{JalkatSubtalarVas}. '
+report += 'Takaosan asento {JalkatTakaosanAsentoOik}/{JalkatTakaosanAsentoVas}. '
+report += 'Takaosan liike eversioon {JalkatTakaosanLiikeEversioOik}/{JalkatTakaosanLiikeEversioVas}. '
+report += 'Takaosan liike inversioon {JalkatTakaosanLiikeInversioOik}/{JalkatTakaosanLiikeInversioVas}. '
+report += 'Med. holvikaari {JalkatHolvikaariOik}/{JalkatHolvikaariVas}. '
+report += 'Keskiosan liike {JalkatKeskiosanliikeOik}/{JalkatKeskiosanliikeVas}. '
+report += 'Etuosan asento 1: {JalkatEtuosanAsento1Oik}/{JalkatEtuosanAsento1Vas}. '
+report += 'Etuosan asento 2: {JalkatEtuosanAsento2Oik}/{JalkatEtuosanAsento2Vas}. '
+report += '1. säde: {Jalkat1sadeOik}/{Jalkat1sadeVas}. '
+report += '1 MTP dorsifleksio {Jalkat1MTPojennusOik}/{Jalkat1MTPojennusVas}. '
+report += 'Vaivaisenluu {JalkatVaivaisenluuOik}/{JalkatVaivaisenluuVas}. '
+report += 'Kovettumat: {JalkatKovettumatOik}/{JalkatKovettumatVas}.'
 report += '\n'
-report += u'Kommentit (jalkaterä): {cmtJalkateraKuormittamattomana}\n'
+report += 'Kommentit (jalkaterä): {cmtJalkateraKuormittamattomana}\n'
 
-report += u"""
+report += """
 Jalkaterä kuormitettuna: (+ = lievä, ++ = kohtalainen, +++ = voimakas):
 """
-report += u'Takaosan (kantaluun) asento {JalkatTakaosanAsentoKuormOik}/{JalkatTakaosanAsentoKuormVas}. '
-report += u'Keskiosan asento {JalkatKeskiosanAsentoKuormOik}/{JalkatKeskiosanAsentoKuormVas}. '
-report += u'Etuosan asento 1: {JalkatEtuosanAsento1KuormOik}/{JalkatEtuosanAsento1KuormVas}, etuosan asento 2: {JalkatEtuosanAsento2KuormOik}/{JalkatEtuosanAsento2KuormVas}. '
-report += u'Takaosan kierto: {JalkatTakaosanKiertoKuormOik}/{JalkatTakaosanKiertoKuormVas}. '
-report += u"Coleman's block test: {JalkatColemanOik}/{JalkatColemanVas}. "
-report += u'Feissin linja: {JalkatFeissinLinjaOik} / {JalkatFeissinLinjaVas}. '
-report += u'Navicular drop, istuen: {JalkatNavDropIstuenOik}/{JalkatNavDropIstuenVas}. '
-report += u'Navicular drop, seisten: {JalkatNavDropSeistenOik}/{JalkatNavDropSeistenVas}. '
+report += 'Takaosan (kantaluun) asento {JalkatTakaosanAsentoKuormOik}/{JalkatTakaosanAsentoKuormVas}. '
+report += 'Keskiosan asento {JalkatKeskiosanAsentoKuormOik}/{JalkatKeskiosanAsentoKuormVas}. '
+report += 'Etuosan asento 1: {JalkatEtuosanAsento1KuormOik}/{JalkatEtuosanAsento1KuormVas}, etuosan asento 2: {JalkatEtuosanAsento2KuormOik}/{JalkatEtuosanAsento2KuormVas}. '
+report += 'Takaosan kierto: {JalkatTakaosanKiertoKuormOik}/{JalkatTakaosanKiertoKuormVas}. '
+report += "Coleman's block test: {JalkatColemanOik}/{JalkatColemanVas}. "
+report += 'Feissin linja: {JalkatFeissinLinjaOik} / {JalkatFeissinLinjaVas}. '
+report += 'Navicular drop, istuen: {JalkatNavDropIstuenOik}/{JalkatNavDropIstuenVas}. '
+report += 'Navicular drop, seisten: {JalkatNavDropSeistenOik}/{JalkatNavDropSeistenVas}. '
 report += '\n'
-report += u'Painelevymittaus: {Painelevy}\n'
-report += u'Painelevymittaus, lisätietoja: {JalkatPainelevyTiedot}\n'
-report += u'Kommentit (jalkaterä): {cmtJalkateraKuormitettuna}\n'
+report += 'Painelevymittaus: {Painelevy}\n'
+report += 'Painelevymittaus, lisätietoja: {JalkatPainelevyTiedot}\n'
+report += 'Kommentit (jalkaterä): {cmtJalkateraKuormitettuna}\n'
 
-report += u"""
+report += """
 Modified Ashworth:
 """
-report += u'Lonkan koukistajat {LonkkaFleksioModAOik}/{LonkkaFleksioModAVas}. '
-report += u'Lonkan ojentajat {LonkkaEkstensioModAOik}/{LonkkaEkstensioModAVas}. '
-report += u'Lonkan lähentäjät {LonkkaAdduktoritModAOik}/{LonkkaAdduktoritModAVas}. '
-report += u'Hamstringit {PolviHamstringModAOik}/{PolviHamstringModAVas}. '
-report += u'Rectus femoris {PolviRectusModAOik}/{PolviRectusModAVas}. '
-report += u'Lonkan sisäkierto {LonkkaSisakiertoModAOik}/{LonkkaSisakiertoModAVas}. '
-report += u'Lonkan ulkokierto {LonkkaUlkokiertoModAOik}/{LonkkaUlkokiertoModAVas}. '
-report += u'Soleus {NilkkaSoleusModAOik}/{NilkkaSoleusModAVas}. '
-report += u'Gastrocnemius {NilkkaGastroModAOik}/{NilkkaGastroModAVas}.'
+report += 'Lonkan koukistajat {LonkkaFleksioModAOik}/{LonkkaFleksioModAVas}. '
+report += 'Lonkan ojentajat {LonkkaEkstensioModAOik}/{LonkkaEkstensioModAVas}. '
+report += 'Lonkan lähentäjät {LonkkaAdduktoritModAOik}/{LonkkaAdduktoritModAVas}. '
+report += 'Hamstringit {PolviHamstringModAOik}/{PolviHamstringModAVas}. '
+report += 'Rectus femoris {PolviRectusModAOik}/{PolviRectusModAVas}. '
+report += 'Lonkan sisäkierto {LonkkaSisakiertoModAOik}/{LonkkaSisakiertoModAVas}. '
+report += 'Lonkan ulkokierto {LonkkaUlkokiertoModAOik}/{LonkkaUlkokiertoModAVas}. '
+report += 'Soleus {NilkkaSoleusModAOik}/{NilkkaSoleusModAVas}. '
+report += 'Gastrocnemius {NilkkaGastroModAOik}/{NilkkaGastroModAVas}.'
 report += '\n'
-report += u'Kommentit (lonkka): {cmtLonkkaSpast}\n'
+report += 'Kommentit (lonkka): {cmtLonkkaSpast}\n'
 
-report += u"""
+report += """
 Manuaalisesti mitatut lihasvoimat ja selektiivisyys (oikea lihasvoima/vasen lihasvoima, (oikea selekt./vasen selekt.)):
 Asteikko: 0-5, missä 5 on vahvin ja 3 voittaa painovoiman koko potilaan liikelaajuudella.
 Selektiivisyys: 0-2, missä 0=kokonaisliikemalli, 1=osittain eriytynyt ja 2=eriytynyt koko liikelaajuudella:
 """
-report += u'Lonkan ojennus (polvi 0°) {VoimaLonkkaEkstensioPolvi0Oik}/{VoimaLonkkaEkstensioPolvi0Vas}'
-report += u' ({SelLonkkaEkstensioPolvi0Oik}/{SelLonkkaEkstensioPolvi0Vas})'
+report += 'Lonkan ojennus (polvi 0°) {VoimaLonkkaEkstensioPolvi0Oik}/{VoimaLonkkaEkstensioPolvi0Vas}'
+report += ' ({SelLonkkaEkstensioPolvi0Oik}/{SelLonkkaEkstensioPolvi0Vas})'
 report.item_sep()
-report += u'Lonkan ojennus (polvi 90°) {VoimaLonkkaEkstensioPolvi90Oik}/{VoimaLonkkaEkstensioPolvi90Vas}'
-report += u' ({SelLonkkaEkstensioPolvi90Oik}/{SelLonkkaEkstensioPolvi90Vas})'
+report += 'Lonkan ojennus (polvi 90°) {VoimaLonkkaEkstensioPolvi90Oik}/{VoimaLonkkaEkstensioPolvi90Vas}'
+report += ' ({SelLonkkaEkstensioPolvi90Oik}/{SelLonkkaEkstensioPolvi90Vas})'
 report.item_sep()
-report += u'Lonkan koukistus {VoimaLonkkaFleksioOik}/{VoimaLonkkaFleksioVas}'
-report += u' ({SelLonkkaFleksioOik}/{SelLonkkaFleksioVas})'
+report += 'Lonkan koukistus {VoimaLonkkaFleksioOik}/{VoimaLonkkaFleksioVas}'
+report += ' ({SelLonkkaFleksioOik}/{SelLonkkaFleksioVas})'
 report.item_sep()
-report += u'Loitonnus (lonkka 0°) {VoimaLonkkaAbduktioLonkka0Oik}/{VoimaLonkkaAbduktioLonkka0Vas}'
-report += u' ({SelLonkkaAbduktioLonkka0Oik}/{SelLonkkaAbduktioLonkka0Vas})'
+report += 'Loitonnus (lonkka 0°) {VoimaLonkkaAbduktioLonkka0Oik}/{VoimaLonkkaAbduktioLonkka0Vas}'
+report += ' ({SelLonkkaAbduktioLonkka0Oik}/{SelLonkkaAbduktioLonkka0Vas})'
 report.item_sep()
-report += u'Loitonnus, lonkka fleksiossa {VoimaLonkkaAbduktioLonkkaFleksOik}/{VoimaLonkkaAbduktioLonkkaFleksVas}. '
-report += u'Lähennys {VoimaLonkkaAdduktioOik}/{VoimaLonkkaAdduktioVas}'
-report += u' ({SelLonkkaAdduktioOik}/{SelLonkkaAdduktioVas})'
+report += 'Loitonnus, lonkka fleksiossa {VoimaLonkkaAbduktioLonkkaFleksOik}/{VoimaLonkkaAbduktioLonkkaFleksVas}. '
+report += 'Lähennys {VoimaLonkkaAdduktioOik}/{VoimaLonkkaAdduktioVas}'
+report += ' ({SelLonkkaAdduktioOik}/{SelLonkkaAdduktioVas})'
 report.item_sep()
-report += u'Lonkan ulkokierto {VoimaLonkkaUlkokiertoOik}/{VoimaLonkkaUlkokiertoVas}'
-report += u' ({SelLonkkaUlkokiertoOik}/{SelLonkkaUlkokiertoVas})'
+report += 'Lonkan ulkokierto {VoimaLonkkaUlkokiertoOik}/{VoimaLonkkaUlkokiertoVas}'
+report += ' ({SelLonkkaUlkokiertoOik}/{SelLonkkaUlkokiertoVas})'
 report.item_sep()
-report += u'Lonkan sisäkierto {VoimaLonkkaSisakiertoOik}/{VoimaLonkkaSisakiertoVas}'
-report += u' ({SelLonkkaSisakiertoOik}/{SelLonkkaSisakiertoVas})'
+report += 'Lonkan sisäkierto {VoimaLonkkaSisakiertoOik}/{VoimaLonkkaSisakiertoVas}'
+report += ' ({SelLonkkaSisakiertoOik}/{SelLonkkaSisakiertoVas})'
 report.item_sep()
-report += u'Polven ojennus {VoimaPolviEkstensioOik}/{VoimaPolviEkstensioVas}'
-report += u' ({SelPolviEkstensioOik}/{SelPolviEkstensioVas})'
+report += 'Polven ojennus {VoimaPolviEkstensioOik}/{VoimaPolviEkstensioVas}'
+report += ' ({SelPolviEkstensioOik}/{SelPolviEkstensioVas})'
 report.item_sep()
-report += u'Polven koukistus {VoimaPolviFleksioOik}/{VoimaPolviFleksioVas}'
-report += u' ({SelPolviFleksioOik}/{SelPolviFleksioVas})'
+report += 'Polven koukistus {VoimaPolviFleksioOik}/{VoimaPolviFleksioVas}'
+report += ' ({SelPolviFleksioOik}/{SelPolviFleksioVas})'
 report.item_sep()
-report += u'Nilkan koukistus {VoimaTibialisAnteriorOik}/{VoimaTibialisAnteriorVas}'
-report += u' ({SelTibialisAnteriorOik}/{SelTibialisAnteriorVas})'
+report += 'Nilkan koukistus {VoimaTibialisAnteriorOik}/{VoimaTibialisAnteriorVas}'
+report += ' ({SelTibialisAnteriorOik}/{SelTibialisAnteriorVas})'
 report.item_sep()
-report += u'Nilkan ojennus (gastrocnemius) {VoimaGastroOik}/{VoimaGastroVas}'
-report += u' ({SelGastroOik}/{SelGastroVas})'
+report += 'Nilkan ojennus (gastrocnemius) {VoimaGastroOik}/{VoimaGastroVas}'
+report += ' ({SelGastroOik}/{SelGastroVas})'
 report.item_sep()
-report += u'Nilkan ojennus (soleus) {VoimaSoleusOik}/{VoimaSoleusVas}'
-report += u' ({SelSoleusOik}/{SelSoleusVas})'
+report += 'Nilkan ojennus (soleus) {VoimaSoleusOik}/{VoimaSoleusVas}'
+report += ' ({SelSoleusOik}/{SelSoleusVas})'
 report.item_sep()
-report += u'Inversio {VoimaTibialisPosteriorOik}/{VoimaTibialisPosteriorVas}'
-report += u' ({SelTibialisPosteriorOik}/{SelTibialisPosteriorVas})'
+report += 'Inversio {VoimaTibialisPosteriorOik}/{VoimaTibialisPosteriorVas}'
+report += ' ({SelTibialisPosteriorOik}/{SelTibialisPosteriorVas})'
 report.item_sep()
-report += u'Eversio {VoimaPeroneusOik}/{VoimaPeroneusVas}'
-report += u' ({SelPeroneusOik}/{SelPeroneusVas})'
+report += 'Eversio {VoimaPeroneusOik}/{VoimaPeroneusVas}'
+report += ' ({SelPeroneusOik}/{SelPeroneusVas})'
 report.item_sep()
-report += u'Isovarpaan ojennus {VoimaExtHallucisLongusOik}/{VoimaExtHallucisLongusVas}'
-report += u' ({SelExtHallucisLongusOik}/{SelExtHallucisLongusVas})'
+report += 'Isovarpaan ojennus {VoimaExtHallucisLongusOik}/{VoimaExtHallucisLongusVas}'
+report += ' ({SelExtHallucisLongusOik}/{SelExtHallucisLongusVas})'
 report.item_sep()
-report += u'Isovarpaan koukistus {VoimaFlexHallucisLongusOik}/{VoimaFlexHallucisLongusVas}'
-report += u' ({SelFlexHallucisLongusOik}/{SelFlexHallucisLongusVas})'
+report += 'Isovarpaan koukistus {VoimaFlexHallucisLongusOik}/{VoimaFlexHallucisLongusVas}'
+report += ' ({SelFlexHallucisLongusOik}/{SelFlexHallucisLongusVas})'
 report.item_sep()
 report += 'Varpaiden (2-5) ojennus {Voima25OjennusOik}/{Voima25OjennusVas}'
-report += u' ({Sel25OjennusOik}/{Sel25OjennusVas})'
+report += ' ({Sel25OjennusOik}/{Sel25OjennusVas})'
 report.item_sep()
 report += 'Varpaiden (2-5) koukistus {Voima25KoukistusOik}/{Voima25KoukistusVas}'
-report += u' ({Sel25KoukistusOik}/{Sel25KoukistusVas})'
+report += ' ({Sel25KoukistusOik}/{Sel25KoukistusVas})'
 report.item_sep()
-report += u'Suorat vatsalihakset {VoimaVatsaSuorat}. '
-report += u'Vinot vatsalihakset {VoimaVatsaVinotOik}/{VoimaVatsaVinotVas}. '
-report += u'Selkälihakset {VoimaSelka}.'
+report += 'Suorat vatsalihakset {VoimaVatsaSuorat}. '
+report += 'Vinot vatsalihakset {VoimaVatsaVinotOik}/{VoimaVatsaVinotVas}. '
+report += 'Selkälihakset {VoimaSelka}.'
 report += '\n'
-report += u'Kommentit (voimat): {cmtVoima1} {cmtVoima2} \n'
+report += 'Kommentit (voimat): {cmtVoima1} {cmtVoima2} \n'
 
 # some extra logic to add the names of EMG electrodes
 emg_chs = {'EMGSol': 'soleus',
@@ -275,18 +275,18 @@ emg_chs = {'EMGSol': 'soleus',
 
 emgs_in_use = [desc for ch, desc in emg_chs.items()
                if report.data[ch] == checkbox_yes]
-emgs_str = u', '.join(emgs_in_use)
+emgs_str = ', '.join(emgs_in_use)
 
 if emgs_str:
-    report += u"""
+    report += """
 Dynaaminen EMG:
 Alaraajojen lihasaktivaatio mitattiin pintaelektrodeilla seuraavista lihaksista:
 """
     report += emgs_str
     report += '\n'
 
-report += u'Kommentit (EMG): {cmtEMG}\n'
+report += 'Kommentit (EMG): {cmtEMG}\n'
 
-report += u"""
+report += """
 SUUNNITELMA/POHDINTA:
 """

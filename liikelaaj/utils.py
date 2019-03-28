@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Misc utility functions """
 
+
 def _check_hetu(hetu):
     """ This checks validity of a Finnish social security number (hetu) """
     chrs = "0123456789ABCDEFHJKLMNPRSTUVWXY"
@@ -15,4 +16,3 @@ def _check_hetu(hetu):
     if hetu[-1] != chk:
         return False
     return True
-

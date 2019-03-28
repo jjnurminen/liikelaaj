@@ -11,7 +11,7 @@ call, which would lead to messy indentation.
 @author: Jussi (jnu@iki.fi)
 """
 
-report += u"""
+report += """
 
 LIIKELAAJUUDET JA VOIMAT
 
@@ -21,13 +21,13 @@ Social security number: {TiedotHetu}
 Diagnosis: {TiedotDiag}
 Date of gait analysis: {TiedotPvm}
 """
-report += u'Kommentit: {cmtTiedot}\n'
+report += 'Kommentit: {cmtTiedot}\n'
 
-report += u"""
+report += """
 ISOKINEETTINEN VOIMAMITTAUS
 """
 
-report += u"""
+report += """
 Polven ekstensio, ROM: {IsokinPolviEkstensioOik} / {IsokinPolviEkstensioVas} °
 Polven fleksio, ROM: {IsokinPolviFleksioOik} / {IsokinPolviFleksioVas} °
 Polven ekstensiomomentti: {IsokinPolviEkstensioMomenttiOikNormUn} / {IsokinPolviEkstensioMomenttiVasNormUn} Nm
@@ -38,7 +38,7 @@ Polven fleksiomomentti (norm.): {IsokinPolviFleksioMomenttiOikNorm} / {IsokinPol
 Polven liikenopeus, fleksio: {IsokinPolviLiikenopeusFleksioOik} / {IsokinPolviLiikenopeusFleksioVas} °/s
 """
 
-report += u"""
+report += """
 Nilkan plantaarifleksio, ROM: {IsokinNilkkaPlantaarifleksioOik} / {IsokinNilkkaPlantaarifleksioVas} °
 Nilkan dorsifleksio, ROM: {IsokinNilkkaDorsifleksioOik} / {IsokinNilkkaDorsifleksioVas} °
 Nilkan plantaarifleksiomomentti: {IsokinNilkkaPlantaarifleksioMomenttiOikNormUn} / {IsokinNilkkaPlantaarifleksioMomenttiVasNormUn} Nm 

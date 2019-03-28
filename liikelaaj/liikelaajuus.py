@@ -41,9 +41,6 @@ changes
 @author: Jussi (jnu@iki.fi)
 """
 
-
-from __future__ import print_function
-
 from PyQt5 import uic, QtCore, QtWidgets
 import sys
 import traceback
@@ -69,7 +66,7 @@ class EntryApp(QtWidgets.QMainWindow):
     """ Main window of application. """
 
     def __init__(self, check_temp_file=True):
-        super(EntryApp, self).__init__()
+        super().__init__()
         # load user interface made with Qt Designer
         uifile = resource_filename('liikelaaj', 'tabbed_design.ui')
         uic.loadUi(uifile, self)
@@ -450,7 +447,7 @@ class EntryApp(QtWidgets.QMainWindow):
     @property
     def data_with_units(self):
         """Append units to values"""
-        return {key: u'%s%s' % (self.data[key], self.units[key]) for key in
+        return {key: '%s%s' % (self.data[key], self.units[key]) for key in
                 self.data}
 
     def make_txt_report(self, template, include_units=True):
@@ -628,7 +625,7 @@ def main():
     def my_excepthook(type, value, tback):
         """ Custom exception handler for fatal (unhandled) exceptions:
         report to user via GUI and terminate program. """
-        tb_full = u''.join(traceback.format_exception(type, value, tback))
+        tb_full = ''.join(traceback.format_exception(type, value, tback))
         message_dialog(ll_msgs.unhandled_exception+tb_full)
         # dump traceback to file
         try:

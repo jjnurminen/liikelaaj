@@ -35,16 +35,16 @@ class MyLineEdit(QtWidgets.QLineEdit):
     """ Custom line edit that selects the input on mouse click. """
 
     def __init__(self, parent=None):
-        super(MyLineEdit, self).__init__(parent)
+        super().__init__(parent)
 
     def mousePressEvent(self, event):
-        super(MyLineEdit, self).mousePressEvent(event)
+        super().mousePressEvent(event)
         self.selectAll()
 
     def mouseReleaseEvent(self, event):
         """ Make drag & release select all too (prevent selection
         of partial text) """
-        super(MyLineEdit, self).mouseReleaseEvent(event)
+        super().mouseReleaseEvent(event)
         self.selectAll()
 
 
@@ -53,17 +53,16 @@ class DegLineEdit(QtWidgets.QLineEdit):
     passes it to CheckDegSpinBox. """
 
     def __init__(self, parent=None):
-        # super(DegLineEdit, self).__init__(parent)
-        QtWidgets.QLineEdit.__init__(self, parent)
+        super().__init__(parent)
 
     def mousePressEvent(self, event):
-        super(DegLineEdit, self).mousePressEvent(event)
+        super().mousePressEvent(event)
         self.selectAll()
 
     def mouseReleaseEvent(self, event):
         """ Make drag & release select all too (prevent selection of
         partial text) """
-        super(DegLineEdit, self).mouseReleaseEvent(event)
+        super().mouseReleaseEvent(event)
         self.selectAll()
 
     def keyPressEvent(self, event):
@@ -71,7 +70,7 @@ class DegLineEdit(QtWidgets.QLineEdit):
         if event.key() == QtCore.Qt.Key_Space:
             self.parent().parent().keyPressEvent(event)
         else:
-            super(DegLineEdit, self).keyPressEvent(event)
+            super().keyPressEvent(event)
 
 
 class CheckDegSpinBox(QtWidgets.QWidget):
@@ -120,8 +119,8 @@ class CheckDegSpinBox(QtWidgets.QWidget):
         later in the code. If exporting the widget, these can be deleted or
         set to some other constants.
         """
-        self.setDefaultText(u'NR')
-        self.setSuffix(u'°')
+        self.setDefaultText('NR')
+        self.setSuffix('°')
         self.setMinimum(-181)
         self.setMaximum(180)
         self.degSpinBox.setValue(-181)
