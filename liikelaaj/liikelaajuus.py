@@ -12,9 +12,10 @@ Design notes:
 
 -input widget naming convention: first 2-3 chars indicate widget type
  (mandatory), next word indicate variable category or page where widget
- resides the rest indicates the variable. E.g. 'lnTiedotNimi'
+ resides the rest indicates the variable. E.g. 'lnTiedotNimi'. Specially
+ named widgets are automatically recognized as inputs
 
--widget inputs are updated into an internal dict whenever any value changes
+-inputs are updated into an internal dict whenever any value changes
 
 -dict keys are taken automatically from widget names by removing first 2-3
  chars (widget type)
@@ -86,10 +87,11 @@ class EntryApp(QtWidgets.QMainWindow):
         self.data_empty = self.data.copy()
         # whether to save to temp file whenever input widget data changes
         self.save_to_tmp = True
-        # whether data was saved into a patient-specific file
+        # whether last save file is up to date with inputs
         self.saved_to_file = True
+        # the name of json file where the data was last saved
         self.last_saved_filename = ''
-        # whether to update internal dict of variables
+        # whether to update internal dict of variables on input changes
         self.update_dict = True
         # load tmp file if it exists
         if op.isfile(Config.tmpfile) and check_temp_file:
@@ -120,8 +122,8 @@ class EntryApp(QtWidgets.QMainWindow):
             w.setValue(val)
 
         def checkbox_getval(w):
-            """ Return yestext or notext for checkbox enabled/disabled,
-            respectively. """
+            """Return yestext or notext for checkbox enabled/disabled,
+            respectively."""
             val = int(w.checkState())
             if val == 0:
                 return w.no_text
@@ -131,8 +133,8 @@ class EntryApp(QtWidgets.QMainWindow):
                 raise Exception('Unexpected checkbox value')
 
         def checkbox_setval(w, val):
-            """ Set checkbox value to enabled for val == yestext and
-            disabled for val == notext """
+            """Set checkbox value to enabled for val == yestext and
+            disabled for val == notext"""
             if val == w.yes_text:
                 w.setCheckState(2)
             elif val == w.no_text:
@@ -141,12 +143,12 @@ class EntryApp(QtWidgets.QMainWindow):
                 raise Exception('Unexpected checkbox entry value')
 
         def combobox_getval(w):
-            """ Get combobox current choice as text """
+            """Get combobox current choice as text"""
             return w.currentText()
 
         def combobox_setval(w, val):
-            """ Set combobox value according to val (unicode) (must be one of
-            the combobox items) """
+            """Set combobox value according to val (unicode) (must be one of
+            the combobox items)"""
             idx = w.findText(val)
             if idx >= 0:
                 w.setCurrentIndex(idx)
@@ -154,8 +156,8 @@ class EntryApp(QtWidgets.QMainWindow):
                 raise ValueError('Tried to set combobox to invalid value.')
 
         def keyPressEvent_resetOnEsc(obj, event):
-            """ Special event handler for spinboxes. Resets value (sets it
-            to minimum) when Esc is pressed. """
+            """Special event handler for spinboxes. Resets value (sets it
+            to minimum) when Esc is pressed."""
             if event.key() == QtCore.Qt.Key_Escape:
                 obj.setValue(obj.minimum())
             else:
@@ -170,11 +172,11 @@ class EntryApp(QtWidgets.QMainWindow):
             except ValueError:
                 return False
 
-        """ Change lineEdit to custom one for spinboxes. This cannot be done in
-        the main widget loop below, because the old QLineEdits get destroyed in
-        the process (by Qt) and the loop then segfaults while trying to
-        dereference them (the loop collects all QLineEdits at the start).
-        Also install special keypress event handler. """
+        # Change lineEdit to custom one for spinboxes. This cannot be done in
+        # the main widget loop below, because the old QLineEdits get destroyed in
+        # the process (by Qt) and the loop then segfaults while trying to
+        # dereference them (the loop collects all QLineEdits at the start).
+        # Also install special keypress event handler. """
         for w in self.findChildren((QtWidgets.QSpinBox,
                                     QtWidgets.QDoubleSpinBox)):
             wname = w.objectName()
@@ -183,8 +185,8 @@ class EntryApp(QtWidgets.QMainWindow):
                 w.keyPressEvent = (lambda event, w=w:
                                    keyPressEvent_resetOnEsc(w, event))
 
-        """ CheckDegSpinBox class gets a special LineEdit that catches space
-        and mouse press events """
+        # CheckDegSpinBoxes get a special LineEdit that catches space
+        # and mouse press events
         for w in self.findChildren(CheckDegSpinBox):
             w.degSpinBox.setLineEdit(DegLineEdit())
 
@@ -216,11 +218,14 @@ class EntryApp(QtWidgets.QMainWindow):
         for w in self.autowidgets:
             w.setEnabled(False)
 
-        """ Set various widget convenience methods/properties """
+        # set various widget convenience methods/properties
+        # input widgets are specially named and will be automatically
+        # collected into a dict
         for w in allwidgets:
             wname = w.objectName()
             wsave = True
-            w.unit = lambda: ''  # if a widget input has units, set it below
+            # w.unit returns the unit for each input (may change dynamically)
+            w.unit = lambda: ''
             if wname[:2] == 'sp':  # spinbox or doublespinbox
                 # -lambdas need default arguments because of late binding
                 # -lambda expression needs to consume unused 'new value' arg,
@@ -260,7 +265,6 @@ class EntryApp(QtWidgets.QMainWindow):
                 self.input_widgets[wname] = w
                 # TODO: specify whether input value is 'mandatory' or not
                 w.important = False
-
 
         self.menuTiedosto.aboutToShow.connect(self._update_menu)
         self.actionTallennaNimella.triggered.connect(self.save_dialog)
@@ -350,7 +354,6 @@ class EntryApp(QtWidgets.QMainWindow):
     def open_help():
         """ Show help. """
         webbrowser.open(Config.help_url)
-
 
     def values_changed(self, w):
         """Called whenever widget w value changes"""
