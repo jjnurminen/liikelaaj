@@ -404,7 +404,8 @@ class EntryApp(QtWidgets.QMainWindow):
     def save_file(self, fname):
         """ Save data into given file in utf-8 encoding. """
         with io.open(fname, 'w', encoding='utf-8') as f:
-            f.write(json.dumps(self.data, ensure_ascii=False))
+            f.write(json.dumps(self.data, ensure_ascii=False,
+                    indent=True, sort_keys=True))
 
     def save_current_file(self):
         fname = self.last_saved_filename
