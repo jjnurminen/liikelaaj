@@ -289,6 +289,7 @@ class EntryApp(QtWidgets.QMainWindow):
         self.firstwidget[self.tabLonkka] = self.csbLonkkaFleksioOik
         self.firstwidget[self.tabNilkka] = self.csbNilkkaSoleusCatchOik
         self.firstwidget[self.tabPolvi] = self.csbPolviEkstensioVapOik
+        self.firstwidget[self.tabIsokin] = self.spIsokinPolviEkstensioOik
         self.firstwidget[self.tabVirheas] = self.spVirheasAnteversioOik
         self.firstwidget[self.tabTasap] = self.spTasapOik
         self.total_widgets = len(self.input_widgets)

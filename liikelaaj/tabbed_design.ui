@@ -12669,7 +12669,7 @@ lonkka fleksiossa</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="tabIsokin">
        <attribute name="title">
         <string>Isokin. voima</string>
        </attribute>
@@ -14960,7 +14960,7 @@ lonkka fleksiossa</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="tabEMG">
        <attribute name="title">
         <string>EMG</string>
        </attribute>
