@@ -569,6 +569,7 @@ class EntryApp(QtWidgets.QMainWindow):
             self.data = self.data_empty.copy()
             self.restore_forms()
             self.statusbar.showMessage(ll_msgs.status_cleared)
+            self.last_saved_filename = ''
             self.saved_to_file = True  # empty data assumed 'saved'
 
     def restore_forms(self):
