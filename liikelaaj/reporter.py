@@ -60,8 +60,8 @@ class Report(object):
         # string replacements in .xls cells (after filling in the fields)
         self.cell_postprocess_dict = {'(EI)': '', '(Kyllä)': '(kl.)'}
         self.text = ''
-        self.data = data
-        self.data_text = data
+        self.data = data.copy()  # be sure not to mutate args
+        self.data_text = data.copy()
         for key, it in self.data_text.items():
             if it in self.text_replace_dict:
                 self.data_text[key] = self.text_replace_dict[it]
