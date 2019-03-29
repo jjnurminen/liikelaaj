@@ -3,8 +3,10 @@
 Configuration for liikelaajuus
 """
 
+from pathlib import Path
 import sys
 from datetime import date
+
 
 # XXX: these should eventually go into a proper config file
 class Config(object):
@@ -21,19 +23,18 @@ class Config(object):
     checkbox_notext = 'EI'
     # Set dirs according to platform
     if sys.platform == 'win32':
-        tmp_fldr = '/Temp'
-        # data_root_fldr = 'C:/'
-        data_root_fldr = ('Z:/Other Data_May2013/ROM/ROM_' +
-                          str(date.today().year))
-    else:  # Linux
-        tmp_fldr = '/tmp'
-        data_root_fldr = '/'
-    text_report_fldr = data_root_fldr + '/Raportit'
-    excel_report_fldr = data_root_fldr + '/Raportit_Excel'
-    tmpfile = tmp_fldr + '/liikelaajuus_tmp.json'
-    # start of default Excel filename
+        tmp_path = Path('/Temp')
+        # default path for saved JSON data; only used by file dialogs
+        data_root_path = Path('Z:/Other Data_May2013/ROM/ROM_%d' % date.today().year)
+    else:  # hopefully POSIX
+        tmp_path = Path('/tmp')
+        data_root_path = Path('/')
+    text_report_path = data_root_path / 'Raportit'
+    excel_report_path = data_root_path / 'Raportit_Excel'
+    tmpfile_path = tmp_path / 'liikelaajuus_tmp.json'
+    # prefix of default Excel report filename
     excel_report_prefix = 'Excel_'
-    # start of default .txt filename
+    # prefix of default text report filename
     text_report_prefix = 'Raportti_'
     # exceptions that might be generated when parsing and loading/saving json
     # these should all be caught
@@ -51,4 +52,3 @@ class Config(object):
     # allowing multiple instances is problematic since they share the same
     # backup file (tmpfile)
     allow_multiple_instances = False
-

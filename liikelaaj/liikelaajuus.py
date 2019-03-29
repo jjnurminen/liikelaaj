@@ -42,13 +42,12 @@ changes
 from PyQt5 import uic, QtCore, QtWidgets
 import sys
 import traceback
-import io
 import os
-import os.path as op
 import json
 import webbrowser
 import logging
 import psutil
+from pathlib import Path
 from pkg_resources import resource_filename
 
 from .config import Config
@@ -90,11 +89,11 @@ class EntryApp(QtWidgets.QMainWindow):
         # whether last save file is up to date with inputs
         self.saved_to_file = True
         # the name of json file where the data was last saved
-        self.last_saved_filename = ''
+        self.last_saved_filepath = None
         # whether to update internal dict of variables on input changes
         self.update_dict = True
         # load tmp file if it exists
-        if op.isfile(Config.tmpfile) and check_temp_file:
+        if Config.tmpfile_path.is_file() and check_temp_file:
             message_dialog(ll_msgs.temp_found)
             self.load_temp()
         self.text_template = resource_filename('liikelaaj',
@@ -321,8 +320,9 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def _update_menu(self):
         """Update status of menu items"""
-        self.actionTallenna.setEnabled(bool(self.last_saved_filename) and
-                                            not self.saved_to_file)
+        self.actionTallenna.setEnabled(self.last_saved_filepath is not None and
+                                       self.last_saved_filepath.is_file() and
+                                       not self.saved_to_file)
 
     @property
     def units(self):
@@ -369,23 +369,22 @@ class EntryApp(QtWidgets.QMainWindow):
         if self.save_to_tmp:
             self.save_temp()
 
-    def load_file(self, fname):
+    def load_file(self, path):
         """ Load data from JSON file and restore forms. """
-        if op.isfile(fname):
-            with io.open(fname, 'r', encoding='utf-8') as f:
-                data_loaded = json.load(f)
-            keys, loaded_keys = set(self.data), set(data_loaded)
-            # warn the user about key mismatch
-            if keys != loaded_keys:
-                self.keyerror_dialog(keys, loaded_keys)
-            # reset data before load (loaded data might not have all vars)
-            self.data = self.data_empty.copy()
-            # update values (but exclude unknown keys)
-            for key in keys.intersection(loaded_keys):
-                self.data[key] = data_loaded[key]
-            self.restore_forms()
-            self.statusbar.showMessage(ll_msgs.status_loaded.format(
-                                       filename=fname, n=self.n_modified()))
+        with open(path, 'r', encoding='utf-8') as f:
+            data_loaded = json.load(f)
+        keys, loaded_keys = set(self.data), set(data_loaded)
+        # warn the user about key mismatch
+        if keys != loaded_keys:
+            self.keyerror_dialog(keys, loaded_keys)
+        # reset data before load (loaded data might not have all vars)
+        self.data = self.data_empty.copy()
+        # update values (but exclude unknown keys)
+        for key in keys.intersection(loaded_keys):
+            self.data[key] = data_loaded[key]
+        self.restore_forms()
+        self.statusbar.showMessage(ll_msgs.status_loaded.format(
+                                    filename=str(path), n=self.n_modified()))
 
     def keyerror_dialog(self, origkeys, newkeys):
         """ Report missing / unknown keys to user. """
@@ -404,55 +403,38 @@ class EntryApp(QtWidgets.QMainWindow):
         if extra_in_new:
             message_dialog(''.join(li))
 
-    def save_file(self, fname):
+    def save_file(self, path):
         """ Save data into given file in utf-8 encoding. """
-        with io.open(fname, 'w', encoding='utf-8') as f:
+        with open(path, 'w', encoding='utf-8') as f:
             f.write(json.dumps(self.data, ensure_ascii=False,
                     indent=True, sort_keys=True))
 
     def save_current_file(self):
-        fname = self.last_saved_filename
-        if fname:
-            self.save_file(fname)
-            self.saved_to_file = True
-            self.statusbar.showMessage(ll_msgs.status_saved+fname)
+        if self.last_saved_filepath is None:
+            return
+        self.save_file(self.last_saved_filepath)
+        self.saved_to_file = True
+        self.statusbar.showMessage(ll_msgs.status_saved +
+                                   str(self.last_saved_filepath))
 
     def load_dialog(self):
         """ Bring up load dialog and load selected file. """
         if self.saved_to_file or confirm_dialog(ll_msgs.load_not_saved):
             fout = QtWidgets.QFileDialog.getOpenFileName(self,
                                                          ll_msgs.open_title,
-                                                         Config.data_root_fldr,
+                                                         str(Config.data_root_path),
                                                          Config.json_filter)
-            fname = fout[0]
-            if fname:
-                try:
-                    self.load_file(fname)
-                    self.last_saved_filename = fname
-                    self.saved_to_file = True
-                except Config.json_io_exceptions:
-                    message_dialog(ll_msgs.cannot_open+fname)
-
-    def save_dialog(self):
-        """ Bring up save dialog and save data. """
-        # special ops for certain widgets
-        hetu = self.lnTiedotHetu.getVal()
-        if hetu and not _check_hetu(hetu):
-            message_dialog(ll_msgs.invalid_hetu)
-
-        fout = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                     ll_msgs.save_report_title,
-                                                     Config.data_root_fldr,
-                                                     Config.json_filter)
-        fname = fout[0]
-        if fname:
+            path = Path(fout[0])
+            if not path.is_file():
+                return
             try:
-                self.save_file(fname)
+                self.load_file(path)
+                # subsequent save ops will target this path
+                self.last_saved_filepath = path
+                # consider data saved since it's unmodified at this point
                 self.saved_to_file = True
-                self.last_saved_filename = fname
-                self.statusbar.showMessage(ll_msgs.status_saved+fname)
             except Config.json_io_exceptions:
-                message_dialog(ll_msgs.cannot_save+fname)
+                message_dialog(ll_msgs.cannot_open+str(path))
 
     @property
     def data_with_units(self):
@@ -476,6 +458,27 @@ class EntryApp(QtWidgets.QMainWindow):
         txt = self.make_txt_report(self.text_template)
         self._save_text_report_dialog(txt)
 
+    def save_dialog(self):
+        """ Bring up save dialog and save data. """
+        # special ops for certain widgets
+        hetu = self.lnTiedotHetu.getVal()
+        if hetu and not _check_hetu(hetu):
+            message_dialog(ll_msgs.invalid_hetu)
+
+        fout = QtWidgets.QFileDialog.getSaveFileName(self,
+                                                     ll_msgs.save_report_title,
+                                                     str(Config.data_root_path),
+                                                     Config.json_filter)
+        path = Path(fout[0])
+        if path.is_file():
+            try:
+                self.save_file(path)
+                self.saved_to_file = True
+                self.last_saved_filepath = path
+                self.statusbar.showMessage(ll_msgs.status_saved+str(path))
+            except Config.json_io_exceptions:
+                message_dialog(ll_msgs.cannot_save+str(path))
+
     def save_isokin_report_dialog(self):
         """Create isokinetic text report and open dialog for saving it"""
         txt = self.make_txt_report(self.isokin_text_template, include_units=False)
@@ -488,42 +491,42 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def _save_text_report_dialog(self, report_txt):
         """Bring up save dialog and save text report"""
-        if self.last_saved_filename:
-            fn_base_ = op.splitext(op.basename(self.last_saved_filename))[0]
-            fn_base = '%s%s.txt' % (Config.text_report_prefix, fn_base_)
-            filename_def = op.join(Config.text_report_fldr, fn_base)
+        if self.last_saved_filepath:
+            destpath = (Config.text_report_path / (Config.text_report_prefix +
+                        self.last_saved_filepath.stem + '.txt'))
         else:
-            filename_def = Config.data_root_fldr
+            destpath = Config.data_root_path
         fout = QtWidgets.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
-                                                     filename_def,
+                                                     str(destpath),
                                                      Config.text_filter)
-        fname = fout[0]
-        if fname:
-            try:
-                with io.open(fname, 'w', encoding='utf-8') as f:
-                    f.write(report_txt)
-                self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
-            except (IOError):
-                message_dialog(ll_msgs.cannot_save+fname)
+        path = Path(fout[0])
+        if not path.is_file():
+            return
+        try:
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(report_txt)
+            self.statusbar.showMessage(ll_msgs.status_report_saved+str(path))
+        except (IOError):
+            message_dialog(ll_msgs.cannot_save+str(path))
 
     def _save_excel_report_dialog(self, workbook):
         """Bring up file dialog and save Excel workbook"""
-        if self.last_saved_filename:
-            fn_base_ = op.splitext(op.basename(self.last_saved_filename))[0]
-            fn_base = '%s%s.xls' % (Config.excel_report_prefix, fn_base_)
-            filename_def = op.join(Config.excel_report_fldr, fn_base)
+        if self.last_saved_filepath:
+            destpath = (Config.excel_report_path / (Config.excel_report_prefix +
+                        self.last_saved_filepath.stem + '.xls'))
         else:
-            filename_def = Config.data_root_fldr
+            destpath = Config.data_root_path
         fout = QtWidgets.QFileDialog.getSaveFileName(self, ll_msgs.save_title,
-                                                     filename_def,
+                                                     str(destpath),
                                                      Config.excel_filter)
-        fname = fout[0]
-        if fname:
-            try:
-                workbook.save(fname)
-                self.statusbar.showMessage(ll_msgs.status_report_saved+fname)
-            except (IOError):
-                message_dialog(ll_msgs.cannot_save+fname)
+        path = Path(fout[0])
+        if not path.is_file():
+            return
+        try:
+            workbook.save(str(path))
+            self.statusbar.showMessage(ll_msgs.status_report_saved+str(path))
+        except (IOError):
+            message_dialog(ll_msgs.cannot_save+str(path))
 
     def n_modified(self):
         """ Count modified values. """
@@ -543,22 +546,22 @@ class EntryApp(QtWidgets.QMainWindow):
     def save_temp(self):
         """ Save form input data into temporary backup file. Exceptions will be
         caught by the fatal exception mechanism. """
-        self.save_file(Config.tmpfile)
+        self.save_file(Config.tmpfile_path)
         msg = ll_msgs.status_value_change.format(n=self.n_modified(),
-                                                 tmpfile=Config.tmpfile)
+                                                 tmpfile=str(Config.tmpfile_path))
         self.statusbar.showMessage(msg)
 
     def load_temp(self):
         """ Load form input data from temporary backup file. """
         try:
-            self.load_file(Config.tmpfile)
+            self.load_file(Config.tmpfile_path)
         except Config.json_io_exceptions:
             message_dialog(ll_msgs.cannot_open_tmp)
 
     @staticmethod
     def rm_temp():
         """ Remove temp file.  """
-        if op.isfile(Config.tmpfile):
+        if Config.tmpfile_path.is_file():
             os.remove(Config.tmpfile)
 
     def clear_forms_dialog(self):
@@ -572,7 +575,7 @@ class EntryApp(QtWidgets.QMainWindow):
             self.data = self.data_empty.copy()
             self.restore_forms()
             self.statusbar.showMessage(ll_msgs.status_cleared)
-            self.last_saved_filename = ''
+            self.last_saved_filepath = None
             self.saved_to_file = True  # empty data assumed 'saved'
 
     def restore_forms(self):
