@@ -6,8 +6,8 @@ unit tests for liikelaajuus
 @author: Jussi (jnu@iki.fi)
 """
 
+import argparse
 import hashlib
-import io
 import json
 import os
 import os.path as op
@@ -20,7 +20,6 @@ from xlrd import open_workbook
 from liikelaaj import liikelaajuus
 from liikelaaj.config import Config
 from liikelaaj.reporter import Report
-
 
 xls_template = op.join('liikelaaj', Config.xls_template)
 text_template = op.join('liikelaaj', Config.text_template)
@@ -40,7 +39,7 @@ fn_xls_ref = "testdata/anonyymi.xls"
 fn_xls_out = "testdata/tests_xls_report_out.xls"
 fn_out = "testdata/tests_data_out.json"
 
-with io.open(fn_emptyvals, 'r', encoding='utf-8') as f:
+with open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
 
 app = QtWidgets.QApplication(sys.argv)  # needed for Qt stuff to function
@@ -65,13 +64,11 @@ def regen_ref_data():
     eapp = liikelaajuus.EntryApp(check_temp_file=False)
     eapp.load_file(fn_ref)
     report = Report(eapp.data_with_units, eapp.vars_default)
-    report.make_excel(fn_xls_ref, xls_template)
+    wb = report.make_excel(xls_template)
+    wb.save(fn_xls_ref)
     report_txt = report.make_report(text_template)
-    with io.open(fn_txt_ref, 'w', encoding='utf-8') as f:
+    with open(fn_txt_ref, 'w', encoding='utf-8') as f:
         f.write(report_txt)
-
-
-
 
 
 """ BEGIN TESTS """
@@ -81,9 +78,9 @@ def test_save():
     """Test load/save cycle"""
     eapp.load_file(fn_ref)
     eapp.save_file(fn_out)
-    with io.open(fn_ref, 'r', encoding='utf-8') as f:
+    with open(fn_ref, 'r', encoding='utf-8') as f:
         data_ref = json.load(f)
-    with io.open(fn_out, 'r', encoding='utf-8') as f:
+    with open(fn_out, 'r', encoding='utf-8') as f:
         data_out = json.load(f)
     assert data_ref == data_out
 
@@ -94,7 +91,7 @@ def test_text_report():
     eapp.load_file(fn_ref)
     report = Report(eapp.data_with_units, eapp.vars_default)
     report_txt = report.make_report(text_template)
-    with io.open(fn_txt_ref, 'r', encoding='utf-8') as f:
+    with open(fn_txt_ref, 'r', encoding='utf-8') as f:
         report_ref = f.read()
     assert report_ref == report_txt
 
@@ -257,3 +254,14 @@ def test_widgets():
         if varname:
             varnames.add(str(varname))
     assert varnames == set(data_emptyvals.keys())
+
+
+if __name__ == '__main__':
+ 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--regen', help='Regenerate ref files',
+                        action='store_true')
+    args = parser.parse_args()
+
+    if args.regen:
+        regen_ref_data()
