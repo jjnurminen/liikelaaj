@@ -36,6 +36,8 @@ class Config(object):
     excel_report_prefix = 'Excel_'
     # prefix of default text report filename
     text_report_prefix = 'Raportti_'
+    # prefix of isokinetic text report filename
+    isokin_text_report_prefix = 'Isokin_Raportti_'
     # exceptions that might be generated when parsing and loading/saving json
     # these should all be caught
     json_io_exceptions = (UnicodeDecodeError, EOFError, IOError, TypeError)

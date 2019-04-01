@@ -456,7 +456,7 @@ class EntryApp(QtWidgets.QMainWindow):
     def _save_default_text_report_dialog(self):
         """Create text report and open dialog for saving it"""
         txt = self.make_txt_report(self.text_template)
-        self._save_text_report_dialog(txt)
+        self._save_text_report_dialog(txt, Config.text_report_prefix)
 
     def _save_json_dialog(self):
         """ Bring up save dialog and save data. """
@@ -480,7 +480,7 @@ class EntryApp(QtWidgets.QMainWindow):
         """Create isokinetic text report and open dialog for saving it"""
         txt = self.make_txt_report(self.isokin_text_template,
                                    include_units=False)
-        self._save_text_report_dialog(txt)
+        self._save_text_report_dialog(txt, Config.isokin_text_report_prefix)
 
     def _save_default_excel_report_dialog(self):
         """Create Excel report and open dialog for saving it"""
@@ -494,10 +494,10 @@ class EntryApp(QtWidgets.QMainWindow):
                                                      file_filter)
         return None if not fout[0] else Path(fout[0])
 
-    def _save_text_report_dialog(self, report_txt):
+    def _save_text_report_dialog(self, report_txt, prefix):
         """Bring up save dialog and save text report"""
         if self.last_saved_filepath:
-            destpath = (Config.text_report_path / (Config.text_report_prefix +
+            destpath = (Config.text_report_path / (prefix +
                         self.last_saved_filepath.stem + '.txt'))
         else:
             destpath = Config.data_root_path
@@ -559,7 +559,7 @@ class EntryApp(QtWidgets.QMainWindow):
     def rm_temp():
         """ Remove temp file.  """
         if Config.tmpfile_path.is_file():
-            os.remove(Config.tmpfile)
+            os.remove(Config.tmpfile_path)
 
     def _clear_forms_dialog(self):
         """ Ask whether to clear forms. If yes, set widget inputs to default
@@ -616,7 +616,7 @@ def main():
         return False
 
     # DEBUG: log to console
-    logging.basicConfig(level=logging.DEBUG)
+    #logging.basicConfig(level=logging.DEBUG)
 
     """ Work around stdout and stderr not being available, if app is run
     using pythonw.exe on Windows. Without this, exception will be raised
