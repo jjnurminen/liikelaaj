@@ -6,38 +6,36 @@ unit tests for liikelaajuus
 @author: Jussi (jnu@iki.fi)
 """
 
+from pathlib import Path
 import argparse
 import hashlib
 import json
-import os
-import os.path as op
 import sys
 from builtins import object, range, str
 
-from PyQt5 import QtGui, QtWidgets, uic
+from PyQt5 import QtWidgets, uic
 from xlrd import open_workbook
 
 from liikelaaj import liikelaajuus
 from liikelaaj.config import Config
 from liikelaaj.reporter import Report
 
-xls_template = op.join('liikelaaj', Config.xls_template)
-text_template = op.join('liikelaaj', Config.text_template)
-rootdir = os.getcwd()
-
-uifile = op.join(rootdir, "liikelaaj/tabbed_design.ui")
-
-# reference json data. must be updated if variables are changed.
-fn_emptyvals = op.join(rootdir, "testdata/empty.json")
-fn_ref = op.join(rootdir, "testdata/anonyymi.json")
+rootdir = Path('.')
+testdata = rootdir / 'testdata'
+pkg_path = rootdir / 'liikelaaj'
+xls_template = pkg_path / Config.xls_template
+text_template = pkg_path / Config.text_template
+uifile = pkg_path / 'tabbed_design.ui'
+fn_emptyvals = testdata / 'empty.json'
+fn_ref = testdata / 'anonyymi.json'
 
 # reference reports
-fn_txt_ref = "testdata/anonyymi.txt"
-fn_xls_ref = "testdata/anonyymi.xls"
+fn_txt_ref = testdata / 'anonyymi.txt'
+fn_xls_ref = testdata / 'anonyymi.xls'
 
 # temporary files written out by tests below
-fn_xls_out = "testdata/tests_xls_report_out.xls"
-fn_out = "testdata/tests_data_out.json"
+fn_xls_out = testdata / 'tests_xls_report_out.xls'
+fn_out = testdata / 'tests_data_out.json'
 
 with open(fn_emptyvals, 'r', encoding='utf-8') as f:
     data_emptyvals = json.load(f)
