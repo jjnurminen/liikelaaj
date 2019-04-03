@@ -103,7 +103,15 @@ def test_xls_report():
     report = Report(eapp.data_with_units, eapp.vars_default)
     wb = report.make_excel(xls_template)
     wb.save(fn_xls_out)
-    assert file_md5(fn_xls_out) == file_md5(fn_xls_ref)
+    wb_out = open_workbook(fn_xls_out, formatting_info=True)
+    wb_ref = open_workbook(fn_xls_ref, formatting_info=True)
+    sheet = wb_out.sheet_by_index(0)
+    sheet_ref = wb_ref.sheet_by_index(0)
+    for row in range(sheet.nrows):
+        for col in range(sheet.ncols):
+            cell = sheet.cell(row, col)
+            cell_ref = sheet_ref.cell(row, col)
+            assert cell.value == cell_ref.value
 
 
 def test_xls_template():
@@ -117,7 +125,7 @@ def test_xls_template():
             celltext = cl.value
             if celltext:
                 # extract all fields (variable names) in the cell
-                flds = Report._get_field(celltext)
+                flds = Report._get_fields(celltext)
                 for fld in flds:
                     assert fld in data_emptyvals
 
@@ -148,7 +156,7 @@ def test_text_template():
     exec(compile(open(text_template, "rb").read(), text_template, 'exec'),
          ldict, ldict)
     for li in report.text.split('\n'):
-        fields.update(set(Report._get_field(li)))
+        fields.update(set(Report._get_fields(li)))
     # the report does not currently reference following flds
     exclude_ = ['AntropJalkateraOik',
                 'AntropJalkateraVas',

@@ -70,7 +70,7 @@ class Report(object):
 
     def __add__(self, s):
         """ Format and add a text block to report """
-        self.text += self._cond_format(s)
+        self.text += self._cond_format(s, self.data_text)
         return self
 
     def item_sep(self):
@@ -83,19 +83,19 @@ class Report(object):
     def __repr__(self):
         return self.text
 
-    def _cond_format(self, s):
+    def _cond_format(self, s, data):
         """ Conditionally format string s. Fields given as {variable} are
         formatted using the data. If all fields are default, an
         empty string is returned. """
-        flds = list(Report._get_field(s))
-        if not flds or any([fld not in self.fields_default for fld in flds]):
-            return s.format(**self.data)
+        flds = list(Report._get_fields(s))
+        if not flds or any(fld not in self.fields_default for fld in flds):
+            return s.format(**data)
         else:
             return ''
 
     @staticmethod
-    def _get_field(s):
-        """ Return list of fields in a format string, e.g.
+    def _get_fields(s):
+        """Yield fields from a format string, e.g.
         '{foo} is {bar}'  ->  ['foo', 'bar']  """
         fi = string.Formatter()
         pit = fi.parse(s)  # returns parser generator
@@ -141,7 +141,7 @@ class Report(object):
                 cl = r_sheet.cell(row, col)
                 varname = cl.value
                 if varname:  # format non-empty cells
-                    newval = self._cond_format(varname)
+                    newval = self._cond_format(varname, self.data)
                     # apply replacement dict only if formatting actually did
                     # something. this is to avoid changing text-only cells.
                     if newval != varname:
