@@ -20,9 +20,8 @@ from liikelaaj import liikelaajuus
 from liikelaaj.config import Config
 from liikelaaj.reporter import Report
 
-rootdir = Path('.')
-testdata = rootdir / 'testdata'
-pkg_path = rootdir / 'liikelaaj'
+testdata = Path('testdata')
+pkg_path = Path('liikelaaj')
 xls_template = pkg_path / Config.xls_template
 text_template = pkg_path / Config.text_template
 uifile = pkg_path / 'tabbed_design.ui'
@@ -48,6 +47,7 @@ may be deleted by the unit tests """
 eapp = liikelaajuus.EntryApp(check_temp_file=False)
 
 # helper functions
+
 
 def file_md5(fn):
     """ Get MD5 sum of file in a dumb way. Works for small files. """
@@ -149,7 +149,7 @@ def test_text_template():
     no unknown vars in report """
     fields = set()
     report = FakeReport()
-    checkbox_yes = liikelaajuus.Config.checkbox_yestext    
+    checkbox_yes = liikelaajuus.Config.checkbox_yestext
     ldict = locals()
     exec(compile(open(text_template, "rb").read(), text_template, 'exec'),
          ldict, ldict)
@@ -263,7 +263,7 @@ def test_widgets():
 
 
 if __name__ == '__main__':
- 
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--regen', help='Regenerate ref files',
                         action='store_true')

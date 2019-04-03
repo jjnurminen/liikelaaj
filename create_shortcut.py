@@ -1,36 +1,37 @@
-"""Create Windows desktop shortcut.
-This should be run in the activated environment"""
-import win32com.client
-import pythoncom
+"""
+Create Windows desktop shortcut.
+This must be run in the correct conda environment for the package.
+"""
 import os
-import os.path as op
+from pathlib import Path
 
-# pythoncom.CoInitialize() # remove the '#' at the beginning of the line if running in a thread.
+import win32com.client
 
-homedir = op.expanduser('~')
-desktop = op.join(homedir, 'Desktop')
-path = op.join(desktop, 'liikelaajuus.lnk')
 
-# for some reason CONDA_ROOT is not set, so get the root from the executable path
-anaconda_python = os.environ['CONDA_PYTHON_EXE']
-anaconda_root = op.split(anaconda_python)[0]
-envdir = os.environ['CONDA_PREFIX']
+home = Path.home()
+desktop = home / 'Desktop'
+link_path = desktop / 'liikelaajuus.lnk'
 
-pythonw = op.join(anaconda_root, 'pythonw.exe')
-cwp = op.join(anaconda_root, 'cwp.py')
-pythonw_env = op.join(envdir, 'pythonw.exe')
-script = op.join(envdir, r'Scripts\liikelaaj-script.py')
+# for some reason CONDA_ROOT is not set, so get root from executable path
+anaconda_python = Path(os.environ['CONDA_PYTHON_EXE'])
+envdir = Path(os.environ['CONDA_PREFIX'])
+anaconda_root = anaconda_python.parent
 
-assert op.isfile(cwp)
-assert op.isdir(envdir)
-assert op.isfile(pythonw)
-assert op.isfile(pythonw_env)
-assert op.isfile(script)
+pythonw = anaconda_root / 'pythonw.exe'
+cwp = anaconda_root / 'cwp.py'
+pythonw_env = envdir / 'pythonw.exe'
+script = envdir / 'Scripts' / 'liikelaaj-script.py'
+
+assert cwp.is_file()
+assert envdir.is_dir()
+assert pythonw.is_file()
+assert pythonw_env.is_file()
+assert script.is_file()
 
 args = '%s %s %s %s' % (cwp, envdir, pythonw_env, script)
 
 shell = win32com.client.Dispatch("WScript.Shell")
-shortcut = shell.CreateShortCut(path)
+shortcut = shell.CreateShortCut(link_path)
 shortcut.Targetpath = pythonw
 shortcut.arguments = args
 shortcut.save()
