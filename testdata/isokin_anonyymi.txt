@@ -1,0 +1,29 @@
+
+
+LIIKELAAJUUDET JA VOIMAT
+
+Potilaskoodi: xxxxxx
+Potilaan nimi: Anonyymi potilas
+Henkilötunnus: xxxxxx-9999k
+Diagnoosi: G81.9 Määrittämätön hemiplegia, epilepsia
+Mittauksen päivämäärä: 21.3.2016
+Paino: 54.0 kg
+Kommentit: Vasen polvi kipea ja turvonnut. Lumpio korkealla molemmin puolin. Vasemmassa alaraajassa tuntopuutoksia.
+
+ISOKINEETTINEN VOIMAMITTAUS
+
+Polven liikelaajuus: -45...0° / -45...0°  
+Polven ekstensiomomentti: 100 / 50 Nm
+Polven ekstensiomomentti (norm.): 1.85 / 0.93 Nm/kg
+Polven liikenopeus, ekstensio: 100 / 100 °/s
+Polven fleksiomomentti: 50 / 50 Nm
+Polven fleksiomomentti (norm.): 0.93 / 0.93 Nm/kg
+Polven liikenopeus, fleksio: 50 / 50 °/s
+
+Nilkan liikelaajuus: 0...-5° / 0...-7°
+Nilkan plantaarifleksiomomentti: 100 / 200 Nm 
+Nilkan plantaarifleksiomomentti (norm.): 1.85 / 3.7 Nm/kg
+Nilkan liikenopeus, plantaarifleksio: 59 / 97 °/s
+Nilkan dorsifleksiomomentti: 80 / 80 Nm
+Nilkan dorsifleksiomomentti (norm.): 1.48 / 1.48 Nm/kg
+Nilkan liikenopeus, dorsifleksio: 70 / 70 °/s
