@@ -26,8 +26,7 @@ ISOKINEETTINEN VOIMAMITTAUS
 """
 
 report += """
-Polven ekstensio, ROM: {IsokinPolviEkstensioOik} / {IsokinPolviEkstensioVas} °
-Polven fleksio, ROM: {IsokinPolviFleksioOik} / {IsokinPolviFleksioVas} °
+Polven liikelaajuus: {IsokinPolviFleksioOik}...{IsokinPolviEkstensioOik}° / {IsokinPolviFleksioVas}...{IsokinPolviEkstensioVas}°  
 Polven ekstensiomomentti: {IsokinPolviEkstensioMomenttiOikNormUn} / {IsokinPolviEkstensioMomenttiVasNormUn} Nm
 Polven ekstensiomomentti (norm.): {IsokinPolviEkstensioMomenttiOikNorm} / {IsokinPolviEkstensioMomenttiVasNorm} Nm/kg
 Polven liikenopeus, ekstensio: {IsokinPolviLiikenopeusEkstensioOik} / {IsokinPolviLiikenopeusEkstensioVas} °/s
@@ -37,8 +36,7 @@ Polven liikenopeus, fleksio: {IsokinPolviLiikenopeusFleksioOik} / {IsokinPolviLi
 """
 
 report += """
-Nilkan plantaarifleksio, ROM: {IsokinNilkkaPlantaarifleksioOik} / {IsokinNilkkaPlantaarifleksioVas} °
-Nilkan dorsifleksio, ROM: {IsokinNilkkaDorsifleksioOik} / {IsokinNilkkaDorsifleksioVas} °
+Nilkan liikelaajuus: {IsokinNilkkaPlantaarifleksioOik}...{IsokinNilkkaDorsifleksioOik}° / {IsokinNilkkaPlantaarifleksioVas}...{IsokinNilkkaDorsifleksioVas}°
 Nilkan plantaarifleksiomomentti: {IsokinNilkkaPlantaarifleksioMomenttiOikNormUn} / {IsokinNilkkaPlantaarifleksioMomenttiVasNormUn} Nm 
 Nilkan plantaarifleksiomomentti (norm.): {IsokinNilkkaPlantaarifleksioMomenttiOikNorm} / {IsokinNilkkaPlantaarifleksioMomenttiVasNorm} Nm/kg
 Nilkan liikenopeus, plantaarifleksio: {IsokinNilkkaLiikenopeusPlantaarifleksioOik} / {IsokinNilkkaLiikenopeusPlantaarifleksioVas} °/s

@@ -46,6 +46,7 @@ import os
 import json
 import webbrowser
 import logging
+import importlib
 from pathlib import Path
 from pkg_resources import resource_filename
 from ulstools.num import check_hetu
@@ -448,6 +449,8 @@ class EntryApp(QtWidgets.QMainWindow):
 
     def make_txt_report(self, template, include_units=True):
         """Create text report from current data"""
+        # uncomment to respond to template changes while running
+        # importlib.reload(reporter)
         data = self.data_with_units if include_units else self.data
         rep = reporter.Report(data, self.vars_default)
         return rep.make_report(template)
