@@ -14,5 +14,5 @@ dependencies:
   - pip:
     - flake8
     - pytest
-    - ulstools
+    - git+https://github.com/jjnurminen/ulstools.git#egg=ulstools
 
