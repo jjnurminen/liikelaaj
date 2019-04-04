@@ -24,12 +24,14 @@ testdata = Path('testdata')
 pkg_path = Path('liikelaaj')
 xls_template = pkg_path / Config.xls_template
 text_template = pkg_path / Config.text_template
+isokin_text_template = pkg_path / Config.isokin_text_template
 uifile = pkg_path / 'tabbed_design.ui'
 fn_emptyvals = testdata / 'empty.json'
 fn_ref = testdata / 'anonyymi.json'
 
 # reference reports
 fn_txt_ref = testdata / 'anonyymi.txt'
+fn_isokin_txt_ref = testdata / 'isokin_anonyymi.txt'
 fn_xls_ref = testdata / 'anonyymi.xls'
 
 # temporary files written out by tests below
@@ -86,11 +88,20 @@ def test_save():
 def test_text_report():
     """ Use app to load reference data and generate text report, compare
     with ref report """
-    eapp.load_file(fn_ref)
-    report = Report(eapp.data_with_units, eapp.vars_default)
-    report_txt = report.make_report(text_template)
     with open(fn_txt_ref, 'r', encoding='utf-8') as f:
         report_ref = f.read()
+    eapp.load_file(fn_ref)
+    report_txt = eapp.make_txt_report(text_template)
+    assert report_ref == report_txt
+
+
+def test_isokin_text_report():
+    """ Use app to load reference data and generate text report, compare
+    with ref report """
+    with open(fn_isokin_txt_ref, 'r', encoding='utf-8') as f:
+        report_ref = f.read()
+    eapp.load_file(fn_ref)
+    report_txt = eapp.make_txt_report(isokin_text_template, include_units=False)
     assert report_ref == report_txt
 
 
