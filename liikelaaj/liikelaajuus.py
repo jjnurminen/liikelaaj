@@ -46,17 +46,21 @@ import os
 import json
 import webbrowser
 import logging
-import psutil
 from pathlib import Path
 from pkg_resources import resource_filename
+from ulstools.num import check_hetu
+from ulstools.env import already_running, make_shortcut
 
 from .config import Config
 from .widgets import (MyLineEdit, DegLineEdit, CheckDegSpinBox, message_dialog,
                       confirm_dialog)
-from .utils import _check_hetu
 from . import reporter, ll_msgs
 
 logger = logging.getLogger(__name__)
+
+
+def make_my_shortcut():
+    make_shortcut('liikelaaj', title='Liikelaajuus')
 
 
 class EntryApp(QtWidgets.QMainWindow):
@@ -462,7 +466,7 @@ class EntryApp(QtWidgets.QMainWindow):
         """ Bring up save dialog and save data. """
         # special ops for certain widgets
         hetu = self.lnTiedotHetu.getVal()
-        if hetu and not _check_hetu(hetu):
+        if hetu and not check_hetu(hetu):
             message_dialog(ll_msgs.invalid_hetu)
         path = self._save_dialog(str(Config.data_root_path),
                                  Config.json_filter)
@@ -597,24 +601,6 @@ class EntryApp(QtWidgets.QMainWindow):
 
 def main():
 
-    def _already_running():
-        """Try to figure out if we are already running"""
-        SCRIPT_NAMES = ['liikelaaj-script.py']
-        nprocs = 0
-        for proc in psutil.process_iter():
-            try:
-                cmdline = proc.cmdline()
-                if cmdline:
-                    if 'python' in cmdline[0] and len(cmdline) > 1:
-                        if any([scr in cmdline[1] for scr in SCRIPT_NAMES]):
-                            nprocs += 1
-                            if nprocs == 2:
-                                return True
-            # catch NoSuchProcess for procs that disappear inside loop
-            except (psutil.AccessDenied, psutil.NoSuchProcess):
-                pass
-        return False
-
     # DEBUG: log to console
     #logging.basicConfig(level=logging.DEBUG)
 
@@ -626,7 +612,7 @@ def main():
         sys.stdout = sys.stderr = blackhole
 
     app = QtWidgets.QApplication(sys.argv)
-    if not Config.allow_multiple_instances and _already_running():
+    if not Config.allow_multiple_instances and already_running('liikelaaj'):
         message_dialog(ll_msgs.already_running)
         return
 
