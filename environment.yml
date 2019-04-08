@@ -13,6 +13,7 @@ dependencies:
   - xlutils
   - pip:
     - flake8
+    - pypdf2
     - pytest
     - git+https://github.com/jjnurminen/ulstools.git#egg=ulstools
 
