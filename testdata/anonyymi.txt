@@ -16,7 +16,7 @@ Polvet: 104 mm / 111 mm
 Paino: 54.0 kg
 Pituus: 1590 mm
 SIAS: 210 mm
-Kengännumero: - / -
+Kengännumero: 40.0 / 41.0
 Kommentit: Pitkät jalat
 
 MITTAAJAT:

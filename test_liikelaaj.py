@@ -26,7 +26,10 @@ xls_template = pkg_path / Config.xls_template
 text_template = pkg_path / Config.text_template
 isokin_text_template = pkg_path / Config.isokin_text_template
 uifile = pkg_path / 'tabbed_design.ui'
+
+# empty data
 fn_emptyvals = testdata / 'empty.json'
+# reference data
 fn_ref = testdata / 'anonyymi.json'
 
 # reference reports
@@ -171,6 +174,10 @@ def test_text_template():
                 'AntropJalkateraVas',
                 'AntropKenganPituusOik',
                 'AntropKenganPituusVas',
+                'AntropPolviTuetOik',
+                'AntropPolviTuetVas',
+                'AntropNilkkaTuetOik',
+                'AntropNilkkaTuetVas',
                 'EMGGas',
                 'EMGGlut',
                 'EMGHam',
