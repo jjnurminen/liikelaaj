@@ -1,4 +1,4 @@
-name: liikelaaj_32bit
+name: liikelaaj
 channels:
   - defaults
 dependencies:
