@@ -61,7 +61,7 @@ logger = logging.getLogger(__name__)
 
 
 def make_my_shortcut():
-    make_shortcut('liikelaaj', title='Liikelaajuus')
+    make_shortcut('liikelaaj', 'run_liikelaaj.py', title='Liikelaajuus')
 
 
 class EntryApp(QtWidgets.QMainWindow):
